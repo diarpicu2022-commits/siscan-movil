@@ -102,6 +102,6 @@ void main() {
     await settle(tester);
     await tester.tap(find.text('Ver las 2 alertas'));
     await settle(tester);
-    expect(find.text('Paso 5: avisos del secador, del más grave al más leve.'), findsOneWidget);
+    expect(find.text('2 alertas.'), findsOneWidget);
   });
 }

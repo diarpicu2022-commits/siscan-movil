@@ -74,3 +74,25 @@ es reciente: la conexión es con el secador, no solo con el servidor); «Apagado
 neutro, estado `apagado`); el controlador se creaba al cerrar la app y dejaba una carga pendiente. Pruebas: respuestas
 reales guardadas (`test/fixtures/`, 2026-10-06) para leer el backend sin red; `flutter test` 30/30 (lectura real,
 desactualizado, sin red, Inicio real y con lote de ejemplo en el orden exacto, navegación a Alertas).
+
+## Paso 5 · Controles, Predicción, Alertas e Ingresar (hecho)
+- **Controles** (referencia `ControlesMovil` / `ActuatorControl`): palanca 132 × 60 con «ENC/APAG», perilla con estrías
+  y sombra dura, palabra de estado grande, selector Automático/Manual. En automático la palanca está bloqueada
+  («Controlado por el protocolo»); manual contornea la tarjeta en `panela` (2 px). Resistencias: un toque no las
+  enciende, **mantener presionado 1.5 s** sí (relleno `panela` mientras se sostiene) y avisan de verificar el
+  ventilador; apagar es inmediato. Transiciones «Encendiendo… / Apagando…» y error con instrucción. La orden va al
+  backend real (`PUT /api/actuators/{id}` con la sesión). El backend no guarda «modo»: en la app, manual es el permiso
+  para mandar a mano y exige sesión. Si el secador no reporta, se avisa que la orden se cumplirá al reconectarse.
+- **Ingresar** (referencia `LoginMovil`): usuario de WordPress del CISNA + **contraseña de aplicación** (WordPress la
+  trae activada en el servidor; revocable; no es la contraseña normal), verificada con `/wp/v2/users/me` y el permiso
+  `manage_secador` (el mismo que exige el backend). «Recordarme» la guarda cifrada en el teléfono
+  (`flutter_secure_storage`); «Cerrar sesión» la borra. Enlace para crearla en WordPress. Mirar el secador no pide cuenta.
+- **Predicción**: tiempo restante con su rango y la regla de confianza, datos considerados y la advertencia de que es
+  una estimación (confirmar con la balanza). Hoy sin predicción del backend: lo dice.
+- **Alertas** (referencia `AlertItem`): de la más grave a la más leve; crítica en `oxido-suave` con contorno. El backend
+  publica solo las 3 más recientes y el total: la pantalla lo dice («el historial completo está en el panel web»).
+Fallos propios: la casilla «Recordarme» quedaba sobre una caja con color que ocultaba su respuesta al toque (la hoja
+del formulario ahora es una superficie Material); el selector Automático/Manual se desbordaba 32 px con letra ancha
+(el texto cede); «mantener presionado» no se registraba porque competía con el desplazamiento (ahora escucha el dedo
+directamente). `flutter test` 40/40.
+Legal: la app guarda en el teléfono solo la contraseña de aplicación, y solo si se pide; se declara en la política.

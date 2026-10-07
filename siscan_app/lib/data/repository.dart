@@ -7,6 +7,9 @@ import 'models.dart';
 /// Fuente de datos del Inicio. La real lee el backend del CISNA; la de ejemplo sirve para pruebas y revisión.
 abstract class SiscanRepository {
   Future<Overview> overview();
+
+  /// Enciende o apaga un actuador (exige sesión de «Gestor del Secador»). Lanza [ApiException] con el motivo.
+  Future<void> setActuator(int id, bool on, {required String auth});
 }
 
 class ApiException implements Exception {
@@ -33,6 +36,20 @@ class HttpSiscanRepository implements SiscanRepository {
     }
     if (r.statusCode != 200) throw ApiException('No pudimos cargar los datos del secador. Intenta nuevamente.');
     return jsonDecode(utf8.decode(r.bodyBytes));
+  }
+
+  @override
+  Future<void> setActuator(int id, bool on, {required String auth}) async {
+    final http.Response r;
+    try {
+      r = await _client.put(Uri.parse('$base/api/actuators/$id'),
+          headers: {'Authorization': auth, 'Content-Type': 'application/json'},
+          body: jsonEncode({'status': on ? 'ON' : 'OFF', 'secadorId': dryerId})).timeout(const Duration(seconds: 15));
+    } catch (_) {
+      throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Verifica la conexión del dispositivo.');
+    }
+    if (r.statusCode == 401 || r.statusCode == 403) throw ApiException('Tu sesión no tiene permiso para controlar el secador. Ingresa de nuevo.');
+    if (r.statusCode != 200) throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Intenta nuevamente.');
   }
 
   @override
@@ -73,9 +90,17 @@ class HttpSiscanRepository implements SiscanRepository {
 
 /// Datos de ejemplo verosímiles del sistema (Café Supremo — Lote B secando), para revisión y pruebas.
 class DemoSiscanRepository implements SiscanRepository {
-  DemoSiscanRepository({this.withActiveBatch = true, this.delay = Duration.zero, this.fail = false});
-  final bool withActiveBatch, fail;
+  DemoSiscanRepository({this.withActiveBatch = true, this.delay = Duration.zero, this.fail = false, this.failCommands = false});
+  final bool withActiveBatch, fail, failCommands;
   final Duration delay;
+  final commands = <(int, bool)>[];
+
+  @override
+  Future<void> setActuator(int id, bool on, {required String auth}) async {
+    await Future<void>.delayed(const Duration(milliseconds: 600));
+    if (failCommands) throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Verifica la conexión del dispositivo.');
+    commands.add((id, on));
+  }
 
   @override
   Future<Overview> overview() async {

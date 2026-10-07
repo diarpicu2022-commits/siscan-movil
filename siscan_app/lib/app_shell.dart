@@ -18,7 +18,7 @@ extension AppTabInfo on AppTab {
 /// Esqueleto de la app (referencia `InicioMovil`): banda `monte` con el wordmark y la conexión, paisaje «loma» de 84 px,
 /// contenido que sube 28 px sobre la banda y navegación inferior en `papel` (destinos ≥ 48 px, activo en arcilla).
 class AppShell extends StatefulWidget {
-  const AppShell({super.key, required this.pageBuilder, required this.sol, required this.onSol, this.sync = SyncStatus.conectado, this.initial = AppTab.inicio, this.alertCount = 0});
+  const AppShell({super.key, required this.pageBuilder, required this.sol, required this.onSol, this.sync = SyncStatus.conectado, this.initial = AppTab.inicio, this.alertCount = 0, this.account});
   /// Construye cada destino; recibe cómo ir a otro (p. ej. «Ver las alertas» desde Inicio).
   final Widget Function(AppTab tab, ValueChanged<AppTab> goTo) pageBuilder;
   final bool sol;
@@ -26,6 +26,8 @@ class AppShell extends StatefulWidget {
   final SyncStatus sync;
   final AppTab initial;
   final int alertCount;
+  /// Fila de la cuenta en Ajustes (ingresar / cerrar sesión).
+  final Widget? account;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -40,7 +42,7 @@ class _AppShellState extends State<AppShell> {
       context: context,
       backgroundColor: t.papel,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(SiscanRadius.hoja))),
-      builder: (_) => _SettingsSheet(sol: widget.sol, onSol: (v) { widget.onSol(v); Navigator.pop(context); }),
+      builder: (_) => _SettingsSheet(sol: widget.sol, account: widget.account, onSol: (v) { widget.onSol(v); Navigator.pop(context); }),
     );
   }
 
@@ -138,8 +140,9 @@ class _BottomNav extends StatelessWidget {
 }
 
 class _SettingsSheet extends StatelessWidget {
-  const _SettingsSheet({required this.sol, required this.onSol});
+  const _SettingsSheet({required this.sol, required this.onSol, this.account});
   final bool sol;
+  final Widget? account;
   final ValueChanged<bool> onSol;
 
   @override
@@ -151,6 +154,7 @@ class _SettingsSheet extends StatelessWidget {
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text('Ajustes', style: SiscanType.seccion.copyWith(color: t.tierra)),
           const SizedBox(height: SiscanSpace.s4),
+          if (account != null) ...[account!, Divider(height: SiscanSpace.s6, color: t.linea)],
           MergeSemantics(
             child: Row(children: [
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
