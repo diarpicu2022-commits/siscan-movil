@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import '../widgets/connection_status.dart';
 import 'models.dart';
 import 'overview_cache.dart';
+import 'widget_sync.dart';
 import 'repository.dart';
 
 /// Estado compartido del Inicio y la barra superior: carga, actualiza cada 30 s y conserva el último dato bueno
@@ -33,13 +34,22 @@ class OverviewController extends ChangeNotifier {
       data = await repo.overview();
       error = null;
       await cache.save(data!);
+      unawaited(_publish());
     } catch (e) {
       error = e is ApiException ? e.message : 'No pudimos cargar los datos del secador. Intenta nuevamente.';
       // Sin red: lo último que se vio, marcado como desactualizado (nunca como actual).
       data = await cache.read() ?? data;
+      if (data != null) unawaited(_publish());
     }
     loading = false;
     notifyListeners();
+  }
+
+  /// Comparte el estado con los widgets del teléfono (si falla, la app sigue igual).
+  Future<void> _publish() async {
+    try {
+      await WidgetSync.publish(data!);
+    } catch (_) {}
   }
 
   void start() {

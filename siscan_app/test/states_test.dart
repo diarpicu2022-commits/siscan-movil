@@ -23,6 +23,7 @@ class EmptyRepo implements SiscanRepository {
 }
 
 void main() {
+  privacyTests();
   test('Lo guardado se recupera sin red y TODO queda desactualizado (nada «Medido»)', () async {
     final cache = MemoryOverviewCache();
     final repo = DemoSiscanRepository();
@@ -122,5 +123,34 @@ void main() {
     await tester.tap(find.byKey(const Key('nav-alertas')));
     await settle(tester);
     expect(find.text('Sin alertas pendientes'), findsOneWidget);
+  });
+}
+
+/// Paso 7 · legal: la política se ve dentro de la app y «Borrar datos de este teléfono» borra sesión y estado guardado.
+void privacyTests() {
+  testWidgets('Ajustes: «Tus datos» abre la política y «Borrar datos» deja el teléfono limpio', (tester) async {
+    await loadFonts();
+    await phone(tester);
+    final cache = MemoryOverviewCache();
+    final auth = AuthController(client: wordpress(), store: MemoryCredentialStore());
+    await tester.runAsync(() => auth.signIn('operador', 'abcd1234efgh5678ijkl9012', remember: true));
+    await tester.pumpWidget(SiscanApp(repository: DemoSiscanRepository(), cache: cache, auth: auth, refreshEvery: null));
+    await settle(tester);
+    expect(cache.saved, isNotNull);
+    await tester.tap(find.byTooltip('Ajustes'));
+    await settle(tester);
+    await tester.tap(find.byKey(const Key('privacy-open')));
+    await settle(tester);
+    expect(find.text('Qué no hace'), findsOneWidget);
+    expect(find.textContaining('Ley 1581 de 2012'), findsOneWidget);
+    await tester.pageBack();
+    await settle(tester);
+    await tester.tap(find.byTooltip('Ajustes'));
+    await settle(tester);
+    await tester.tap(find.byKey(const Key('privacy-wipe')));
+    await settle(tester);
+    expect(auth.session, isNull);
+    expect(cache.saved, isNull);
+    expect(find.text('Listo: se borraron los datos de este teléfono.'), findsOneWidget);
   });
 }

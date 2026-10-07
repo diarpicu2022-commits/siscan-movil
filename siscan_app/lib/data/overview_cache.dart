@@ -9,6 +9,8 @@ import 'models.dart';
 abstract class OverviewCache {
   Future<void> save(Overview o);
   Future<Overview?> read();
+  /// Derecho de supresión: borra el estado guardado en el teléfono.
+  Future<void> clear();
 }
 
 class PrefsOverviewCache implements OverviewCache {
@@ -21,6 +23,8 @@ class PrefsOverviewCache implements OverviewCache {
     final s = (await SharedPreferences.getInstance()).getString(_key);
     return s == null ? null : decodeOverview(jsonDecode(s) as Map<String, dynamic>);
   }
+  @override
+  Future<void> clear() async => (await SharedPreferences.getInstance()).remove(_key);
 }
 
 class MemoryOverviewCache implements OverviewCache {
@@ -29,6 +33,8 @@ class MemoryOverviewCache implements OverviewCache {
   Future<void> save(Overview o) async => saved = jsonDecode(jsonEncode(encodeOverview(o))) as Map<String, dynamic>;
   @override
   Future<Overview?> read() async => saved == null ? null : decodeOverview(saved!);
+  @override
+  Future<void> clear() async => saved = null;
 }
 
 String _t(DateTime d) => d.toUtc().toIso8601String();

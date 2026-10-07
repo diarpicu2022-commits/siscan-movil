@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   flutter_secure_storage: ^11.2.0
   flutter_svg: ^2.0.10
+  home_widget: ^0.10.0
   http: ^1.6.0
   shared_preferences: ^2.5.6
   url_launcher: ^6.3.3

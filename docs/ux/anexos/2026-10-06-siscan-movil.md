@@ -113,3 +113,28 @@ Legal: la app guarda en el teléfono solo la contraseña de aplicación, y solo 
 Fallos propios encontrados por las pruebas: sin red, el «Tiempo» decía «Medido»; el sello y el chip de procedencia
 desbordaban con frases largas o en media columna (11 y 123 px; ahora el texto cede de línea); una prueba se colgaba
 por esperar un temporizador dentro del reloj simulado. `flutter test` 46/46.
+
+## Paso 7 · Widgets, ícono, datos y APK (hecho 2026-10-07, trabajo nocturno autorizado)
+- **Widgets nativos** (RemoteViews + `home_widget`, referencia `HomeWidget`/`WidgetsMovil`): **Humedad** 2×2 (cifra, fase en
+  serif itálica, objetivo, avance del lecho en `dato-agua`), **Lote** 4×2 (etiqueta del lote, humedad · temperatura · faltan)
+  y **Equipo** 4×2 (pulsador del ventilador con canto; la **resistencia nunca** se enciende desde el widget: abre Controles).
+  Colores generados de `tokens.json` (`res/values/siscan_colors.xml`), iconos del sistema convertidos de SVG
+  (`tools/svg2vector.py`). Todo widget dice «Actualizado HH:MM» o «Sin conexión · guardado HH:MM».
+  Sin lote activo muestran el **último lote** («Último: Lote juco · 10.6 % · Lote terminado»), igual que el Inicio.
+- Medido en emulador (API 36): los tres aparecen en el selector con descripción; «Humedad» y «Equipo» colocados con datos
+  reales; tocar el ventilador sin sesión → «Ingresa en la app para usar el ventilador» (proceso de fondo, sin orden);
+  tocar «Resistencia» → abre la app en Controles. Fallo propio encontrado: un `View` de separador hace que Android
+  muestre «Can't load widget» (RemoteViews no lo admite) → `FrameLayout`.
+- Desviaciones (no evitables en Android): los widgets usan la monoespaciada y la serif **del sistema**, no Atkinson Mono ni
+  Fraunces (RemoteViews no carga fuentes de la app de forma fiable; Agenda tuvo que dibujarlas como imagen). Sin animación
+  continua (el sistema no la permite), como ya prevé el README. **Widgets de pantalla de bloqueo**: Android en teléfonos
+  no los admite (solo tablets); el equivalente es la notificación de alerta crítica, ya prevista en `LockWidget`.
+- **Ícono**: el sistema dice que SISCAN aún no tiene logotipo y prohíbe un símbolo provisional → el nombre «SISCAN» en
+  Fraunces 600 (SOFT 100, WONK 1) `sobre-monte` sobre `monte`, adaptativo y monocromo (`tools/gen_launcher.py`).
+- **Barra de estado**: iconos claros sobre la banda `monte` (antes salían oscuros: fallo encontrado en el emulador).
+- **Legal**: `docs/legal/politica-datos-app-siscan.md` (borrador técnico para abogado) y dentro de la app en
+  Ajustes → «Tus datos»; «Borrar datos de este teléfono» cierra sesión y borra el estado guardado (con prueba).
+  La hoja de Ajustes se desbordaba 23 px en pantallas bajas → ahora se desplaza.
+- **APK** de publicación firmado con llave propia (RSA 4096, `C:\dev\siscan-keys\`, fuera del repo; SHA-256
+  `1b3c9b33…913293`). Se compila desde `C:\dev\siscan-build` (copia ASCII): la compilación AOT no lee rutas con «ñ».
+  Instalado y abierto en el emulador con datos reales. `flutter analyze` sin avisos; `flutter test` 47/47.
