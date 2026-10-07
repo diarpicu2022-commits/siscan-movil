@@ -1,0 +1,1 @@
+[{"id":"1","name":"Ventiladores","type":"FAN","gpioPin":"26","status":"OFF","powerW":"210"},{"id":"2","name":"Calefactor 3","type":"HEATER","gpioPin":"17","status":"OFF","powerW":"1500"},{"id":"3","name":"Calefactor 1","type":"HEATER","gpioPin":"27","status":"OFF","powerW":"1500"},{"id":"5","name":"Calefactor 2","type":"HEATER","gpioPin":"16","status":"OFF","powerW":"1500"}]

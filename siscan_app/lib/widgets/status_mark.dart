@@ -7,7 +7,7 @@ import '../theme/tokens.dart';
 import '../theme/typography.dart';
 
 /// Estados del sistema: el estado nunca depende solo del color (glifo + palabra).
-enum SiscanStatus { normal, advertencia, critico, error, sinConexion, desactualizado, resuelta, info }
+enum SiscanStatus { normal, advertencia, critico, error, sinConexion, desactualizado, resuelta, info, apagado }
 
 enum StatusVariant { suave, solido, linea }
 
@@ -20,6 +20,7 @@ enum StatusVariant { suave, solido, linea }
       SiscanStatus.desactualizado => (tone: t.tierraSuave, soft: t.arena, word: 'Desactualizado'),
       SiscanStatus.resuelta => (tone: t.tierraSuave, soft: t.arena, word: 'Resuelta'),
       SiscanStatus.info => (tone: t.bruma, soft: t.brumaSuave, word: 'Informativa'),
+      SiscanStatus.apagado => (tone: t.tierraSuave, soft: t.arena, word: 'Apagado'),
     };
 
 /// Glifo de estado dibujado (✓ círculo, ▲ advertencia, ■ "!" crítico, ⊘ sin conexión, reloj, punto informativo).
@@ -62,6 +63,10 @@ class _GlyphPainter extends CustomPainter {
         c.drawCircle(ctr, r, f);
         c.drawLine(ctr, Offset(r, w * .28), p);
         c.drawLine(ctr, Offset(w * .68, w * .6), p);
+      case SiscanStatus.apagado:
+        // Actuador apagado: aro vacío (en reposo), nunca un visto bueno.
+        c.drawCircle(ctr, r, f);
+        c.drawCircle(ctr, w * .22, Paint()..color = ink..style = PaintingStyle.stroke..strokeWidth = w * .12);
       case SiscanStatus.info:
         c.drawCircle(ctr, r, f);
         c.drawCircle(ctr, w * .2, dot);

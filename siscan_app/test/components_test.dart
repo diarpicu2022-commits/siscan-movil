@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siscan/main.dart';
+import 'package:siscan/data/repository.dart';
 import 'package:siscan/screens/components_screen.dart';
 import 'package:siscan/theme/theme.dart';
 import 'package:siscan/theme/tokens.dart';
@@ -79,7 +80,7 @@ void main() {
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     for (final sol in [false, true]) {
-      await tester.pumpWidget(SiscanApp(sol: sol, home: const ComponentsScreen()));
+      await tester.pumpWidget(SiscanApp(sol: sol, home: const ComponentsScreen(), repository: DemoSiscanRepository(), refreshEvery: null));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
       await expectLater(find.byType(SiscanApp), matchesGoldenFile('goldens/componentes-${sol ? 'sol' : 'dia'}-390.png'));

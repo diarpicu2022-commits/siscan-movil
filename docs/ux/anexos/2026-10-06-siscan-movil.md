@@ -56,3 +56,21 @@ la hoja quedaba **debajo** de la banda y le cortaba la esquina y el título (en 
 sección se pinta encima; ahora banda y contenido van en una columna); «%» suelto en otra línea (espacio de no
 separación). `flutter test` 24/24, con pruebas nuevas para cada uno; capturas Día, Pleno sol (fondo medido #FFFDF8) y
 offline.
+
+## Paso 4 · Inicio con datos reales (hecho)
+Capa de datos (`lib/data/`): modelos de plataformas.md y `HttpSiscanRepository` sobre el backend real
+(`/secadores`, `/readings`, `/api/actuators`, `/api/device/status/1`, `/drying-batches` y su `/summary`), con
+mensajes humanos si falla; `OverviewController` actualiza cada 30 s y conserva el último dato bueno.
+Inicio en el orden del sistema: lote (etiqueta de costal) → humedad (lecho, procedencia «Estimado · gravimetría»)
+→ temperatura y tiempo (fila doble como `InicioMovil`) → humedad del recinto → predicción (regla de confianza en
+`anil`) → equipo → alertas (las 3 más recientes y «Ver las N alertas» lleva a Alertas). Estados: cargando (hojas en
+reposo), error con «Intentar nuevamente».
+Datos reales de hoy: el secador SC-001 **no tiene lote activo** (último: «Lote juco», 10.6 % final) y sus lecturas son
+del **19 de agosto** → se muestran como «Última lectura» y desactualizadas. **El backend no publica predicción** (el
+modelo de la tesis está en `ml/` sin servicio): la tarjeta lo dice y no inventa cifras. Las alertas vienen truncadas
+desde la base («…revisa l»); se corrige en el backend, no en la app.
+Fallos propios: la píldora decía «Conectado» con datos de agosto (ahora «Secador sin reportar» cuando ninguna lectura
+es reciente: la conexión es con el secador, no solo con el servidor); «Apagado» llevaba un visto bueno (ahora un aro
+neutro, estado `apagado`); el controlador se creaba al cerrar la app y dejaba una carga pendiente. Pruebas: respuestas
+reales guardadas (`test/fixtures/`, 2026-10-06) para leer el backend sin red; `flutter test` 30/30 (lectura real,
+desactualizado, sin red, Inicio real y con lote de ejemplo en el orden exacto, navegación a Alertas).

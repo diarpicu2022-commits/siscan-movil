@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siscan/main.dart';
+import 'package:siscan/data/repository.dart';
 import 'package:siscan/screens/foundations_screen.dart';
 import 'package:siscan/theme/tokens.dart';
 
@@ -66,7 +67,7 @@ void main() {
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     for (final sol in [false, true]) {
-      await tester.pumpWidget(SiscanApp(sol: sol, home: const FoundationsScreen()));
+      await tester.pumpWidget(SiscanApp(sol: sol, home: const FoundationsScreen(), repository: DemoSiscanRepository(), refreshEvery: null));
       await tester.pumpAndSettle();
       await expectLater(find.byType(SiscanApp), matchesGoldenFile('goldens/fundamentos-${sol ? 'sol' : 'dia'}-390.png'));
     }

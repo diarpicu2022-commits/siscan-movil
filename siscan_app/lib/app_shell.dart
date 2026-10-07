@@ -18,8 +18,9 @@ extension AppTabInfo on AppTab {
 /// Esqueleto de la app (referencia `InicioMovil`): banda `monte` con el wordmark y la conexión, paisaje «loma» de 84 px,
 /// contenido que sube 28 px sobre la banda y navegación inferior en `papel` (destinos ≥ 48 px, activo en arcilla).
 class AppShell extends StatefulWidget {
-  const AppShell({super.key, required this.pages, required this.sol, required this.onSol, this.sync = SyncStatus.conectado, this.initial = AppTab.inicio, this.alertCount = 0});
-  final Map<AppTab, Widget> pages;
+  const AppShell({super.key, required this.pageBuilder, required this.sol, required this.onSol, this.sync = SyncStatus.conectado, this.initial = AppTab.inicio, this.alertCount = 0});
+  /// Construye cada destino; recibe cómo ir a otro (p. ej. «Ver las alertas» desde Inicio).
+  final Widget Function(AppTab tab, ValueChanged<AppTab> goTo) pageBuilder;
   final bool sol;
   final ValueChanged<bool> onSol;
   final SyncStatus sync;
@@ -77,7 +78,7 @@ class _AppShellState extends State<AppShell> {
           ),
           Transform.translate(
             offset: const Offset(0, -28),
-            child: Padding(padding: const EdgeInsets.symmetric(horizontal: SiscanSpace.s4), child: KeyedSubtree(key: ValueKey(_tab), child: widget.pages[_tab]!)),
+            child: Padding(padding: const EdgeInsets.symmetric(horizontal: SiscanSpace.s4), child: KeyedSubtree(key: ValueKey(_tab), child: widget.pageBuilder(_tab, (v) => setState(() => _tab = v)))),
           ),
           const SizedBox(height: SiscanSpace.s4),
         ]),
