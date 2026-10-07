@@ -41,3 +41,18 @@ quitaba el ancho (ahora, por debajo de 420 px, estado/objetivo/procedencia van e
 de una sola línea); escala a 60 con marcas cada 10 (ahora 0–50 cada 5 como la referencia); el rayado del chip
 «Desactualizado» se salía de su caja. `flutter test` 16/16 (fases, conteo 1.6 s, reducción de movimiento, semántica,
 sin dato inventado, desactualizado en tierra-suave, cifra en una línea, capturas Día/Pleno sol sin desbordes).
+
+## Paso 3 · Esqueleto (hecho)
+Referencia `InicioMovil`: banda `monte` con el wordmark «SISCAN» (Fraunces SOFT 100 + WONK) y `ConnectionStatus`
+sobre oscuro; paisaje «loma» de 84 px en capas planas de pinturas (lomas y una hilera de cafetos que se mece despacio,
+quieto con movimiento reducido); el contenido sube 28 px sobre la banda; navegación inferior en `papel` con Inicio ·
+Controles · Predicción · Alertas (destinos de 56 px, activo en `arcilla` sobre `arcilla-suave`, contador de alertas en
+`oxido` anunciado al lector de pantalla). Pleno sol: interruptor en **Ajustes** (hoja desde el icono de usuario de la
+banda; el sistema pide «un interruptor en Ajustes» y la referencia no tiene pantalla de Ajustes — ahí irá también el
+inicio de sesión). Los destinos muestran qué traerá cada paso.
+Fallos propios encontrados con pruebas y capturas: la barra inferior ocupaba toda la pantalla y dejaba el contenido en
+0 px (su columna se estiraba); en «Modo offline» la barra superior se desbordaba 43 px (la píldora ahora cede ancho);
+la hoja quedaba **debajo** de la banda y le cortaba la esquina y el título (en un `CustomScrollView` la primera
+sección se pinta encima; ahora banda y contenido van en una columna); «%» suelto en otra línea (espacio de no
+separación). `flutter test` 24/24, con pruebas nuevas para cada uno; capturas Día, Pleno sol (fondo medido #FFFDF8) y
+offline.

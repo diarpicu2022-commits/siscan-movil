@@ -93,7 +93,7 @@ class MoistureMeter extends StatelessWidget {
             child: CustomPaint(painter: _BedPainter(t: t, value: v, target: target, scaleMax: initial <= 55 ? 50 : (initial / 10).ceil() * 10.0, reached: phase == DryingPhase.alcanzado)),
           ),
           const SizedBox(height: SiscanSpace.s1),
-          Text('${(done * 100).round()} % del secado completado · desde ${initial.toStringAsFixed(0)} %${source != null ? ' · $source' : ''}',
+          Text('${(done * 100).round()}  % del secado completado · desde ${initial.toStringAsFixed(0)} %${source != null ? ' · $source' : ''}',
               style: SiscanType.tabla.copyWith(fontSize: 13, color: t.tierraSuave)),
         ]),
       ),
