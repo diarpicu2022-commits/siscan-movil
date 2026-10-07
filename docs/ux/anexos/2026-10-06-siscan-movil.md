@@ -138,3 +138,10 @@ por esperar un temporizador dentro del reloj simulado. `flutter test` 46/46.
 - **APK** de publicación firmado con llave propia (RSA 4096, `C:\dev\siscan-keys\`, fuera del repo; SHA-256
   `1b3c9b33…913293`). Se compila desde `C:\dev\siscan-build` (copia ASCII): la compilación AOT no lee rutas con «ñ».
   Instalado y abierto en el emulador con datos reales. `flutter analyze` sin avisos; `flutter test` 47/47.
+
+## Símbolo de SISCAN (2026-10-07, elegido por Diego)
+Tres opciones con la geometría de los iconos del sistema (`marca/simbolos.png`); Diego eligió **C · Grano bajo el sol**:
+grano de café tendido y medio sol en `pintura-sol` con cinco rayos. Enmienda al README del sistema («SISCAN aún no tiene
+logotipo»): ya lo tiene. Archivos `marca/simbolo.svg` (sobre monte), `simbolo-tierra.svg` (sobre claro) y
+`simbolo-mono.svg`. Aplicado: ícono de la app (adaptativo y monocromo), barra de la app junto al nombre y panel web v2
+(barra lateral y favicon). APK 0.1.1.

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'theme/theme.dart';
 import 'theme/tokens.dart';
@@ -131,6 +132,9 @@ class _AppShellState extends State<AppShell> {
                       padding: const EdgeInsets.fromLTRB(20, 0, 8, 0),
                       child: Row(
                         children: [
+                          // Símbolo «Grano bajo el sol» (elegido por Diego, 2026-10-07) antes del nombre.
+                          ExcludeSemantics(child: SvgPicture.asset('assets/brand/simbolo.svg', width: 28, height: 28)),
+                          const SizedBox(width: SiscanSpace.s2),
                           Semantics(
                             header: true,
                             child: Text(
