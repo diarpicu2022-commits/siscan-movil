@@ -39,3 +39,6 @@ para los controles.
 
 Legal (según CLAUDE.md): política de datos y permisos (ubicación, notificaciones) se anotan en el anexo y se hacen
 antes de publicar.
+
+## Pendiente (pedido del profe, 2026-10-07)
+Modo oscuro + elegir tema, e idioma es/en (app y web). Ver `Proyectos Finales/PENDIENTES-PROFE.md`.
