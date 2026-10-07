@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siscan/main.dart';
+import 'package:siscan/screens/foundations_screen.dart';
 import 'package:siscan/theme/tokens.dart';
 
 double _lum(Color c) {
@@ -18,7 +19,7 @@ double contrast(Color a, Color b) {
   return (max(x, y) + 0.05) / (min(x, y) + 0.05);
 }
 
-Future<void> _loadFonts() async {
+Future<void> loadFonts() async {
   Future<void> load(String family, List<String> files) async {
     final l = FontLoader(family);
     for (final f in files) {
@@ -60,12 +61,12 @@ void main() {
   });
 
   testWidgets('Captura de fundamentos a 390 px (Día y Pleno sol)', (tester) async {
-    await _loadFonts();
+    await loadFonts();
     tester.view.physicalSize = const Size(390 * 3, 2400 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     for (final sol in [false, true]) {
-      await tester.pumpWidget(SiscanApp(sol: sol));
+      await tester.pumpWidget(SiscanApp(sol: sol, home: const FoundationsScreen()));
       await tester.pumpAndSettle();
       await expectLater(find.byType(SiscanApp), matchesGoldenFile('goldens/fundamentos-${sol ? 'sol' : 'dia'}-390.png'));
     }
