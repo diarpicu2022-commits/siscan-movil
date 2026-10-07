@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_shell.dart';
 import 'data/auth.dart';
+import 'data/overview_cache.dart';
 import 'data/overview_controller.dart';
 import 'data/repository.dart';
 import 'screens/controles_screen.dart';
@@ -12,14 +13,15 @@ import 'theme/theme.dart';
 import 'theme/tokens.dart';
 import 'theme/typography.dart';
 
-void main() => runApp(SiscanApp(repository: HttpSiscanRepository(), auth: AuthController(), restoreSession: true));
+void main() => runApp(SiscanApp(repository: HttpSiscanRepository(), auth: AuthController(), cache: const PrefsOverviewCache(), restoreSession: true));
 
-/// SISCAN — Secado Inteligente de Café. Paso 5: Controles, Predicción, Alertas e inicio de sesión.
+/// SISCAN — Secado Inteligente de Café. Paso 6: estados (sin conexión, dato viejo, vacío, sesión vencida).
 class SiscanApp extends StatefulWidget {
-  const SiscanApp({super.key, required this.repository, this.auth, this.sol = false, this.home,
+  const SiscanApp({super.key, required this.repository, this.auth, this.cache, this.sol = false, this.home,
       this.refreshEvery = const Duration(seconds: 30), this.restoreSession = false});
   final SiscanRepository repository;
   final AuthController? auth;
+  final OverviewCache? cache;
   final bool sol, restoreSession;
   final Widget? home;
   /// Cada cuánto se actualiza el Inicio; `null` lo desactiva (pruebas).
@@ -37,7 +39,7 @@ class _SiscanAppState extends State<SiscanApp> {
   @override
   void initState() {
     super.initState();
-    _overview = OverviewController(widget.repository, every: widget.refreshEvery);
+    _overview = OverviewController(widget.repository, every: widget.refreshEvery, cache: widget.cache);
     if (widget.home == null) _overview.start();
     if (widget.restoreSession) _auth.restore();
   }

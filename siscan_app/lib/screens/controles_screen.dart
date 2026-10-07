@@ -27,6 +27,7 @@ class _ControlesScreenState extends State<ControlesScreen> {
   final _manual = <int>{};
   final _pending = <int, bool>{}; // id → estado pedido mientras responde el secador
   final _errors = <int, String>{};
+  String? _notice;
 
   Future<bool> _ensureSession() async {
     if (widget.auth.session?.canControl == true) return true;
@@ -36,7 +37,10 @@ class _ControlesScreenState extends State<ControlesScreen> {
 
   Future<void> _mode(Actuator a, ActuatorMode m) async {
     if (m == ActuatorMode.manual && !await _ensureSession()) return;
-    setState(() => m == ActuatorMode.manual ? _manual.add(a.id) : _manual.remove(a.id));
+    setState(() {
+      _notice = null;
+      m == ActuatorMode.manual ? _manual.add(a.id) : _manual.remove(a.id);
+    });
   }
 
   Future<void> _toggle(Actuator a, bool on) async {
@@ -50,7 +54,14 @@ class _ControlesScreenState extends State<ControlesScreen> {
       await widget.overview.repo.setActuator(a.id, on, auth: session.header);
       await widget.overview.load();
     } on ApiException catch (e) {
-      _errors[a.id] = e.message;
+      if (e.unauthorized) {
+        // Sesión vencida: se cierra y todo vuelve a automático; la tarjeta explica qué hacer.
+        await widget.auth.signOut();
+        _manual.clear();
+        _notice = e.message;
+      } else {
+        _errors[a.id] = e.message;
+      }
     }
     if (mounted) setState(() => _pending.remove(a.id));
   }
@@ -76,7 +87,17 @@ class _ControlesScreenState extends State<ControlesScreen> {
                 const SizedBox(width: SiscanSpace.s2),
                 Expanded(child: Text('Ingresaste como ${widget.auth.session!.displayName}', style: SiscanType.nota.copyWith(color: t.tierraSuave))),
               ]),
-            if (d != null && !d.dryerReporting) ...[
+            if (_notice != null) ...[
+              const SizedBox(height: SiscanSpace.s3),
+              Semantics(liveRegion: true, child: StatusMark(SiscanStatus.advertencia, label: _notice!)),
+            ],
+            if (d != null && d.offline) ...[
+              const SizedBox(height: SiscanSpace.s3),
+              const StatusMark(SiscanStatus.sinConexion, label: 'Modo offline'),
+              const SizedBox(height: SiscanSpace.s2),
+              Text('Sin conexión no se envían órdenes: el equipo sigue con su protocolo. Las palancas se activan al volver la red.',
+                  style: SiscanType.nota.copyWith(color: t.tierra)),
+            ] else if (d != null && !d.dryerReporting) ...[
               const SizedBox(height: SiscanSpace.s3),
               const StatusMark(SiscanStatus.desactualizado, label: 'El secador no está reportando'),
               const SizedBox(height: SiscanSpace.s2),
@@ -95,12 +116,13 @@ class _ControlesScreenState extends State<ControlesScreen> {
               glyph: a.kind == ActuatorKind.heater ? SiscanGlyph.resistencia : (a.kind == ActuatorKind.fan ? SiscanGlyph.ventilador : SiscanGlyph.energia),
               powerW: a.powerW,
               guarded: a.kind == ActuatorKind.heater,
-              mode: _manual.contains(a.id) ? ActuatorMode.manual : ActuatorMode.automatico,
+              // Sin red: último estado conocido, en automático y sin poder cambiarlo (las órdenes no se encolan).
+              mode: _manual.contains(a.id) && !d.offline ? ActuatorMode.manual : ActuatorMode.automatico,
               state: _pending.containsKey(a.id)
                   ? (_pending[a.id]! ? ActuatorState.encendiendo : ActuatorState.apagando)
                   : _errors.containsKey(a.id) ? ActuatorState.error : (a.on ? ActuatorState.encendido : ActuatorState.apagado),
               errorText: _errors[a.id],
-              onModeChange: (m) => _mode(a, m),
+              onModeChange: d.offline ? null : (m) => _mode(a, m),
               onToggle: (on) => _toggle(a, on),
             ),
           ],

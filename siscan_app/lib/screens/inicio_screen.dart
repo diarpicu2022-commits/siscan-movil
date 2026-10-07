@@ -70,7 +70,8 @@ class _Content extends StatelessWidget {
       ])), stale ? Provenance.desactualizado : Provenance.medido));
     }
     if (batch != null) {
-      pairs.add(pair('Tiempo', DurationText(d.fetchedAt.difference(batch.startedAt), color: t.tierra), Provenance.medido));
+      // Sin red el tiempo se calcula con la hora del teléfono y el lote pudo haber terminado: es una estimación.
+      pairs.add(pair('Tiempo', DurationText(d.fetchedAt.difference(batch.startedAt), color: t.tierra), d.offline ? Provenance.estimado : Provenance.medido));
     }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -118,23 +119,29 @@ class _Content extends StatelessWidget {
           ]),
         ]),
       ),
+      if (d.offline) ...[
+        const SizedBox(height: SiscanSpace.s4),
+        OfflineNotice(savedAt: d.savedAt),
+      ],
       const SizedBox(height: SiscanSpace.s4),
       // Humedad relativa del recinto (¿está funcionando el equipo?).
       if (hum != null) ...[
         SensorReading(name: hum.label, glyph: SiscanGlyph.humedad, value: hum.value, unit: hum.unit,
-            status: d.isStale(hum) ? SiscanStatus.desactualizado : SiscanStatus.normal, updated: ago(hum.at, d.fetchedAt), live: !d.isStale(hum)),
+            status: d.offline ? SiscanStatus.sinConexion : (d.isStale(hum) ? SiscanStatus.desactualizado : SiscanStatus.normal), updated: ago(hum.at, d.fetchedAt), live: !d.isStale(hum)),
         const SizedBox(height: SiscanSpace.s4),
       ],
       // 5 · Predicción.
       PredictionPanel(
-        prediction: d.prediction,
-        unavailableReason: batch == null
+        prediction: d.offline ? null : d.prediction,
+        unavailableReason: d.offline
+            ? 'Sin conexión no mostramos la predicción: puede haber cambiado.'
+            : batch == null
             ? 'La predicción aparece cuando hay un lote secando.'
             : 'El modelo aún no ha estimado este lote. Se calcula con las muestras de gravimetría.',
       ),
       const SizedBox(height: SiscanSpace.s4),
       // 6 · Equipo.
-      _EquipmentSheet(actuators: d.actuators),
+      _EquipmentSheet(actuators: d.actuators, offline: d.offline),
       const SizedBox(height: SiscanSpace.s4),
       // 7 · Alertas.
       _AlertsSheet(alerts: d.alerts, count: d.alertCount, now: d.fetchedAt, onSeeAll: onSeeAlerts),
@@ -143,8 +150,9 @@ class _Content extends StatelessWidget {
 }
 
 class _EquipmentSheet extends StatelessWidget {
-  const _EquipmentSheet({required this.actuators});
+  const _EquipmentSheet({required this.actuators, this.offline = false});
   final List<Actuator> actuators;
+  final bool offline;
   @override
   Widget build(BuildContext context) {
     final t = context.sc;
@@ -153,6 +161,7 @@ class _EquipmentSheet extends StatelessWidget {
       decoration: sheetDecoration(t),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('Equipo', style: SiscanType.seccion.copyWith(color: t.tierra, fontSize: 20)),
+        if (offline) Text('Último estado conocido, sin conexión.', style: SiscanType.nota.copyWith(color: t.tierraSuave)),
         const SizedBox(height: SiscanSpace.s3),
         if (actuators.isEmpty) Text('El secador no ha registrado actuadores.', style: SiscanType.cuerpo.copyWith(color: t.tierraSuave)),
         for (final a in actuators)
@@ -255,6 +264,34 @@ class _ErrorSheet extends StatelessWidget {
           child: Text('Intentar nuevamente', style: SiscanType.cuerpoFuerte),
         ),
       ]),
+    );
+  }
+}
+
+/// Aviso de «Modo offline» (referencia: Toast de atención en `InicioMovil`).
+class OfflineNotice extends StatelessWidget {
+  const OfflineNotice({super.key, this.savedAt});
+  final DateTime? savedAt;
+  @override
+  Widget build(BuildContext context) {
+    final t = context.sc;
+    return Semantics(
+      liveRegion: true,
+      child: Container(
+        padding: const EdgeInsets.all(SiscanSpace.s4),
+        decoration: BoxDecoration(color: t.papel, borderRadius: BorderRadius.circular(SiscanRadius.control), border: Border.all(color: t.panela, width: 1.5)),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const StatusMark(SiscanStatus.advertencia, label: 'Atención'),
+          const SizedBox(width: SiscanSpace.s3),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Modo offline', style: SiscanType.cuerpoFuerte.copyWith(color: t.tierra)),
+            Text(savedAt == null
+                ? 'Los datos se sincronizarán cuando vuelva la conexión.'
+                : 'Mostramos lo guardado ${ago(savedAt!, DateTime.now()).toLowerCase()}. Se sincroniza al volver la conexión.',
+                style: SiscanType.nota.copyWith(color: t.tierra)),
+          ])),
+        ]),
+      ),
     );
   }
 }

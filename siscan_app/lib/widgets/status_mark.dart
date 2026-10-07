@@ -102,7 +102,7 @@ class StatusMark extends StatelessWidget {
       return Row(mainAxisSize: MainAxisSize.min, children: [
         StatusGlyph(status, color: st.tone, ink: t.papel, size: g),
         const SizedBox(width: 6),
-        Text(word, style: text.copyWith(color: st.tone)),
+        Flexible(child: Text(word, style: text.copyWith(color: st.tone))),
       ]);
     }
     final solid = variant == StatusVariant.solido;
@@ -126,7 +126,8 @@ class StatusMark extends StatelessWidget {
             child: StatusGlyph(status, color: solid ? t.papel : st.tone, ink: solid ? st.tone : t.papel, size: g * .8),
           ),
           const SizedBox(width: 7),
-          Text(word, style: text.copyWith(color: fg)),
+          // La palabra puede pasar a otra línea antes que desbordar (frases largas, letra grande del teléfono).
+          Flexible(child: Text(word, style: text.copyWith(color: fg))),
           if (detail != null) ...[
             Container(width: 1, height: fs, margin: const EdgeInsets.symmetric(horizontal: 8), color: fg.withValues(alpha: .4)),
             Text(detail!, style: detailStyle.copyWith(color: fg)),

@@ -13,8 +13,10 @@ abstract class SiscanRepository {
 }
 
 class ApiException implements Exception {
-  ApiException(this.message);
+  ApiException(this.message, {this.unauthorized = false});
   final String message;
+  /// La sesión ya no vale (contraseña de aplicación revocada o permiso retirado).
+  final bool unauthorized;
   @override
   String toString() => message;
 }
@@ -48,7 +50,7 @@ class HttpSiscanRepository implements SiscanRepository {
     } catch (_) {
       throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Verifica la conexión del dispositivo.');
     }
-    if (r.statusCode == 401 || r.statusCode == 403) throw ApiException('Tu sesión no tiene permiso para controlar el secador. Ingresa de nuevo.');
+    if (r.statusCode == 401 || r.statusCode == 403) throw ApiException('Tu sesión venció o ya no tiene permiso. Ingresa de nuevo.', unauthorized: true);
     if (r.statusCode != 200) throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Intenta nuevamente.');
   }
 
@@ -90,14 +92,15 @@ class HttpSiscanRepository implements SiscanRepository {
 
 /// Datos de ejemplo verosímiles del sistema (Café Supremo — Lote B secando), para revisión y pruebas.
 class DemoSiscanRepository implements SiscanRepository {
-  DemoSiscanRepository({this.withActiveBatch = true, this.delay = Duration.zero, this.fail = false, this.failCommands = false});
-  final bool withActiveBatch, fail, failCommands;
+  DemoSiscanRepository({this.withActiveBatch = true, this.delay = Duration.zero, this.fail = false, this.failCommands = false, this.expiredSession = false});
+  bool withActiveBatch, fail, failCommands, expiredSession;
   final Duration delay;
   final commands = <(int, bool)>[];
 
   @override
   Future<void> setActuator(int id, bool on, {required String auth}) async {
     await Future<void>.delayed(const Duration(milliseconds: 600));
+    if (expiredSession) throw ApiException('Tu sesión venció o ya no tiene permiso. Ingresa de nuevo.', unauthorized: true);
     if (failCommands) throw ApiException('No fue posible ${on ? 'encender' : 'apagar'} el equipo. Verifica la conexión del dispositivo.');
     commands.add((id, on));
   }

@@ -55,10 +55,11 @@ class ProvenanceChip extends StatelessWidget {
           child: CustomPaint(painter: ProvenanceStroke(kind, st.line, hatch: kind == Provenance.desactualizado ? t.arena : null)),
         ),
         const SizedBox(width: 6),
-        Text(label ?? kind.word, style: text),
+        // En media columna (Temperatura · Tiempo) la palabra pasa a otra línea antes que desbordar.
+        Flexible(child: Text(label ?? kind.word, style: text)),
         if (source != null) ...[
           Container(width: 1, height: 14, margin: const EdgeInsets.symmetric(horizontal: 7), color: st.ink.withValues(alpha: .35)),
-          Text(source!, style: text.copyWith(fontWeight: FontWeight.w400)),
+          Flexible(child: Text(source!, style: text.copyWith(fontWeight: FontWeight.w400))),
         ],
       ]),
     );

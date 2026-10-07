@@ -96,3 +96,20 @@ del formulario ahora es una superficie Material); el selector Automático/Manual
 (el texto cede); «mantener presionado» no se registraba porque competía con el desplazamiento (ahora escucha el dedo
 directamente). `flutter test` 40/40.
 Legal: la app guarda en el teléfono solo la contraseña de aplicación, y solo si se pide; se declara en la política.
+
+## Paso 6 · Estados (hecho)
+- **Sin conexión («Modo offline»)**: el último estado bueno se guarda en el teléfono (`shared_preferences`, solo
+  datos del secador). Sin red se muestra con: píldora «Modo offline», aviso de atención con cuándo se guardó, todo
+  como «Última lectura» y sello «Sin conexión» (nunca «Medido»), el tiempo del lote como «Estimado», la predicción
+  oculta («puede haber cambiado») y el equipo como «Último estado conocido». Al volver la red se actualiza solo.
+- **Las órdenes NO se encolan sin red** (decisión de seguridad, desviación consciente de «los datos se encolan» del
+  sistema, que se aplica a lecturas): encolar «encender resistencia» de 1500 W para ejecutarla horas después sin
+  nadie mirando es peligroso. Sin red, las palancas muestran el último estado, en automático, sin poder cambiarse, y
+  la pantalla lo explica.
+- **Sesión vencida** (contraseña de aplicación revocada o permiso retirado → 401/403): se cierra la sesión, todo
+  vuelve a automático y Controles lo explica («Ingresa de nuevo»).
+- **Vacío**: sin lote activo, sin lecturas, sin actuadores, sin alertas — cada pantalla lo dice.
+- **Dato viejo**: ya resuelto en los pasos 2 y 4 («Última lectura», tierra-suave sobre rayado, «Secador sin reportar»).
+Fallos propios encontrados por las pruebas: sin red, el «Tiempo» decía «Medido»; el sello y el chip de procedencia
+desbordaban con frases largas o en media columna (11 y 123 px; ahora el texto cede de línea); una prueba se colgaba
+por esperar un temporizador dentro del reloj simulado. `flutter test` 46/46.

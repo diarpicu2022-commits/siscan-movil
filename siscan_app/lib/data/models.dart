@@ -113,7 +113,7 @@ class AIPrediction {
 /// Todo lo que necesita el Inicio, en el orden de las preguntas del sistema.
 class Overview {
   const Overview({required this.dryer, required this.readings, required this.actuators, required this.alerts, required this.alertCount,
-      this.activeBatch, this.lastBatch, this.prediction, required this.fetchedAt});
+      this.activeBatch, this.lastBatch, this.prediction, required this.fetchedAt, this.offline = false, this.savedAt});
   final Dryer dryer;
   final Map<String, Reading> readings; // la más reciente de cada tipo
   final List<Actuator> actuators;
@@ -122,8 +122,12 @@ class Overview {
   final Batch? activeBatch, lastBatch;
   final AIPrediction? prediction;
   final DateTime fetchedAt;
+  /// Estado guardado en el teléfono mostrado sin red: todo es «Última lectura» y la predicción no se muestra.
+  final bool offline;
+  /// Cuándo se guardó el estado mostrado sin red.
+  final DateTime? savedAt;
 
-  bool isStale(Reading r) => fetchedAt.difference(r.at) > staleAfter;
+  bool isStale(Reading r) => offline || fetchedAt.difference(r.at) > staleAfter;
 
   /// El secador está reportando si alguna lectura es reciente.
   bool get dryerReporting => readings.values.any((r) => !isStale(r));
