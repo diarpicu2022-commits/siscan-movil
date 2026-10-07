@@ -1,0 +1,8 @@
+siscan_app/build/
+siscan_app/.dart_tool/
+siscan_app/.idea/
+*.iml
+siscan_app/android/.gradle/
+siscan_app/android/local.properties
+siscan_app/android/key.properties
+*.jks

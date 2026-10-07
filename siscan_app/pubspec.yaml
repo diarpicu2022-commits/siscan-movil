@@ -1,0 +1,46 @@
+name: siscan
+description: "SISCAN — Secado Inteligente de Café"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/illustrations/
+  # Fuentes del sistema SISCAN (convertidas de woff2 a ttf, licencia SIL OFL).
+  fonts:
+    - family: Fraunces
+      fonts:
+        - asset: assets/fonts/Fraunces-Variable.ttf
+        - asset: assets/fonts/Fraunces-Variable-Italic.ttf
+          style: italic
+    - family: AtkinsonNext
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-400.ttf
+          weight: 400
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-500.ttf
+          weight: 500
+        - asset: assets/fonts/AtkinsonHyperlegibleNext-700.ttf
+          weight: 700
+    - family: AtkinsonMono
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegibleMono-400.ttf
+          weight: 400
+        - asset: assets/fonts/AtkinsonHyperlegibleMono-500.ttf
+          weight: 500
+        - asset: assets/fonts/AtkinsonHyperlegibleMono-600.ttf
+          weight: 600
