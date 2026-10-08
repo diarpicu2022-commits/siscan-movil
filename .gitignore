@@ -6,3 +6,10 @@ siscan_app/android/.gradle/
 siscan_app/android/local.properties
 siscan_app/android/key.properties
 *.jks
+
+# Reloj (Wear OS)
+siscan_reloj/.gradle/
+siscan_reloj/build/
+siscan_reloj/app/build/
+siscan_reloj/local.properties
+.kotlin/
