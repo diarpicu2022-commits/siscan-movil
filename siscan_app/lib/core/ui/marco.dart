@@ -128,8 +128,10 @@ class Fab extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), boxShadow: context.sombraActivo,
                 gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [c.esmeralda, c.hoja])),
             child: Row(mainAxisSize: MainAxisSize.min, children: [
-              const Icono('mas', size: 22, color: Colors.white),
-              if (texto != null) ...[const SizedBox(width: 8), Text(texto!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.white))],
+              // Enmienda al contrato (Diego, 2026-10-09): .sc-fab fija #ffffff, que en oscuro da 2,02:1 sobre esmeralda→hoja.
+              // El texto toma sobre-hoja, como el botón primario: blanco en claro (igual que el sistema), bosque en oscuro.
+              Icono('mas', size: 22, color: c.sobreHoja),
+              if (texto != null) ...[const SizedBox(width: 8), Text(texto!, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: c.sobreHoja))],
             ]),
           ),
         ),

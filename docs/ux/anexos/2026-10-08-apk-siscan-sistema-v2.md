@@ -70,11 +70,11 @@ que deben ser deliberadas.
 6. **Textos de estado:** «El ESP32 todavía no ha reportado su modo» cuando nadie ha pedido nada; un lote en curso que
    ya llegó dice «Listo: retíralo»; el error dice qué pasó una sola vez.
 
-## 5. Pendiente de Diego — enmienda al contrato
+## 5. Enmienda al contrato (aprobada por Diego, 2026-10-09)
 
-**FAB en tema oscuro: 2,02:1** (medido). `.sc-fab` fija el texto en `#ffffff` sobre `esmeralda → hoja`; en oscuro esos
-verdes son claros (`#66ca8b`). Propuesta: en oscuro, el texto del FAB toma el color de texto del botón primario
-oscuro (el mismo bosque hondo que ya usa «Ingresar» en oscuro y que pasa AA). No se cambió: espera su permiso.
+**FAB en tema oscuro.** `.sc-fab` fija el texto en `#ffffff` sobre `esmeralda → hoja`; en oscuro esos verdes son claros
+y el contraste medido era 2,02:1. Diego aprobó la propuesta: el texto y el icono del FAB toman `sobre-hoja`, como el
+botón primario (blanco en claro, igual que el sistema; `#0F1D16` en oscuro). Medido después: pasa AA.
 
 ## 6. Verificación medida
 
@@ -85,7 +85,7 @@ oscuro (el mismo bosque hondo que ya usa «Ingresar» en oscuro y que pasa AA). 
   render sin excepciones ni desbordes, **área táctil ≥ 44 × 44** (pauta de Flutter sobre el árbol de semántica) y
   **contraste AA medido sobre el render** (color real de cada texto contra el fondo muestreado en su caja; agrupa
   degradados y no mide lo tapado por la barra inferior). Además: HoldButton por interacción, nodos del lector de
-  pantalla y widgets 2×2 y 4×2. **Resultado: 44 de 45; falla solo el FAB oscuro (punto 5).**
+  pantalla y widgets 2×2 y 4×2. **Resultado: 45 de 45** (tras la enmienda del punto 5).
 - Emulador Pixel (1080 × 2400): recorrido completo por accesibilidad (`tools/emu.sh`), sin errores en logcat; capturas
   en `docs/ux/capturas/apk-v2/` (claro y oscuro). La variante de depuración apuntó a `pruebas/proxy-app.php` del plugin
   (rutas 3.5.0 con datos reales; el resto leído de producción, solo GET).
