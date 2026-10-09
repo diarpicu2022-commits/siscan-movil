@@ -20,6 +20,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // flutter_local_notifications usa java.time en Android < 8.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     defaultConfig {
@@ -62,4 +64,10 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    // Puente con SISCAN en el reloj.
+    implementation("com.google.android.gms:play-services-wearable:19.0.0")
 }

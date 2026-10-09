@@ -4,4 +4,6 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Solo en depuración: permite el servidor de prueba local (pruebas/proxy-app.php) por HTTP. -->
+    <application android:usesCleartextTraffic="true"/>
 </manifest>

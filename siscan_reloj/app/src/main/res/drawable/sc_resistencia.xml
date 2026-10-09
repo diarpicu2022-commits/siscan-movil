@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERADO por tools/generar_reloj.py desde el icono «resistencia» del sistema SISCAN v2. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:pathData="M5.0,6.0h14.0a2.5,2.5 0 0,1 2.5,2.5v8.0a2.5,2.5 0 0,1 -2.5,2.5h-14.0a2.5,2.5 0 0,1 -2.5,-2.5v-8.0a2.5,2.5 0 0,1 2.5,-2.5Z" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M6 15.5c1.2-1.4 1.2-3.6 0-5" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M10 15.5c1.2-1.4 1.2-3.6 0-5" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M14 15.5c1.2-1.4 1.2-3.6 0-5" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M18 15.5c1.2-1.4 1.2-3.6 0-5" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M6 19v2M18 19v2" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+</vector>

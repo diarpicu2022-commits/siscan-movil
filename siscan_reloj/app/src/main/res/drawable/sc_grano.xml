@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERADO por tools/generar_reloj.py desde el icono «grano» del sistema SISCAN v2. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <group android:rotation="38" android:pivotX="12" android:pivotY="12">
+        <path android:pathData="M5.4,12.0a6.6,9.4 0 1,0 13.2,0a6.6,9.4 0 1,0 -13.2,0" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+        <path android:pathData="M12.2 2.8c-2.6 3.1-2.6 6 0 9.2s2.6 6.1 0 9.2" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    </group>
+</vector>

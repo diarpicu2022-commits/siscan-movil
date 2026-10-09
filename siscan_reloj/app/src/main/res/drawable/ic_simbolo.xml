@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Símbolo de SISCAN «Grano bajo el sol» (elegido por Diego, 2026-10-07). -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="48dp" android:height="48dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#FFE9B44C" android:pathData="M8.6,9.4a3.4,3.4 0,0 1,6.8 0z" />
-    <path android:strokeColor="#FFF3EADA" android:strokeWidth="1.75" android:strokeLineCap="round" android:fillColor="#00000000"
-        android:pathData="M7,9.4L5.4,9.4 M8.46,5.86L7.33,4.73 M12,4.4L12,2.8 M15.54,5.86L16.67,4.73 M17,9.4L18.6,9.4" />
-    <path android:strokeColor="#FFF3EADA" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillColor="#00000000"
-        android:pathData="M4.6,17a7.4,4.2 0,1 0,14.8 0a7.4,4.2 0,1 0,-14.8 0 M4.6,17c2.4,-1.7 4.9,-1.7 7.4,0s5,1.7 7.4,0" />
-</vector>

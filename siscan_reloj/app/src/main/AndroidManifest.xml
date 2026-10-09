@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:name="android.hardware.type.watch" />
-    <!-- Solo lecturas públicas del servidor de SISCAN. -->
+    <!-- Lecturas públicas del servidor de SISCAN; vibración para alertas y confirmaciones. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="false"
@@ -11,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
 
-        <!-- Funciona sin el teléfono: consulta el servidor por Wi-Fi o LTE del reloj. -->
+        <!-- Lee el secador sin el teléfono (Wi-Fi o LTE del reloj); las órdenes y los pesajes sí van por el teléfono. -->
         <meta-data android:name="com.google.android.wearable.standalone" android:value="true" />
 
         <activity android:name=".RelojActivity" android:exported="true" android:taskAffinity="">
@@ -24,14 +26,35 @@
         <service android:name=".TarjetaSiscan" android:exported="true" android:label="@string/tile_label"
             android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
             <intent-filter><action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" /></intent-filter>
-            <meta-data android:name="androidx.wear.tiles.PREVIEW" android:resource="@drawable/ic_simbolo" />
+            <meta-data android:name="androidx.wear.tiles.PREVIEW" android:resource="@drawable/tile_preview" />
         </service>
 
-        <service android:name=".ComplicacionHumedad" android:exported="true" android:icon="@drawable/ic_simbolo"
-            android:label="@string/complication_label"
+        <service android:name=".ComplicacionHumedad" android:exported="true" android:icon="@drawable/sc_grano"
+            android:label="@string/complication_humedad"
             android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
             <intent-filter><action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" /></intent-filter>
             <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES" android:value="RANGED_VALUE,SHORT_TEXT" />
+            <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS" android:value="900" />
+        </service>
+        <service android:name=".ComplicacionTemperatura" android:exported="true" android:icon="@drawable/sc_termometro"
+            android:label="@string/complication_temperatura"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter><action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" /></intent-filter>
+            <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES" android:value="SHORT_TEXT" />
+            <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS" android:value="900" />
+        </service>
+        <service android:name=".ComplicacionAlertas" android:exported="true" android:icon="@drawable/sc_alertas"
+            android:label="@string/complication_alertas"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter><action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" /></intent-filter>
+            <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES" android:value="RANGED_VALUE,SHORT_TEXT" />
+            <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS" android:value="900" />
+        </service>
+        <service android:name=".ComplicacionLote" android:exported="true" android:icon="@drawable/sc_grano"
+            android:label="@string/complication_lote"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter><action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" /></intent-filter>
+            <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES" android:value="LONG_TEXT" />
             <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS" android:value="900" />
         </service>
     </application>

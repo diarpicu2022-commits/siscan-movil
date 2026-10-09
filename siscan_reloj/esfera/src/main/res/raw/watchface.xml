@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERADO por tools/generar_esfera.py. Esfera SISCAN según components/WatchFace y WatchAmbient del sistema de diseño v2.
+     La esfera de la documentación (224 px) se dibuja a 450: cada medida va por 2 (hora 56 → 113, complicaciones 48 → 96). -->
+<WatchFace width="450" height="450">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="PREVIEW_TIME" value="10:24:00" />
+    <Scene backgroundColor="#FF000000">
+        <!-- .sc-wscreen: negro OLED con un leve tinte verde arriba. En siempre activo, negro puro. -->
+        <PartDraw x="0" y="0" width="450" height="450">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <Rectangle x="0" y="0" width="450" height="450">
+                <Fill color="#FF0C1C13"><RadialGradient centerX="225" centerY="158" radius="375" colors="#FF0C1C13 #FF000000 #FF000000" positions="0 0.72 1" /></Fill>
+            </Rectangle>
+        </PartDraw>
+        <!-- .sc-wdate -->
+        <PartText x="65" y="70" width="320" height="34">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <Text align="CENTER"><Font family="jakarta_700" size="26" color="#FFA6D07A"><Template>%s %s %s<Parameter expression="[DAY_OF_WEEK_S]" /><Parameter expression="[DAY]" /><Parameter expression="[MONTH_S]" /></Template></Font></Text>
+        </PartText>
+        <!-- .sc-wclock: Outfit 600 -->
+        <DigitalClock x="25" y="102" width="400" height="126">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <TimeText format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER" x="0" y="0" width="400" height="126">
+                <Font family="outfit_600" size="113" color="#FFFFFFFF" />
+            </TimeText>
+        </DigitalClock>
+        <!-- .sc-wamb-clock: siempre activo. El sistema pide solo contorno, pero Watch Face Format no dibuja contornos en la
+             hora (TimeText ni PartText con Outline, probado en el emulador): Outfit 300 rellena en tinta-suave, sin color de estado. -->
+        <DigitalClock x="25" y="140" width="400" height="130" alpha="0">
+            <Variant mode="AMBIENT" target="alpha" value="255" />
+            <TimeText format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER" x="0" y="0" width="400" height="130">
+                <Font family="outfit_300" size="117" color="#FFA9BDAE" />
+            </TimeText>
+        </DigitalClock>
+        <!-- .sc-wcomps: humedad del grano en anillo, temperatura interior y alertas (en rojo solo si hay) -->
+        <ComplicationSlot slotId="0" x="65" y="232" width="96" height="96" supportedTypes="RANGED_VALUE SHORT_TEXT" isCustomizable="TRUE">
+            <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="RANGED_VALUE"
+                primaryProvider="co.gov.narino.cisna.siscan/co.gov.narino.cisna.siscan.reloj.ComplicacionHumedad" primaryProviderType="RANGED_VALUE" />
+            <BoundingOval x="0" y="0" width="96" height="96" />
+            <Complication type="RANGED_VALUE">
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+                <Arc centerX="48" centerY="48" width="88" height="88" startAngle="0" endAngle="360"><Stroke color="#1FFFFFFF" thickness="8" cap="ROUND" /></Arc>
+                <Arc centerX="48" centerY="48" width="88" height="88" startAngle="0" endAngle="0">
+                    <Transform target="endAngle" value="clamp([COMPLICATION.RANGED_VALUE_VALUE], 0, 100) * 3.6" />
+                    <Stroke color="#FFA6D07A" thickness="8" cap="ROUND" />
+                </Arc>
+            </PartDraw>
+            <PartText x="4" y="32" width="88" height="32">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="24" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+            </PartDraw>
+            <PartText x="4" y="32" width="88" height="32">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="24" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+            </Complication>
+        </ComplicationSlot>
+        <ComplicationSlot slotId="1" x="177" y="232" width="96" height="96" supportedTypes="SHORT_TEXT" isCustomizable="TRUE">
+            <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="SHORT_TEXT"
+                primaryProvider="co.gov.narino.cisna.siscan/co.gov.narino.cisna.siscan.reloj.ComplicacionTemperatura" primaryProviderType="SHORT_TEXT" />
+            <BoundingOval x="0" y="0" width="96" height="96" />
+            <Complication type="SHORT_TEXT">
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+            </PartDraw>
+            <PartImage x="34" y="14" width="28" height="28" tintColor="#FFF08A5D">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+            </PartImage>
+            <PartText x="4" y="46" width="88" height="34">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="26" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+            </Complication>
+        </ComplicationSlot>
+        <ComplicationSlot slotId="2" x="289" y="232" width="96" height="96" supportedTypes="RANGED_VALUE SHORT_TEXT" isCustomizable="TRUE">
+            <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="RANGED_VALUE"
+                primaryProvider="co.gov.narino.cisna.siscan/co.gov.narino.cisna.siscan.reloj.ComplicacionAlertas" primaryProviderType="RANGED_VALUE" />
+            <BoundingOval x="0" y="0" width="96" height="96" />
+            <Complication type="RANGED_VALUE">
+            <Condition>
+                <Expressions><Expression name="hay"><![CDATA[[COMPLICATION.RANGED_VALUE_VALUE] > 0]]></Expression></Expressions>
+                <Compare expression="hay">
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+            </PartDraw>
+            <PartImage x="34" y="14" width="28" height="28" tintColor="#FFFF8E80">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+            </PartImage>
+            <PartText x="4" y="46" width="88" height="34">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="26" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+                </Compare>
+                <Default>
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+            </PartDraw>
+            <PartImage x="34" y="14" width="28" height="28" tintColor="#FFF08A5D">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+            </PartImage>
+            <PartText x="4" y="46" width="88" height="34">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="26" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+                </Default>
+            </Condition>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+            <PartDraw x="0" y="0" width="96" height="96">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Ellipse x="0" y="0" width="96" height="96"><Fill color="#FF14231B" /></Ellipse>
+            </PartDraw>
+            <PartImage x="34" y="14" width="28" height="28" tintColor="#FFF08A5D">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+            </PartImage>
+            <PartText x="4" y="46" width="88" height="34">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Text align="CENTER"><Font family="jakarta_700" size="26" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+            </PartText>
+            </Complication>
+        </ComplicationSlot>
+
+        <!-- .sc-wsub: lote y tiempo restante -->
+        <ComplicationSlot slotId="3" x="45" y="334" width="360" height="36" supportedTypes="LONG_TEXT" isCustomizable="TRUE">
+            <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="LONG_TEXT"
+                primaryProvider="co.gov.narino.cisna.siscan/co.gov.narino.cisna.siscan.reloj.ComplicacionLote" primaryProviderType="LONG_TEXT" />
+            <BoundingBox x="0" y="0" width="360" height="36" />
+            <Complication type="LONG_TEXT">
+                <PartText x="0" y="0" width="360" height="36">
+                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                    <Text align="CENTER" ellipsis="TRUE"><Font family="jakarta_400" size="25" color="#FFA9BDAE"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+                </PartText>
+                <PartText x="0" y="0" width="360" height="36" alpha="0">
+                    <Variant mode="AMBIENT" target="alpha" value="255" />
+                    <Text align="CENTER" ellipsis="TRUE"><Font family="jakarta_400" size="26" color="#FF8A9A90"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+    </Scene>
+</WatchFace>
