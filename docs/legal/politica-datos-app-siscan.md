@@ -19,6 +19,10 @@
 - **Notificaciones (opcional):** si se activan, la app consulta el servidor cada 15 minutos (solo lectura) para avisar
   alertas, hora de pesar y lote listo, y muestra el avance del lote en la pantalla de bloqueo. Android pide el permiso al
   activarlas.
+- **Reloj inteligente:** si la persona ingresa con «Recordarme», el teléfono guarda la cabecera de su sesión cifrada con
+  una llave del Android Keystore para que SISCAN en el reloj le pida órdenes y pesajes por la conexión entre reloj y
+  teléfono (capa de datos de Wear OS). El reloj no guarda contraseñas: solo lee el estado público del secador. Se borra al
+  cerrar sesión o al borrar los datos del teléfono.
 - **Inteligencia artificial:** la predicción de la tesis y la red neuronal corren en el servidor del CISNA. La «segunda
   opinión» la genera Groq desde ese servidor con datos del lote y del secador; no recibe datos personales.
 - **Qué NO hace:** no usa cámara ni contactos; no tiene publicidad, analítica ni rastreo; no comparte datos con

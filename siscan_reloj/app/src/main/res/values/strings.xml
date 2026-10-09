@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SISCAN</string>
-    <string name="tile_label">Humedad del café</string>
-    <string name="complication_label">Humedad del café</string>
+    <string name="tile_label">SISCAN · Lote</string>
+    <string name="complication_humedad">Humedad del grano</string>
+    <string name="complication_temperatura">Temperatura interior</string>
+    <string name="complication_alertas">Alertas del secador</string>
+    <string name="complication_lote">Lote y tiempo restante</string>
 </resources>
