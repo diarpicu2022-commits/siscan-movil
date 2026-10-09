@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Icono del sistema SISCAN convertido desde SVG (tools/svg2vector.py). -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:strokeColor="#FF2B1E15" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillColor="#00000000" android:pathData="M6.2 10.8h11.6v9.4H6.2z"/>
-    <path android:strokeColor="#FF2B1E15" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillColor="#00000000" android:pathData="M8.6 10.8V8a3.4 3.4 0 0 1 6.8 0v2.8"/>
-    <path android:fillColor="#FF2B1E15" android:pathData="M10.5,15.4 a1.5,1.5 0 1,0 3.0,0 a1.5,1.5 0 1,0 -3.0,0"/>
-</vector>

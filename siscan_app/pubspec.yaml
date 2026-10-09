@@ -1,7 +1,7 @@
 name: siscan
 description: "SISCAN — Secado Inteligente de Café"
 publish_to: 'none'
-version: 0.1.1+2
+version: 0.2.0+3
 
 environment:
   sdk: ^3.13.5
@@ -9,12 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_local_notifications: ^22.3.1
   flutter_secure_storage: ^11.2.0
   flutter_svg: ^2.0.10
   home_widget: ^0.10.0
+  geolocator: ^14.0.0
   http: ^1.6.0
+  local_auth: ^3.0.2
   shared_preferences: ^2.5.6
   url_launcher: ^6.3.3
+  workmanager: ^0.10.10
 
 dev_dependencies:
   flutter_test:
@@ -23,30 +29,16 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # Sistema de diseño SISCAN v2: iconos y paisaje exportados del paquete (tools/exportar_svg_sistema.mjs) y la marca.
   assets:
-    - assets/icons/
-    - assets/brand/
-    - assets/illustrations/
-  # Fuentes del sistema SISCAN (convertidas de woff2 a ttf, licencia SIL OFL).
+    - assets/sistema/iconos/
+    - assets/sistema/paisaje/
+    - assets/sistema/marca/
+  # Outfit (display) y Plus Jakarta Sans (ui), variables, licencia SIL OFL (assets/fonts/nuevas/*-OFL.txt).
   fonts:
-    - family: Fraunces
+    - family: Outfit
       fonts:
-        - asset: assets/fonts/Fraunces-Variable.ttf
-        - asset: assets/fonts/Fraunces-Variable-Italic.ttf
-          style: italic
-    - family: AtkinsonNext
+        - asset: assets/fonts/nuevas/Outfit.ttf
+    - family: PlusJakartaSans
       fonts:
-        - asset: assets/fonts/AtkinsonHyperlegibleNext-400.ttf
-          weight: 400
-        - asset: assets/fonts/AtkinsonHyperlegibleNext-500.ttf
-          weight: 500
-        - asset: assets/fonts/AtkinsonHyperlegibleNext-700.ttf
-          weight: 700
-    - family: AtkinsonMono
-      fonts:
-        - asset: assets/fonts/AtkinsonHyperlegibleMono-400.ttf
-          weight: 400
-        - asset: assets/fonts/AtkinsonHyperlegibleMono-500.ttf
-          weight: 500
-        - asset: assets/fonts/AtkinsonHyperlegibleMono-600.ttf
-          weight: 600
+        - asset: assets/fonts/nuevas/PlusJakartaSans.ttf
