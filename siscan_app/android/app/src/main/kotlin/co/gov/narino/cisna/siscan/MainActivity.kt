@@ -1,5 +1,6 @@
 package co.gov.narino.cisna.siscan
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity : FlutterActivity()
+/** FlutterFragmentActivity: el ingreso con huella (local_auth) usa el diálogo biométrico del sistema. */
+class MainActivity : FlutterFragmentActivity()

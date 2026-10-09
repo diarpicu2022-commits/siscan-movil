@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- GENERADO desde tokens.json (tema Día). No editar a mano. -->
+<!-- Sistema de diseño SISCAN v2: estructura en bosque (tokens.json). -->
 <resources>
-    <color name="sc_pergamino">#F3EADA</color>
-    <color name="sc_papel">#FBF6EC</color>
-    <color name="sc_arena">#EADFCB</color>
-    <color name="sc_linea">#D9C8AC</color>
-    <color name="sc_linea_fuerte">#8F7A5E</color>
-    <color name="sc_tierra">#2B1E15</color>
-    <color name="sc_tierra_suave">#66523F</color>
-    <color name="sc_monte">#24452F</color>
-    <color name="sc_sobre_monte">#F3EADA</color>
-    <color name="sc_sobre_monte_suave">#B9C9B4</color>
-    <color name="sc_arcilla">#A0431D</color>
-    <color name="sc_arcilla_fuerte">#7E3313</color>
-    <color name="sc_arcilla_suave">#F7E2D3</color>
-    <color name="sc_sobre_arcilla">#FFFFFF</color>
-    <color name="sc_cafeto">#2F6A3C</color>
-    <color name="sc_cafeto_suave">#DCE8D2</color>
-    <color name="sc_panela">#8A5700</color>
-    <color name="sc_panela_suave">#F6E2B3</color>
-    <color name="sc_oxido">#8C2A1F</color>
-    <color name="sc_oxido_suave">#F2D3CC</color>
-    <color name="sc_sobre_oxido">#FFFFFF</color>
-    <color name="sc_bruma">#256A6E</color>
-    <color name="sc_bruma_suave">#D3E6E3</color>
-    <color name="sc_anil">#35557F</color>
-    <color name="sc_anil_suave">#DCE3EE</color>
-    <color name="sc_foco">#35557F</color>
-    <color name="sc_foco_sobre_monte">#E9B44C</color>
-    <color name="sc_dato_medido">#2B1E15</color>
-    <color name="sc_dato_estimado">#256A6E</color>
-    <color name="sc_dato_prediccion">#35557F</color>
-    <color name="sc_dato_objetivo">#2F6A3C</color>
-    <color name="sc_dato_agua">#3E7F92</color>
-    <color name="sc_pintura_cielo">#B4D0D6</color>
-    <color name="sc_pintura_sol">#E9B44C</color>
-    <color name="sc_pintura_cordillera">#7E9E9A</color>
-    <color name="sc_pintura_loma">#93AE7C</color>
-    <color name="sc_pintura_cafetal">#4E7A45</color>
-    <color name="sc_pintura_hoja">#6E9A5A</color>
-    <color name="sc_pintura_cereza">#B83A2E</color>
-    <color name="sc_pintura_barro">#C77B4E</color>
-    <color name="sc_pintura_niebla">#ECE2CF</color>
+    <color name="sc_bosque">#183024</color>
+    <color name="sc_bosque_hondo">#10261B</color>
 </resources>

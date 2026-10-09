@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="widget_moisture_desc">Humedad del lote y avance del secado</string>
-    <string name="widget_batch_desc">Lote activo: humedad, temperatura y tiempo restante</string>
-    <string name="widget_equipment_desc">Ventilador (se cambia aquí) y resistencia (se abre en la app)</string>
+    <string name="widget_moisture_desc">Humedad del grano del lote</string>
+    <string name="widget_batch_desc">Lote: avance, temperatura y humedad relativa</string>
 </resources>
