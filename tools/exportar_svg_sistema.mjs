@@ -29,7 +29,8 @@ const svg = (el) => p.evaluate(async (el) => {
 
 const nombres = await p.evaluate(() => window.Siscan.ICON_NAMES);
 for (const n of nombres) writeFileSync(`${OUT}/iconos/${n}.svg`, await svg({ tipo: "icono", nombre: n }));
-// Encuadres de cada componente (viewBox del propio sistema).
+// Encuadres de cada componente (viewBox del propio sistema). Después de exportar: python tools/svg_rgba_a_opacidad.py
+// (flutter_svg pierde el alfa de rgba()) y, para el reloj, python tools/generar_escena_reloj.py (encuadre 540 40 560 560).
 const VISTAS = { completo: undefined, movil: "560 150 560 460", ingreso: "250 0 1200 600", vacio: "480 260 720 340", foto: "540 300 640 300", tarjeta: "560 330 600 230" };
 let n = 0;
 for (const variante of ["day", "dusk", "night"]) for (const aire of [true, false]) for (const calor of [true, false]) for (const [vista, vb] of Object.entries(VISTAS)) {
