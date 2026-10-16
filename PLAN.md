@@ -20,3 +20,7 @@ oscuro, componentes `components/*` y composiciones `AndroidInicio`, `AndroidPesa
 
 WordPress REST `https://cisna.narino.gov.co/wp-json/secador/v1` (plugin `secador-cafe-api`). Las rutas de predicción,
 red neuronal, opinión de IA, energía por hora y modo de control llegan con el plugin **3.5.0**, que sube Diego.
+
+## Estado
+
+El estado actualizado y los pendientes están en `CONTINUAR.md`.
