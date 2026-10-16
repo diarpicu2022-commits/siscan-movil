@@ -1,0 +1,16 @@
+captura	texto	fondo	tinta	contraste	piso	resultado
+cargando	Leyendo el secador…	#050c08	#a9bdae	9.95	4.5	pasa
+copia-sin-red	Humedad del grano	#a6d07a	#040b07	11.29	4.5	pasa
+copia-sin-red	10,6	#ffffff	#050c08	19.76	4.5	pasa
+copia-sin-red	%	#07100b	#a9bdae	9.72	4.5	pasa
+copia-sin-red	Objetivo 10 – 12 %	#07100b	#a9bdae	9.72	4.5	pasa
+copia-sin-red	Sin conexión · 19 ago	#12291c	#a6d07a	8.77	4.5	pasa
+dato-viejo-monitoreo	Humedad del grano	#a6d07a	#040b07	11.29	4.5	pasa
+dato-viejo-monitoreo	10,6	#ffffff	#050c08	19.76	4.5	pasa
+dato-viejo-monitoreo	%	#07100b	#a9bdae	9.72	4.5	pasa
+dato-viejo-monitoreo	Objetivo 10 – 12 %	#07100b	#a9bdae	9.72	4.5	pasa
+dato-viejo-monitoreo	Sin conexión · 19 ago	#12291c	#a6d07a	8.77	4.5	pasa
+sin-conexion	Sin conexión	#ffffff	#1c1506	18.11	4.5	pasa
+sin-conexion	El reloj no pudo leer el secador. Revisa el Wi-Fi o el teléfono.	#161005	#a9bdae	9.53	4.5	pasa
+sin-conexion	Reintentar	#a6d07a	#07110c	10.89	4.5	pasa
+fallas de contraste: 0

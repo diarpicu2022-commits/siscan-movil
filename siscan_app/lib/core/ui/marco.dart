@@ -141,28 +141,49 @@ class Fab extends StatelessWidget {
 }
 
 /// Cuerpo de pantalla (sc-abody): contenido con margen de 14 y separación de 14 entre bloques.
-class CuerpoPantalla extends StatelessWidget {
-  const CuerpoPantalla({super.key, this.barra, required this.hijos, this.onRefrescar, this.abajo = 20});
+/// `franjaDesde`: si la cabecera es una escena a sangre (Inicio), la franja bajo la barra de estado no se pinta mientras
+/// lo que pasa por detrás de la hora siga siendo la escena; aparece cuando el desplazamiento llega a ese valor.
+class CuerpoPantalla extends StatefulWidget {
+  const CuerpoPantalla({super.key, this.barra, required this.hijos, this.onRefrescar, this.abajo = 20, this.franjaDesde});
   final Widget? barra;
   final List<Widget> hijos;
   final Future<void> Function()? onRefrescar;
   final double abajo;
+  final double? franjaDesde;
+  @override
+  State<CuerpoPantalla> createState() => _CuerpoPantallaState();
+}
+
+class _CuerpoPantallaState extends State<CuerpoPantalla> {
+  bool _franja = false;
   @override
   Widget build(BuildContext context) {
     final lista = ListView(
-      padding: EdgeInsets.only(bottom: abajo),
+      padding: EdgeInsets.only(bottom: widget.abajo),
       children: [
-        ?barra,
-        for (final h in hijos) Padding(padding: const EdgeInsets.fromLTRB(14, 14, 14, 0), child: h),
+        ?widget.barra,
+        for (final h in widget.hijos) Padding(padding: const EdgeInsets.fromLTRB(14, 14, 14, 0), child: h),
       ],
     );
-    final cuerpo = onRefrescar == null ? lista : RefreshIndicator(onRefresh: onRefrescar!, color: context.c.hoja, child: lista);
+    final cuerpo = widget.onRefrescar == null ? lista : RefreshIndicator(onRefresh: widget.onRefrescar!, color: context.c.hoja, child: lista);
     // Franja bajo la barra de estado: al desplazar, el contenido no pasa por detrás de la hora.
-    final oscura = barra is BarraApp && (barra as BarraApp).oscura;
+    final oscura = widget.barra is BarraApp && (widget.barra as BarraApp).oscura;
     final c = context.c;
+    final desde = widget.franjaDesde;
+    final visible = desde == null || _franja;
     return Stack(children: [
-      cuerpo,
-      Positioned(top: 0, left: 0, right: 0, height: MediaQuery.of(context).padding.top, child: ColoredBox(color: oscura ? const Color(0xFF1C3628) : c.fondo)),
+      desde == null ? cuerpo : NotificationListener<ScrollUpdateNotification>(
+        onNotification: (n) {
+          final v = n.metrics.axis == Axis.vertical && n.metrics.pixels >= desde;
+          if (v != _franja) setState(() => _franja = v);
+          return false;
+        },
+        child: cuerpo,
+      ),
+      if (visible) Positioned(top: 0, left: 0, right: 0, height: MediaQuery.of(context).padding.top, child: desde == null
+          ? ColoredBox(color: oscura ? const Color(0xFF1C3628) : c.fondo)
+          // Sobre la escena la barra de estado sigue la luz del dibujo; al salir la escena, sigue al tema de la página.
+          : AnnotatedRegion<SystemUiOverlayStyle>(value: context.oscuro ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark, child: ColoredBox(color: c.fondo))),
     ]);
   }
 }

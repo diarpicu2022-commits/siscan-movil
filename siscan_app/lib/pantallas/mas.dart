@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,7 +24,7 @@ class PantallaMas extends StatelessWidget {
     final s = Siscan.of(context), pref = Preferencias.of(context);
     return ListenableBuilder(listenable: Listenable.merge([s.auth, s.tema, pref]), builder: (context, _) => ConEstado(builder: (context, b) {
       final ses = s.auth.session;
-      final temaTxt = switch (s.tema.modo) { ThemeMode.light => 'Claro', ThemeMode.dark => 'Oscuro', _ => 'Como el teléfono' };
+      final temaTxt = switch (s.tema.preferencia) { PreferenciaTema.claro => 'Claro', PreferenciaTema.oscuro => 'Oscuro', PreferenciaTema.hora => 'Según la hora', PreferenciaTema.sistema => 'Como el teléfono' };
       return CuerpoPantalla(
         barra: BarraApp(oscura: true, grande: true, logo: true, titulo: ses?.displayName ?? 'Vista pública',
             subtitulo: ses == null ? 'Sin cuenta · solo lectura' : '${ses.canControl ? 'Gestor del Secador' : 'Sin permiso de control'} · ${ses.user}'),
@@ -42,6 +43,7 @@ class PantallaMas extends StatelessWidget {
             ElementoLista(icono: 'huella', titulo: 'Ingreso con huella', sub: ses == null ? 'Primero ingresa con tu cuenta' : 'Entra rápido sin escribir la contraseña',
                 derecha: Interruptor(valor: pref.huella, etiqueta: 'Ingreso con huella', onChanged: ses == null ? null : (v) => pref.cambiarHuella(context, v))),
             ElementoLista(icono: 'sol', titulo: 'Tema', sub: temaTxt, onTap: () => _elegirTema(context)),
+            ElementoLista(icono: 'info', titulo: 'Acerca de y licencias', sub: 'Íconos Lucide y software de terceros', onTap: () => _ir(context, const PantallaLicencias())),
             ElementoLista(icono: 'candado', titulo: 'Tus datos y privacidad', sub: 'Política, exportar y borrar', onTap: () => _ir(context, const PantallaPrivacidad())),
             ses == null ? ElementoLista(icono: 'usuario', titulo: 'Ingresar', sub: 'Para registrar pesajes y mandar órdenes', ultimo: true, onTap: onIngresar)
                 : ElementoLista(icono: 'salir', titulo: 'Cerrar sesión', peligro: true, ultimo: true, onTap: () async { await s.auth.signOut(); if (context.mounted) await pref.cambiarHuella(context, false); }),
@@ -53,13 +55,18 @@ class PantallaMas extends StatelessWidget {
 
   Future<void> _elegirTema(BuildContext context) async {
     final s = Siscan.of(context);
-    final m = await showModalBottomSheet<ThemeMode>(context: context, backgroundColor: context.c.superficie,
+    final m = await showModalBottomSheet<PreferenciaTema>(context: context, backgroundColor: context.c.superficie,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(SiscanRadius.xl))),
         builder: (d) => SafeArea(child: Padding(padding: const EdgeInsets.fromLTRB(22, 18, 22, 12), child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text('Tema', style: TextStyle(fontFamily: SiscanType.display, fontSize: 22, fontWeight: FontWeight.w700, color: d.c.tinta)),
-          const SizedBox(height: 12),
-          Segmentado<ThemeMode>(bloque: true, etiqueta: 'Tema', valor: s.tema.modo, onChanged: (v) => Navigator.pop(d, v),
-              opciones: const [(ThemeMode.light, 'Claro', 'sol'), (ThemeMode.dark, 'Oscuro', 'nube'), (ThemeMode.system, 'Teléfono', null)]),
+          Semantics(header: true, child: Text('Tema', style: TextStyle(fontFamily: SiscanType.display, fontSize: 22, fontWeight: FontWeight.w700, color: d.c.tinta))),
+          const SizedBox(height: 4),
+          // C3: cuatro opciones no caben en el segmentado de 390 px; van como lista de opción única.
+          ListaOpcionUnica<PreferenciaTema>(valor: s.tema.preferencia, onChanged: (v) => Navigator.pop(d, v), opciones: const [
+            (PreferenciaTema.claro, 'sol', 'Claro', 'Siempre claro'),
+            (PreferenciaTema.oscuro, 'luna', 'Oscuro', 'Siempre oscuro'),
+            (PreferenciaTema.hora, 'reloj', 'Según la hora', 'Claro de 6:00 a 19:00, oscuro de noche (hora de Colombia)'),
+            (PreferenciaTema.sistema, 'config', 'Como el teléfono', 'Sigue el ajuste del sistema'),
+          ]),
           const SizedBox(height: 12),
         ]))));
     if (m != null) s.tema.cambiar(m);
@@ -314,6 +321,38 @@ class PantallaReloj extends StatelessWidget {
 }
 
 /// Tus datos y privacidad (borrador técnico; docs/legal/politica-datos-app-siscan.md): política, exportar y borrar.
+/// Acerca de y licencias (E9, 2026-10-15): el aviso de Lucide (íconos del sistema y «luna») se muestra completo, tal
+/// como exige su licencia ISC, y está también en el registro de licencias de Flutter (main.dart), con el resto del
+/// software de terceros.
+class PantallaLicencias extends StatelessWidget {
+  const PantallaLicencias({super.key});
+  static const archivo = 'assets/sistema/iconos/LICENCIA-lucide.txt';
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c;
+    return Scaffold(body: CuerpoPantalla(barra: const BarraApp(titulo: 'Acerca de y licencias', atras: true), hijos: [
+      Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const TituloTarjeta(icono: 'info', titulo: 'Íconos'),
+        Text('Los íconos de SISCAN salen de Lucide (lucide.dev), con trazo propio de 1,75. Estos son sus avisos de licencia.',
+            style: TextStyle(fontSize: 14, height: 22 / 14, color: c.tinta)),
+        const SizedBox(height: 12),
+        FutureBuilder<String>(
+          future: rootBundle.loadString(archivo),
+          builder: (context, t) => t.hasData
+              ? SelectableText(t.data!, style: TextStyle(fontSize: 12.5, height: 19 / 12.5, color: c.tintaSuave))
+              : Text(t.hasError ? 'No se pudo leer el aviso de licencia.' : 'Cargando…', style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),
+        ),
+      ])),
+      Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const TituloTarjeta(icono: 'config', titulo: 'Software de terceros'),
+        Text('Flutter y los paquetes que usa la app, cada uno con su licencia.', style: TextStyle(fontSize: 14, height: 22 / 14, color: c.tinta)),
+        const SizedBox(height: 12),
+        Boton('Ver todas las licencias', icono: 'chevron', onPressed: () => showLicensePage(context: context, applicationName: 'SISCAN')),
+      ])),
+    ]));
+  }
+}
+
 class PantallaPrivacidad extends StatelessWidget {
   const PantallaPrivacidad({super.key});
   static const version = '0.2 · 8 de octubre de 2026 (borrador para revisión de un abogado)';

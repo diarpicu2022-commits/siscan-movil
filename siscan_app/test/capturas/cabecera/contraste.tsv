@@ -1,0 +1,199 @@
+ancho	momento	tema	elemento	texto	tamaño	piso	mín	p5	resultado
+360	day	light	campana	(ícono)	24	3,00	10,92	10,92	pasa
+360	day	light	saludo	¡Hola, Diego!	28	3,00	10,36	10,36	pasa
+360	day	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+360	day	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+360	day	light	pill	Secando	12	4,50	5,26	5,26	pasa
+360	day	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+360	day	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+360	day	light	unidad	%	22	3,00	5,81	5,81	pasa
+360	day	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+360	day	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+360	day	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+360	day	dark	campana	(ícono)	24	3,00	10,92	10,92	pasa
+360	day	dark	saludo	¡Hola, Diego!	28	3,00	10,36	10,36	pasa
+360	day	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+360	day	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+360	day	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+360	day	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+360	day	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+360	day	dark	unidad	%	22	3,00	7,89	7,89	pasa
+360	day	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+360	day	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+360	day	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+360	dusk	light	campana	(ícono)	24	3,00	7,68	7,68	pasa
+360	dusk	light	saludo	¡Hola, Diego!	28	3,00	7,95	7,95	pasa
+360	dusk	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+360	dusk	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+360	dusk	light	pill	Secando	12	4,50	5,26	5,26	pasa
+360	dusk	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+360	dusk	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+360	dusk	light	unidad	%	22	3,00	5,81	5,81	pasa
+360	dusk	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+360	dusk	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+360	dusk	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+360	dusk	dark	campana	(ícono)	24	3,00	7,68	7,68	pasa
+360	dusk	dark	saludo	¡Hola, Diego!	28	3,00	7,95	7,95	pasa
+360	dusk	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+360	dusk	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+360	dusk	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+360	dusk	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+360	dusk	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+360	dusk	dark	unidad	%	22	3,00	7,89	7,89	pasa
+360	dusk	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+360	dusk	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+360	dusk	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+360	night	light	campana	(ícono)	24	3,00	15,67	15,67	pasa
+360	night	light	saludo	¡Hola, Diego!	28	3,00	12,26	12,26	pasa
+360	night	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+360	night	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+360	night	light	pill	Secando	12	4,50	5,26	5,26	pasa
+360	night	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+360	night	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+360	night	light	unidad	%	22	3,00	5,81	5,81	pasa
+360	night	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+360	night	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+360	night	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+360	night	dark	campana	(ícono)	24	3,00	15,67	15,67	pasa
+360	night	dark	saludo	¡Hola, Diego!	28	3,00	12,26	12,26	pasa
+360	night	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+360	night	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+360	night	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+360	night	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+360	night	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+360	night	dark	unidad	%	22	3,00	7,89	7,89	pasa
+360	night	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+360	night	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+360	night	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+390	day	light	campana	(ícono)	24	3,00	10,82	10,92	pasa
+390	day	light	saludo	¡Hola, Diego!	28	3,00	10,36	10,36	pasa
+390	day	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+390	day	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+390	day	light	pill	Secando	12	4,50	5,26	5,26	pasa
+390	day	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+390	day	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+390	day	light	unidad	%	22	3,00	5,81	5,81	pasa
+390	day	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+390	day	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+390	day	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+390	day	dark	campana	(ícono)	24	3,00	10,82	10,92	pasa
+390	day	dark	saludo	¡Hola, Diego!	28	3,00	10,36	10,36	pasa
+390	day	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+390	day	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+390	day	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+390	day	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+390	day	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+390	day	dark	unidad	%	22	3,00	7,89	7,89	pasa
+390	day	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+390	day	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+390	day	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+390	dusk	light	campana	(ícono)	24	3,00	7,63	7,68	pasa
+390	dusk	light	saludo	¡Hola, Diego!	28	3,00	7,95	7,95	pasa
+390	dusk	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+390	dusk	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+390	dusk	light	pill	Secando	12	4,50	5,26	5,26	pasa
+390	dusk	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+390	dusk	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+390	dusk	light	unidad	%	22	3,00	5,81	5,81	pasa
+390	dusk	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+390	dusk	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+390	dusk	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+390	dusk	dark	campana	(ícono)	24	3,00	7,63	7,68	pasa
+390	dusk	dark	saludo	¡Hola, Diego!	28	3,00	7,95	7,95	pasa
+390	dusk	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+390	dusk	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+390	dusk	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+390	dusk	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+390	dusk	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+390	dusk	dark	unidad	%	22	3,00	7,89	7,89	pasa
+390	dusk	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+390	dusk	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+390	dusk	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+390	night	light	campana	(ícono)	24	3,00	15,68	15,68	pasa
+390	night	light	saludo	¡Hola, Diego!	28	3,00	12,26	12,26	pasa
+390	night	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+390	night	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+390	night	light	pill	Secando	12	4,50	5,26	5,26	pasa
+390	night	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+390	night	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+390	night	light	unidad	%	22	3,00	5,81	5,81	pasa
+390	night	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+390	night	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+390	night	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+390	night	dark	campana	(ícono)	24	3,00	15,68	15,68	pasa
+390	night	dark	saludo	¡Hola, Diego!	28	3,00	12,26	12,26	pasa
+390	night	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+390	night	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+390	night	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+390	night	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+390	night	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+390	night	dark	unidad	%	22	3,00	7,89	7,89	pasa
+390	night	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+390	night	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+390	night	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+412	day	light	campana	(ícono)	24	3,00	10,82	10,92	pasa
+412	day	light	saludo	¡Hola, Diego!	28	3,00	10,36	11,31	pasa
+412	day	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+412	day	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+412	day	light	pill	Secando	12	4,50	5,26	5,26	pasa
+412	day	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+412	day	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+412	day	light	unidad	%	22	3,00	5,81	5,81	pasa
+412	day	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+412	day	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+412	day	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+412	day	dark	campana	(ícono)	24	3,00	10,82	10,92	pasa
+412	day	dark	saludo	¡Hola, Diego!	28	3,00	10,36	11,31	pasa
+412	day	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	10,36	10,36	pasa
+412	day	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+412	day	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+412	day	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+412	day	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+412	day	dark	unidad	%	22	3,00	7,89	7,89	pasa
+412	day	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+412	day	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+412	day	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+412	dusk	light	campana	(ícono)	24	3,00	7,62	7,68	pasa
+412	dusk	light	saludo	¡Hola, Diego!	28	3,00	7,95	8,32	pasa
+412	dusk	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+412	dusk	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+412	dusk	light	pill	Secando	12	4,50	5,26	5,26	pasa
+412	dusk	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+412	dusk	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+412	dusk	light	unidad	%	22	3,00	5,81	5,81	pasa
+412	dusk	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+412	dusk	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+412	dusk	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+412	dusk	dark	campana	(ícono)	24	3,00	7,62	7,68	pasa
+412	dusk	dark	saludo	¡Hola, Diego!	28	3,00	7,95	8,32	pasa
+412	dusk	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	7,95	7,95	pasa
+412	dusk	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+412	dusk	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+412	dusk	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+412	dusk	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+412	dusk	dark	unidad	%	22	3,00	7,89	7,89	pasa
+412	dusk	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+412	dusk	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+412	dusk	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa
+412	night	light	campana	(ícono)	24	3,00	15,80	15,80	pasa
+412	night	light	saludo	¡Hola, Diego!	28	3,00	12,26	14,71	pasa
+412	night	light	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+412	night	light	ficha lote	Lote juco	12	4,50	8,22	8,22	pasa
+412	night	light	pill	Secando	12	4,50	5,26	5,26	pasa
+412	night	light	rótulo	Humedad del grano	13	4,50	5,80	5,81	pasa
+412	night	light	cifra	10,6	52	4,50	14,38	14,38	pasa
+412	night	light	unidad	%	22	3,00	5,81	5,81	pasa
+412	night	light	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	5,81	5,81	pasa
+412	night	light	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,21	7,21	pasa
+412	night	light	confianza	Confianza alta	13	4,50	5,43	5,43	pasa
+412	night	dark	campana	(ícono)	24	3,00	15,80	15,80	pasa
+412	night	dark	saludo	¡Hola, Diego!	28	3,00	12,26	14,71	pasa
+412	night	dark	subtítulo	Secador 01 · Lote juco secando	13	4,50	12,26	12,26	pasa
+412	night	dark	ficha lote	Lote juco	12	4,50	5,61	5,61	pasa
+412	night	dark	pill	Secando	12	4,50	6,45	6,45	pasa
+412	night	dark	rótulo	Humedad del grano	13	4,50	7,89	7,89	pasa
+412	night	dark	cifra	10,6	52	4,50	13,91	13,91	pasa
+412	night	dark	unidad	%	22	3,00	7,89	7,89	pasa
+412	night	dark	objetivo · falta · tramo 1	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,89	7,89	pasa
+412	night	dark	objetivo · falta · tramo 2	Objetivo 10 – 12 % · faltan ~6 h	13	4,50	7,31	7,31	pasa
+412	night	dark	confianza	Confianza alta	13	4,50	7,30	7,30	pasa

@@ -45,7 +45,11 @@ class RelojActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(observador)
         // Solo la variante de depuración acepta otro servidor (verificación con el servidor de prueba); la publicada, nunca.
-        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0) intent?.getStringExtra("api")?.let { Red.api = it }
+        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0) {
+            intent?.getStringExtra("api")?.let { Red.api = it }
+            // Capturas de «El secador» en los tres momentos sin tocar la hora del dispositivo.
+            intent?.getStringExtra("momento")?.let { v -> EscenaReloj.momentoForzado = Momento.entries.firstOrNull { it.variante == v } }
+        }
         setContent { SiscanReloj(ambiente) }
     }
 }
@@ -76,7 +80,7 @@ fun SiscanReloj(ambiente: Boolean) {
     var enviandoPesaje by remember { mutableStateOf(false) }
     val alcance = rememberCoroutineScope()
     // En la raíz: la página se conserva aunque una alerta o una confirmación tapen el carrusel.
-    val pager = rememberPagerState { 6 }
+    val pager = rememberPagerState { 7 }
 
     // Consulta al abrir y cada minuto; si falla, queda lo guardado con su hora (nunca se presenta como recién leído).
     LaunchedEffect(intento) {
@@ -99,7 +103,7 @@ fun SiscanReloj(ambiente: Boolean) {
         if (alerta != null) {
             LaunchedEffect(alerta.clave) { vibrar(c, if (alerta.critica) longArrayOf(0, 180, 120, 180) else longArrayOf(0, 220)) }
             Alerta(alerta, onDescartar = { Guardado.descartar(c, alerta.clave); alertaVista = alerta.clave },
-                onVer = { Guardado.descartar(c, alerta.clave); alertaVista = alerta.clave; alcance.launch { pager.scrollToPage(if (alerta.icono == "ventilador") 2 else 1) } })
+                onVer = { Guardado.descartar(c, alerta.clave); alertaVista = alerta.clave; alcance.launch { pager.scrollToPage(if (alerta.icono == "ventilador") 3 else 2) } })
             return@CompositionLocalProvider
         }
 
@@ -116,8 +120,10 @@ fun SiscanReloj(ambiente: Boolean) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     when (i) {
                         0 -> Monitoreo(e, ahora)
-                        1 -> Lecturas(e, pager.currentPage == 1)
-                        2 -> Equipo(e, pager.currentPage == 2, pendiente,
+                        // C2: la escena va justo después de Monitoreo, a un deslizamiento.
+                        1 -> ElSecador(e)
+                        2 -> Lecturas(e, pager.currentPage == 2)
+                        3 -> Equipo(e, pager.currentPage == 3, pendiente,
                             onOrden = { a, on ->
                                 pendiente = a.id
                                 alcance.launch {
@@ -127,9 +133,9 @@ fun SiscanReloj(ambiente: Boolean) {
                                 }
                             },
                             aviso = { t -> confirmar = Confirmar("Mantén presionado", "$t una resistencia: es una orden de riesgo.", true) })
-                        3 -> Prediccion(e)
-                        4 -> Lotes(e, pager.currentPage == 4)
-                        else -> Pesaje(e, pager.currentPage == 5, enviandoPesaje) { g ->
+                        4 -> Prediccion(e)
+                        5 -> Lotes(e, pager.currentPage == 5)
+                        else -> Pesaje(e, pager.currentPage == 6, enviandoPesaje) { g ->
                             enviandoPesaje = true
                             alcance.launch {
                                 val r = Telefono.pesaje(c, e.loteId!!, g)
@@ -142,7 +148,9 @@ fun SiscanReloj(ambiente: Boolean) {
             }
             // Hora curva en el borde superior (.sc-wtime), sin fondo; el arco de progreso deja libre la parte de arriba.
             // Sin indicador de páginas: el borde inferior es del arco; se navega deslizando entre tarjetas y con la corona.
-            TimeText(backgroundColor = Color.Transparent) { t -> timeTextCurvedText(t, CurvedTextStyle(estiloHora)) }
+            // Sobre la escena (página 1) la hora lleva su banda en bosque: el cielo de día es claro y la hora va en
+            // tinta-suave, como en el resto del reloj.
+            TimeText(backgroundColor = if (pager.currentPage == 1) Sc.bosque else Color.Transparent) { t -> timeTextCurvedText(t, CurvedTextStyle(estiloHora)) }
         }
     }
 }
