@@ -2,10 +2,12 @@
 // servidor (test/fixtures/servidor, guardadas de cisna.narino.gov.co y del plugin 3.5.0) en tema claro y oscuro, a
 // 390 × 844, y sobre ese render se comprueban el contraste de texto (WCAG AA) y el área táctil mínima (44 × 44).
 // Con --update-goldens las capturas quedan en test/capturas/ para el anexo.
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
+import 'dart:ui' show CheckedState;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siscan/app/contexto.dart';
 import 'package:siscan/app/preferencias.dart';
 import 'package:siscan/app/widgets_inicio.dart';
+import 'package:siscan/core/momento.dart';
 import 'package:siscan/core/theme/siscan_theme.dart' show co, siscanTheme;
 import 'package:siscan/core/ui/marco.dart';
 import 'package:siscan/data/api.dart';
@@ -33,7 +36,7 @@ import 'package:siscan/pantallas/pesaje.dart';
 
 /// Escenario: «real» (el servidor tal como está: secador sin reportar desde agosto) o «vivo» (los mismos datos con las
 /// fechas corridas a hoy y el lote 3 en curso), para ver el estado en vivo y los controles con sesión.
-enum Escenario { real, vivo, vacio, error }
+enum Escenario { real, vivo, vacio, error, cargando, copia }
 
 String _clave(Uri u) => '${u.path.replaceFirst(RegExp(r'^.*/secador/v1/'), '')}${u.hasQuery ? '?${u.query}' : ''}'.replaceAll(RegExp(r'[^A-Za-z0-9]'), '_');
 
@@ -47,9 +50,11 @@ String _correrFechas(String json, Duration d) => json.replaceAllMapped(RegExp(r'
 http.Client cliente(Escenario e) {
   final dir = Directory('test/fixtures/servidor');
   final ultima = DateTime.parse('2026-08-19T14:53:49-05:00');
-  final corrimiento = DateTime.now().subtract(const Duration(minutes: 2)).difference(ultima);
+  final corrimiento = ahora().subtract(const Duration(minutes: 2)).difference(ultima);
   return MockClient((r) async {
-    if (e == Escenario.error) return http.Response('{"message":"error"}', 500);
+    // cargando: el servidor no responde nunca; copia: sin señal (500) con una copia guardada de una carga anterior.
+    if (e == Escenario.cargando) return Completer<http.Response>().future;
+    if (e == Escenario.error || e == Escenario.copia) return http.Response('{"message":"error"}', 500);
     if (r.method != 'GET') return http.Response('{}', 200);
     final f = File('${dir.path}/${_clave(r.url)}.json');
     if (!f.existsSync()) return http.Response('{"code":"rest_no_route"}', 404);
@@ -70,6 +75,9 @@ http.Client cliente(Escenario e) {
   });
 }
 
+/// La hora de todas las capturas: 10:00 de Colombia del 15 de octubre de 2026 (la misma del reloj del día del arnés).
+final horaDePrueba = DateTime.utc(2026, 10, 15, 15);
+
 Future<void> _fuentes() async {
   for (final (familia, archivo) in [('Outfit', 'assets/fonts/nuevas/Outfit.ttf'), ('PlusJakartaSans', 'assets/fonts/nuevas/PlusJakartaSans.ttf')]) {
     final f = FontLoader(familia)..addFont(rootBundle.load(archivo));
@@ -82,6 +90,14 @@ Widget _conMarco(Widget p, Pestana? pestana) => pestana == null ? p : Scaffold(b
 
 Future<void> _montar(WidgetTester t, Widget pantalla, {required Brightness tema, Escenario escenario = Escenario.real, bool sesion = false, Pestana? pestana}) async {
   SharedPreferences.setMockInitialValues({});
+  ahora = () => horaDePrueba;
+  if (escenario == Escenario.copia) {
+    // Una carga buena anterior deja su copia en el teléfono; después el servidor falla.
+    await t.runAsync(() async {
+      await EstadoSecador(SiscanApi(client: cliente(Escenario.real)), cada: null).cargar();
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    });
+  }
   t.view.physicalSize = const Size(1170, 2532);
   t.view.devicePixelRatio = 3;
   t.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
@@ -89,7 +105,9 @@ Future<void> _montar(WidgetTester t, Widget pantalla, {required Brightness tema,
   final estado = EstadoSecador(api, cada: null);
   final auth = AuthController(client: MockClient((_) async => http.Response('{}', 401)), store: MemoryCredentialStore());
   if (sesion) auth.session = const AuthSession(user: 'gestor', displayName: 'Gestor de prueba', header: 'Basic prueba', canControl: true);
-  final tm = TemaApp()..modo = tema == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
+  // La escena de Inicio sigue la hora: el reloj del día se fija a las 10:00 de Colombia para que la captura no dependa
+  // de la hora a la que se corra la prueba (la cabecera en los tres momentos se mide en cabecera_inicio_test.dart).
+  final tm = TemaApp(reloj: RelojDelDia(ahora: () => horaDePrueba))..preferencia = tema == Brightness.dark ? PreferenciaTema.oscuro : PreferenciaTema.claro;
   await t.runAsync(() async {
     estado.iniciar();
     await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -115,7 +133,9 @@ double _ratio(Color a, Color b) { final x = _lum(a), y = _lum(b); return (math.m
 
 /// Contraste medido sobre el render: para cada texto visible, su color (compuesto sobre el fondo) contra el color de
 /// fondo más frecuente dentro de su caja. Devuelve los que no llegan a AA (4,5; 3 en texto grande).
-Future<List<String>> medirContraste(WidgetTester t) async {
+/// `solo`: mide únicamente los textos dentro de ese widget (una hoja modal: lo de detrás queda bajo el velo y no se lee).
+Future<List<String>> medirContraste(WidgetTester t, {Finder? solo}) async {
+  final dentro = solo == null ? null : {for (final e in find.descendant(of: solo, matching: find.byType(RichText)).evaluate()) e.renderObject};
   final img = (await t.runAsync(() => captureImage(t.element(find.byType(MaterialApp)))))!;
   final datos = (await t.runAsync(() => img.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
   final w = img.width, h = img.height, dpr = img.width / (t.view.physicalSize.width / t.view.devicePixelRatio);
@@ -126,7 +146,7 @@ Future<List<String>> medirContraste(WidgetTester t) async {
   final deBarra = {for (final e in find.descendant(of: find.byType(BarraInferior), matching: find.byType(RichText)).evaluate()) e.renderObject};
   bool enBarra(RenderObject o) => deBarra.contains(o);
   void visitar(RenderObject o) {
-    if (o is RenderParagraph) {
+    if (o is RenderParagraph && (dentro == null || dentro.contains(o))) {
       final r = o.localToGlobal(Offset.zero) & o.size;
       if (barra != null && r.bottom > barra.top + 1 && !enBarra(o)) { o.visitChildren(visitar); return; }
       final caja = Rect.fromLTRB(r.left * dpr, r.top * dpr, r.right * dpr, r.bottom * dpr).intersect(Rect.fromLTWH(0, 0, w.toDouble(), h.toDouble()));
@@ -176,7 +196,10 @@ const _toque = MinimumTapTargetGuideline(size: Size(44, 44), link: 'CLAUDE.md ·
 
 void main() {
   setUpAll(_fuentes);
-  tearDown(() => TestWidgetsFlutterBinding.instance.platformDispatcher.clearAllTestValues());
+  tearDown(() {
+    TestWidgetsFlutterBinding.instance.platformDispatcher.clearAllTestValues();
+    ahora = DateTime.now;
+  });
 
   final casos = <(String, Widget Function(), Pestana?, Escenario, bool)>[
     ('00-carga', () => const PantallaCarga(), null, Escenario.real, false),
@@ -197,9 +220,12 @@ void main() {
     ('13-calibracion', () => const PantallaCalibracion(), null, Escenario.real, true),
     ('14-ubicacion', () => const PantallaUbicacion(), null, Escenario.real, true),
     ('15-privacidad', () => const PantallaPrivacidad(), null, Escenario.real, false),
+    ('15l-licencias', () => const PantallaLicencias(), null, Escenario.real, false),
     ('16-reloj', () => const PantallaReloj(), null, Escenario.real, false),
     ('20-estado-vacio', () => PantallaInicio(irA: (_) {}), Pestana.inicio, Escenario.vacio, false),
     ('21-estado-error', () => PantallaInicio(irA: (_) {}), Pestana.inicio, Escenario.error, false),
+    ('22-estado-cargando', () => PantallaInicio(irA: (_) {}), Pestana.inicio, Escenario.cargando, false),
+    ('23-estado-copia-guardada', () => PantallaInicio(irA: (_) {}), Pestana.inicio, Escenario.copia, false),
   ];
 
   testWidgets('Equipo: encender una resistencia exige mantener presionado (un solo botón, para la que se tocó)', (t) async {
@@ -229,6 +255,47 @@ void main() {
       expect(t.takeException(), isNull);
     }
   });
+
+  // Paso 4 (C3): el tema con cuatro opciones en una lista de opción única, por toque, lector y teclado.
+  for (final tema in Brightness.values) {
+    final sufijo = tema == Brightness.dark ? 'oscuro' : 'claro';
+    testWidgets('Más › Tema: lista de opción única ($sufijo)', (t) async {
+      final h = t.ensureSemantics();
+      await _montar(t, PantallaMas(onIngresar: () {}), tema: tema, pestana: Pestana.mas);
+      await t.tap(find.text('Tema'));
+      await t.pumpAndSettle();
+      await expectLater(find.byType(MaterialApp), matchesGoldenFile('capturas/06t-tema-$sufijo.png'));
+      await expectLater(t, meetsGuideline(_toque));
+      expect(await medirContraste(t, solo: find.byType(BottomSheet)), isEmpty, reason: 'Contraste AA medido sobre el render');
+      // Lector: cuatro opciones de un grupo excluyente, una sola marcada (la del tema actual).
+      final nodos = [for (final o in ['Claro', 'Oscuro', 'Según la hora', 'Como el teléfono']) t.getSemantics(find.bySemanticsLabel(RegExp('^$o' r'\. ')))];
+      expect(nodos.every((n) => n.flagsCollection.isInMutuallyExclusiveGroup), isTrue);
+      expect(nodos.where((n) => n.flagsCollection.isChecked == CheckedState.isTrue).length, 1);
+      expect(nodos[tema == Brightness.dark ? 1 : 0].flagsCollection.isChecked, CheckedState.isTrue);
+      expect(nodos.every((n) => n.getSemanticsData().hasAction(SemanticsAction.tap)), isTrue);
+      // Teclado: con Tab se llega a «Según la hora» (foco visible) y Enter la elige.
+      final destino = t.getRect(find.text('Según la hora'));
+      var llego = false;
+      for (var i = 0; i < 12 && !llego; i++) {
+        await t.sendKeyEvent(LogicalKeyboardKey.tab);
+        await t.pump();
+        final foco = FocusManager.instance.primaryFocus?.context?.findRenderObject();
+        if (foco is RenderBox && foco.hasSize) {
+          final r = foco.localToGlobal(Offset.zero) & foco.size;
+          llego = r.top <= destino.center.dy && r.bottom >= destino.center.dy;
+        }
+      }
+      expect(llego, isTrue, reason: 'Tab llega a «Según la hora»');
+      if (tema == Brightness.light) await expectLater(find.byType(MaterialApp), matchesGoldenFile('capturas/06t-tema-foco-claro.png'));
+      await t.sendKeyEvent(LogicalKeyboardKey.enter);
+      await t.pumpAndSettle();
+      final temaApp = Siscan.of(t.element(find.byType(PantallaMas))).tema;
+      expect(temaApp.preferencia, PreferenciaTema.hora);
+      expect(find.text('Según la hora'), findsOneWidget, reason: 'la hoja se cerró y Más dice el tema elegido');
+      temaApp.preferencia = PreferenciaTema.claro; // suelta el temporizador del reloj del día antes de terminar
+      h.dispose();
+    });
+  }
 
   testWidgets('Lector de pantalla: cada control tiene su propio nodo (no se funde con el encabezado)', (t) async {
     final h = t.ensureSemantics();
