@@ -1,6 +1,6 @@
 # SISCAN — dónde vamos y cómo seguir
 
-Actualizado: 2026-10-15 (noche). Léelo primero al retomar. El detalle de cada pieza está en los anexos que se enlazan.
+Actualizado: 2026-10-17. Léelo primero al retomar. El detalle de cada pieza está en los anexos que se enlazan.
 
 ## Repositorios y carpetas
 
@@ -102,6 +102,34 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 7. Probar en un Android de gama baja real (desenfoque 14) y TalkBack con voz (solo se verificó el árbol de accesibilidad).
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
+
+### 7. Idiomas es/en/pt-BR (C4): paso 3 hecho, esperando visto bueno (2026-10-17)
+- Rama `feature/idiomas` desde `feature/invernadero-y-tema-por-hora` (PR #4 contra `feature/reloj-sistema-v2`; esa rama no
+  se toca). **Sin commit.**
+- **Ojo: `C:\dev\siscan` es una unión (junction) que apunta al árbol real `App Mobile`, no una copia**: los dos son la
+  misma carpeta. Flutter funciona desde `cmd` con `cd /d C:\dev\siscan\siscan_app` (el analizador falla con la «ñ» si
+  se llama desde Git Bash, porque resuelve la ruta real).
+- Anexo y contrato (I1–I7): `docs/ux/anexos/2026-10-15-idiomas.md` (sección 10 = paso 3). Inventario:
+  `docs/ux/anexos/2026-10-15-idiomas-inventario.tsv`.
+- **Decisiones de Diego**:
+  - 2026-10-16: D1–D8 en A, `intl` 0.20.3 y excepción de 4 fuentes.
+  - 2026-10-17: visto bueno al paso 2 y «Aparelhos» para «Equipo» en portugués.
+- **Paso 2** (infraestructura): gen_l10n, `IdiomaApp` + `LocaleManager`, formato por idioma, barra y Más › Idioma, reloj
+  `values-en`/`values-pt-rBR`. Aprobado.
+- **Paso 3 hecho**:
+  - Toda la página Más y lo que se abre desde ella, en ARB: 129 claves nuevas con descripción (en/pt, borradores I7).
+    Incluye «Volver», los avisos de los interruptores y `leerCifra()`.
+  - Goldens nuevos: `06m-mas-{es,en,pt}-{claro,oscuro}` y subpáginas en/pt (`06m-mas-tema`, `06m-ubicacion`,
+    `06m-privacidad-borrar`, `06m-historial`).
+  - Barrido medido en 3 idiomas × 360/390/412: 0 desbordes, 0 recortes, contraste AA y toques 0 fallas.
+  - analyze 0; batería 120/120 (dos corridas). Se regeneró `15l-licencias-claro`: la referencia guardada mostraba «Cargando…» (fallo previo del arnés, corregido).
+- **Decisiones abiertas** (sección 10 del anexo):
+  1. Ficha pt «Definida manualmente» parte «Localização» a 360 px. Recomendada: «Fixada à mão».
+  2. Píldora «Sin calibrar» en Calibración › Sensores: FilaSensor ya parte palabras en español; en/pt lo empeoran.
+     Propuesta de disposición para decidir con el paso 4.
+- Siguiente: **paso 4**, pasar el resto de los textos (componentes compartidos, Inicio, Lotes, Pesaje, Equipo, alertas,
+  notificaciones, widgets, reloj). Después: la política en tres idiomas (5) y la verificación final (6). Las traducciones
+  en/pt son borradores: las debe revisar una persona nativa.
 
 ## Hechos de la tesis que no hay que olvidar (para no volver a equivocarse)
 - Lote 3 «juco» = protocolo **A** (aire libre), 12 pesajes, 44,4 → 10,6 %. Lote 2 «El Motilón» = protocolo **B** (secador
