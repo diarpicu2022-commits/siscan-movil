@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portugués de Brasil (anexo de idiomas 2026-10-15, I3). Borrador técnico: lo debe revisar una persona nativa. SISCAN es la marca: no se traduce. -->
+<resources>
+    <string name="tile_label">SISCAN · Lote</string>
+    <string name="complication_humedad">Umidade do grão</string>
+    <string name="complication_temperatura">Temperatura interna</string>
+    <string name="complication_alertas">Alertas do secador</string>
+    <string name="complication_lote">Lote e tempo restante</string>
+</resources>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show MethodChannel;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/momento.dart';
@@ -71,13 +72,89 @@ class TemaApp extends ChangeNotifier {
   }
 }
 
-/// Lo que comparten las pantallas: servidor, estado del secador, sesión y tema.
+/// Idioma elegido en Más › Idioma (anexo de idiomas, I1–I2). Los nombres van en su propio idioma; el saludo ayuda a
+/// reconocerlo aunque la app esté en otro.
+enum PreferenciaIdioma {
+  es('es', 'Español', '¡Hola!', Locale('es', 'CO')),
+  en('en', 'English', 'Hello!', Locale('en')),
+  pt('pt', 'Português', 'Olá!', Locale('pt', 'BR')),
+  sistema('sistema', '', '', null);
+
+  const PreferenciaIdioma(this.clave, this.nombre, this.saludo, this.locale);
+  /// Valor guardado en SharedPreferences `siscan_idioma`.
+  final String clave;
+  /// Endónimo: el idioma escrito en sí mismo (no se traduce).
+  final String nombre, saludo;
+  final Locale? locale;
+  static PreferenciaIdioma desde(String? v) => values.firstWhere((p) => p.clave == v, orElse: () => sistema);
+  /// Idioma soportado más cercano a un código (`fr` u otros que no estén → español, el idioma base de SISCAN).
+  static PreferenciaIdioma deCodigo(String codigo) => switch (codigo) { 'en' => en, 'pt' => pt, _ => es };
+}
+
+/// Idioma de la app: `siscan_idioma` en el teléfono y, en Android 13+, el idioma por app del sistema (Ajustes › Idiomas
+/// de apps), sincronizados por el canal `siscan/idioma` (LocaleManager). «Como el teléfono» es la lista vacía.
+class IdiomaApp extends ChangeNotifier {
+  IdiomaApp({MethodChannel? canal}) : _canal = canal ?? const MethodChannel('siscan/idioma');
+  final MethodChannel _canal;
+  PreferenciaIdioma _preferencia = PreferenciaIdioma.sistema;
+  PreferenciaIdioma get preferencia => _preferencia;
+
+  /// Lo que recibe MaterialApp: `null` sigue al teléfono.
+  Locale? get locale => _preferencia.locale;
+
+  Future<void> cargar() async {
+    String? guardada;
+    try { guardada = (await SharedPreferences.getInstance()).getString('siscan_idioma'); } catch (_) {}
+    var p = PreferenciaIdioma.desde(guardada);
+    // Si la persona cambió el idioma de SISCAN en Ajustes de Android con la app cerrada, gana el del sistema.
+    // `null`: Android 12 o anterior (no hay idioma por app) o sin canal; `''`: el sistema dice «como el teléfono».
+    try {
+      final delSistema = await _canal.invokeMethod<String>('leer');
+      if (delSistema != null) {
+        p = delSistema.isEmpty ? PreferenciaIdioma.sistema : PreferenciaIdioma.deCodigo(delSistema.split('-').first);
+      }
+    } catch (_) {/* sin canal (pruebas o plataforma sin LocaleManager): queda la preferencia propia */}
+    _preferencia = p;
+    notifyListeners();
+  }
+
+  /// Idioma del teléfono (no el de la app): con un idioma por app puesto en Android 13+, Flutter ve el de la app.
+  Future<PreferenciaIdioma> delTelefono() async {
+    try {
+      final e = await _canal.invokeMethod<String>('sistema');
+      if (e != null && e.isNotEmpty) return PreferenciaIdioma.deCodigo(e.split(',').first.split('-').first);
+    } catch (_) {}
+    return PreferenciaIdioma.deCodigo(WidgetsBinding.instance.platformDispatcher.locale.languageCode);
+  }
+
+  Future<void> cambiar(PreferenciaIdioma p) async {
+    _preferencia = p;
+    notifyListeners();
+    try { await (await SharedPreferences.getInstance()).setString('siscan_idioma', p.clave); } catch (_) {}
+    await _fijarEnSistema(p);
+  }
+
+  /// «Borrar los datos de este teléfono»: quita la preferencia y vuelve a seguir al teléfono.
+  Future<void> olvidar() async {
+    _preferencia = PreferenciaIdioma.sistema;
+    notifyListeners();
+    try { await (await SharedPreferences.getInstance()).remove('siscan_idioma'); } catch (_) {}
+    await _fijarEnSistema(PreferenciaIdioma.sistema);
+  }
+
+  Future<void> _fijarEnSistema(PreferenciaIdioma p) async {
+    try { await _canal.invokeMethod<void>('fijar', {'etiqueta': p.locale?.toLanguageTag() ?? ''}); } catch (_) {}
+  }
+}
+
+/// Lo que comparten las pantallas: servidor, estado del secador, sesión, tema e idioma.
 class Siscan extends InheritedWidget {
-  const Siscan({super.key, required this.api, required this.estado, required this.auth, required this.tema, required super.child});
+  const Siscan({super.key, required this.api, required this.estado, required this.auth, required this.tema, required this.idioma, required super.child});
   final SiscanApi api;
   final EstadoSecador estado;
   final AuthController auth;
   final TemaApp tema;
+  final IdiomaApp idioma;
   static Siscan of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<Siscan>()!;
   @override
   bool updateShouldNotify(Siscan o) => false;

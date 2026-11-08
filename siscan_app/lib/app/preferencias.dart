@@ -3,6 +3,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/ui/base.dart';
+import '../l10n/app_localizations.dart';
 import 'notificaciones.dart';
 
 /// Preferencias del teléfono: notificaciones y huella. Solo en este teléfono.
@@ -28,7 +29,7 @@ class Preferencias extends ChangeNotifier {
   Future<void> cambiarNotificaciones(BuildContext context, bool v) async {
     if (v) {
       final ok = await Notificaciones.pedirPermiso();
-      if (!ok) { if (context.mounted) aviso(context, 'Android no dio permiso para notificaciones. Actívalo en los ajustes del teléfono.', error: true); return; }
+      if (!ok) { if (context.mounted) aviso(context, AppLocalizations.of(context).prefSinPermisoNotif, error: true); return; }
       await Notificaciones.programar();
     } else {
       await Notificaciones.cancelar();
@@ -41,9 +42,10 @@ class Preferencias extends ChangeNotifier {
   /// Activa el ingreso con huella solo después de verificarla una vez con el sensor del teléfono.
   Future<void> cambiarHuella(BuildContext context, bool v) async {
     if (v) {
+      final t = AppLocalizations.of(context);
       final puede = await _auth.isDeviceSupported() && await _auth.canCheckBiometrics;
-      if (!puede) { if (context.mounted) aviso(context, 'Este teléfono no tiene huella configurada.', error: true); return; }
-      if (!await verificarHuella('Confirma tu huella para activar el ingreso rápido')) return;
+      if (!puede) { if (context.mounted) aviso(context, t.prefSinHuella, error: true); return; }
+      if (!await verificarHuella(t.prefConfirmaHuella)) return;
     }
     huella = v;
     await _guardar('siscan_huella', v);

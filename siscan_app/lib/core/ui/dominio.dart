@@ -344,8 +344,8 @@ class ElementoLista extends StatelessWidget {
 class ListaOpcionUnica<T> extends StatelessWidget {
   const ListaOpcionUnica({super.key, required this.valor, required this.opciones, required this.onChanged});
   final T valor;
-  /// (valor, ícono, título, explicación)
-  final List<(T, String, String, String)> opciones;
+  /// (valor, ícono o null, título, explicación). Sin ícono cuando ninguno dice algo cierto (los idiomas: sin banderas).
+  final List<(T, String?, String, String)> opciones;
   final ValueChanged<T> onChanged;
   @override
   Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
@@ -356,7 +356,8 @@ class ListaOpcionUnica<T> extends StatelessWidget {
 
 class _FilaOpcion extends StatefulWidget {
   const _FilaOpcion({required this.icono, required this.titulo, required this.sub, required this.elegida, required this.ultima, required this.onTap});
-  final String icono, titulo, sub;
+  final String? icono;
+  final String titulo, sub;
   final bool elegida, ultima;
   final VoidCallback onTap;
   @override
@@ -384,8 +385,7 @@ class _FilaOpcionState extends State<_FilaOpcion> {
           padding: const EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(border: w.ultima ? null : Border(bottom: BorderSide(color: c.linea))),
           child: Row(children: [
-            Cuadro(icono: w.icono, color: c.hoja),
-            const SizedBox(width: 14),
+            if (w.icono != null) ...[Cuadro(icono: w.icono!, color: c.hoja), const SizedBox(width: 14)],
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(w.titulo, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.tinta)),
               Text(w.sub, style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),

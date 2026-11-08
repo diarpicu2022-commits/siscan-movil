@@ -100,6 +100,8 @@ void main() {
           t.view.physicalSize = Size(ancho * dpr, altoPantalla * dpr);
           t.view.padding = const FakeViewPadding(top: 24 * dpr); // barra de estado de Android
           t.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
+          t.platformDispatcher.localesTestValue = const [Locale('es', 'CO')];
+          t.platformDispatcher.alwaysUse24HourFormatTestValue = true;
           // Lote en curso con la predicción también en curso (5 h 40 y confianza 75), para que se dibujen y se midan
           // «faltan ~X» en hoja y la confianza: con el fixture tal cual (objetivo alcanzado) no aparecen.
           final base = cliente(Escenario.vivo);

@@ -1,4 +1,4 @@
-Íconos derivados de Lucide (https://lucide.dev) en este paquete: los del sistema de diseño SISCAN v2 marcados como Lucide y «luna» (moon, lucide-static 1.57.0). Avisos de licencia que exigen conservarse en las copias:
+Íconos derivados de Lucide (https://lucide.dev) en este paquete: los del sistema de diseño SISCAN v2 marcados como Lucide, más «luna» (moon) e «idiomas» (languages), de lucide-static 1.57.0. Avisos de licencia que exigen conservarse en las copias:
 
 ISC License
 

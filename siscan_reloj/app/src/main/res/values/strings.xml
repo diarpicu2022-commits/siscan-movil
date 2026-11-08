@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SISCAN</string>
+    <string name="app_name" translatable="false">SISCAN</string>
     <string name="tile_label">SISCAN · Lote</string>
     <string name="complication_humedad">Humedad del grano</string>
     <string name="complication_temperatura">Temperatura interior</string>

@@ -2,9 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart' show Locale;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/formato.dart';
 import '../core/theme/siscan_theme.dart';
+import '../l10n/app_localizations.dart';
 import 'api.dart';
 
 /// Reglas del sistema (01-secado): sin dato 2 min = advertencia; 10 min = sin conexión.
@@ -16,16 +19,18 @@ const avisoMin = 2, fueraMin = 10;
 DateTime Function() ahora = DateTime.now;
 
 DateTime? fecha(Object? s) => s == null ? null : DateTime.parse('${(s as String).replaceFirst(' ', 'T')}-05:00');
-const _meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-String hm(DateTime d) { final c = co(d); return '${c.hour.toString().padLeft(2, '0')}:${c.minute.toString().padLeft(2, '0')}'; }
-String dia(DateTime? d) { if (d == null) return '—'; final c = co(d); return '${c.day} ${_meses[c.month - 1]}'; }
-/// «Hoy · 07:40», «Ayer · 18:06», «2 oct · 07:40».
+/// Hora de Colombia en 24 o 12 h según el teléfono, con el formato del idioma (I5).
+String hm(DateTime d) => horaMinuto(co(d));
+/// «19 ago», «Aug 19», «19 de ago.».
+String dia(DateTime? d) => d == null ? '—' : diaMes(co(d));
+/// «Hoy · 07:40», «Ayer · 18:06», «2 oct · 07:40» (y su forma en inglés y portugués).
 String corta(DateTime? d) {
   if (d == null) return '—';
   final hoy = co(ahora()), ayer = hoy.subtract(const Duration(days: 1));
   bool mismo(DateTime a, DateTime b) { final x = co(a); return x.year == b.year && x.month == b.month && x.day == b.day; }
-  if (mismo(d, hoy)) return 'Hoy · ${hm(d)}';
-  if (mismo(d, ayer)) return 'Ayer · ${hm(d)}';
+  final t = lookupAppLocalizations(Locale(idiomaFormato));
+  if (mismo(d, hoy)) return '${t.hoy} · ${hm(d)}';
+  if (mismo(d, ayer)) return '${t.ayer} · ${hm(d)}';
   return '${dia(d)} · ${hm(d)}';
 }
 double minutosDesde(DateTime? d) => d == null ? double.infinity : ahora().difference(d).inSeconds / 60;
