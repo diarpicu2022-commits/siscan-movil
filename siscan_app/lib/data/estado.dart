@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart' show Locale;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/formato.dart';
+import '../core/textos.dart';
 import '../core/theme/siscan_theme.dart';
 import '../l10n/app_localizations.dart';
 import 'api.dart';
@@ -29,17 +30,18 @@ String corta(DateTime? d) {
   final hoy = co(ahora()), ayer = hoy.subtract(const Duration(days: 1));
   bool mismo(DateTime a, DateTime b) { final x = co(a); return x.year == b.year && x.month == b.month && x.day == b.day; }
   final t = lookupAppLocalizations(Locale(idiomaFormato));
-  if (mismo(d, hoy)) return '${t.hoy} · ${hm(d)}';
-  if (mismo(d, ayer)) return '${t.ayer} · ${hm(d)}';
-  return '${dia(d)} · ${hm(d)}';
+  // Espacio no separable antes del punto medio: si la línea no alcanza, baja la hora entera y no «· 14:53».
+  if (mismo(d, hoy)) return '${t.hoy}\u00A0· ${hm(d)}';
+  if (mismo(d, ayer)) return '${t.ayer}\u00A0· ${hm(d)}';
+  return '${dia(d)}\u00A0· ${hm(d)}';
 }
 double minutosDesde(DateTime? d) => d == null ? double.infinity : ahora().difference(d).inSeconds / 60;
 String hace(DateTime? d) {
   final m = minutosDesde(d);
-  if (m.isInfinite) return 'Sin dato';
-  if (m < 1) return 'Hace instantes';
-  if (m < 60) return 'Hace ${m.round()} min';
-  if (m < 24 * 60) return 'Hace ${(m / 60).round()} h';
+  if (m.isInfinite) return tr.haceSinDato;
+  if (m < 1) return tr.haceInstantes;
+  if (m < 60) return tr.haceMin(m.round());
+  if (m < 24 * 60) return tr.haceH((m / 60).round());
   return corta(d);
 }
 String duracion(num? horas) {
@@ -56,17 +58,21 @@ class Magnitud {
   final int dec;
 }
 
-const magnitudes = {
-  'TEMPERATURE_TOPE': Magnitud('Temperatura interior', 'tope', 'termometroTope', 'Tope de la cámara', 1, '°C'),
-  'HUMIDITY_TOPE': Magnitud('Humedad relativa interior', 'humedad', 'gotas', 'Cámara', 1, '%'),
-  'TEMPERATURE_EXTERIOR': Magnitud('Temperatura exterior', 'exterior', 'nubeSol', 'Ambiente', 1, '°C'),
-  'HUMIDITY_EXTERIOR': Magnitud('Humedad relativa exterior', 'exterior', 'nube', 'Ambiente', 1, '%'),
-  'HUMIDITY_CAFE_GRANO': Magnitud('Humedad del grano (sensor)', 'grano', 'grano', 'Capacitivo', 1, '%'),
-  'CURRENT': Magnitud('Corriente', 'corriente', 'rayo', 'Línea AC', 2, 'A'),
-  'POWER_CONTROLLER_W': Magnitud('Potencia del controlador', 'potencia', 'sensor', 'ESP32 y sensores', 0, 'W'),
-  'POWER_ACTUADORES_W': Magnitud('Potencia de actuadores', 'potencia', 'potencia', 'Ventiladores y resistencias', 0, 'W'),
-  'POWER_TOTAL_W': Magnitud('Potencia total', 'potencia', 'potencia', 'Controlador y actuadores', 0, 'W'),
-};
+/// Getter y no constante: los nombres salen del idioma activo.
+Map<String, Magnitud> get magnitudes {
+  final t = tr;
+  return {
+  'TEMPERATURE_TOPE': Magnitud(t.magTempInterior, 'tope', 'termometroTope', t.metaTope, 1, '°C'),
+  'HUMIDITY_TOPE': Magnitud(t.magHumInterior, 'humedad', 'gotas', t.metaCamara, 1, '%'),
+  'TEMPERATURE_EXTERIOR': Magnitud(t.magTempExterior, 'exterior', 'nubeSol', t.metaAmbiente, 1, '°C'),
+  'HUMIDITY_EXTERIOR': Magnitud(t.magHumExterior, 'exterior', 'nube', t.metaAmbiente, 1, '%'),
+  'HUMIDITY_CAFE_GRANO': Magnitud(t.magHumGrano, 'grano', 'grano', t.metaCapacitivo, 1, '%'),
+  'CURRENT': Magnitud(t.magCorriente, 'corriente', 'rayo', t.metaLineaAc, 2, 'A'),
+  'POWER_CONTROLLER_W': Magnitud(t.magPotControlador, 'potencia', 'sensor', t.metaEspSensores, 0, 'W'),
+  'POWER_ACTUADORES_W': Magnitud(t.magPotActuadores, 'potencia', 'potencia', t.metaVentResist, 0, 'W'),
+  'POWER_TOTAL_W': Magnitud(t.inicioPotenciaTotal, 'potencia', 'potencia', t.metaCtrlAct, 0, 'W'),
+  };
+}
 Magnitud magnitud(String tipo) => magnitudes[tipo] ?? Magnitud(tipo, 'humedad', 'sensor', '', 1, '');
 
 typedef J = Map<String, dynamic>;
@@ -106,13 +112,13 @@ class Base {
 
   /// Estado del secador (01-secado): operando, pausa, alerta o sin conexión.
   (Estado, String) get estado {
-    if (guardado || minutosDesde(ultimaT) > fueraMin) return (Estado.offline, ultimaT != null ? 'Sin conexión · último dato ${corta(ultimaT)}' : 'Sin conexión · aún no reporta');
-    if (alertas.any((a) => a['level'] == 'CRITICAL')) return (Estado.alert, 'Alerta');
-    if (activo != null) return (Estado.running, 'En operación');
-    return (Estado.paused, 'En pausa · sin lote activo');
+    if (guardado || minutosDesde(ultimaT) > fueraMin) return (Estado.offline, ultimaT != null ? tr.sinConexionUltimoDato(corta(ultimaT)) : tr.sinConexionNoReporta);
+    if (alertas.any((a) => a['level'] == 'CRITICAL')) return (Estado.alert, tr.estadoAlerta);
+    if (activo != null) return (Estado.running, tr.estadoEnOperacion);
+    return (Estado.paused, tr.estadoPausaSinLote);
   }
 
-  String get nombreSecador => (secador?['name'] as String? ?? 'Secador').replaceFirst(RegExp(r'^SISCAN\s*[—-]\s*'), '');
+  String get nombreSecador => (secador?['name'] as String? ?? tr.sitioSecador).replaceFirst(RegExp(r'^SISCAN\s*[—-]\s*'), '');
   String get sitio => secador?['locationLabel'] as String? ?? 'Nariño';
 }
 
@@ -151,7 +157,7 @@ class EstadoSecador extends ChangeNotifier {
       error = null;
       _guardar(crudo);
     } catch (e) {
-      error = e is ApiError ? e.mensaje : 'No pudimos conectarnos con el secador.';
+      error = e is ApiError ? e.mensaje : tr.errorConexion;
     } finally {
       cargando = false;
       notifyListeners();

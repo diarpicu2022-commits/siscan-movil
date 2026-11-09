@@ -539,9 +539,10 @@ void main() {
     }
     // ignore: avoid_print
     print(filas.join('\n'));
-    expect(filas[0], 'es 24h: 1.500,5 | −0,75 | 19 ago | 14:53 | Hoy · 10:00');
-    expect(filas[2], startsWith('en 24h: 1,500.5 | −0.75 | Aug 19 | 14:53 | Today · 10:00'));
-    expect(filas[4], startsWith('pt 24h: 1.500,5 | −0,75 | 19 de ago. | 14:53 | Hoje · 10:00'));
+    // Entre la fecha y el punto medio va un espacio no separable (paso 4a): la hora baja entera si no cabe.
+    expect(filas[0], 'es 24h: 1.500,5 | −0,75 | 19 ago | 14:53 | Hoy\u00A0· 10:00');
+    expect(filas[2], startsWith('en 24h: 1,500.5 | −0.75 | Aug 19 | 14:53 | Today\u00A0· 10:00'));
+    expect(filas[4], startsWith('pt 24h: 1.500,5 | −0,75 | 19 de ago. | 14:53 | Hoje\u00A0· 10:00'));
     expect(filas[1], matches(RegExp(r'2:53\sp\.m\.')), reason: 'español de Colombia en 12 h (con espacio fino, como CLDR)');
     expect(filas[5], contains('14:53'), reason: 'portugués de Brasil: 24 h aunque el teléfono esté en 12 h (CLDR pt-BR)');
     expect(filas[3], contains('2:53'), reason: 'inglés en 12 h');
@@ -632,6 +633,52 @@ void main() {
         }
         // Decisión de Diego (2026-10-18): «Fixada à mão». Desde entonces ningún título se parte a media palabra en ningún
         // idioma ni ancho (antes, «Localizaç|ão» en pt a 360 quedaba como pendiente explícito).
+        expect(fallas, isEmpty, reason: fallas.join('\n'));
+      });
+    }
+  }
+
+  // --- Idiomas, paso 4a (anexo 2026-10-15 · 11): Inicio con la escena del secador y los componentes compartidos. ---
+  // Golden de la parte de arriba (escena, cifra y mosaicos) en inglés y portugués, en los dos temas, a 360 px.
+  for (final (idioma, cod) in idiomas.skip(1)) {
+    for (final tema in Brightness.values) {
+      final sufijo = tema == Brightness.dark ? 'oscuro' : 'claro';
+      testWidgets('Inicio en $cod ($sufijo), 360 px', (t) async {
+        final h = t.ensureSemantics();
+        await _montar(t, PantallaInicio(irA: (_) {}), tema: tema, pestana: Pestana.inicio, idioma: idioma, ancho: 360);
+        await expectLater(find.byType(MaterialApp), matchesGoldenFile('capturas/07i-inicio-$cod-$sufijo.png'));
+        expect(t.takeException(), isNull, reason: 'Sin errores de render ni desbordes');
+        // Ningún texto de Inicio queda en español fuera de los nombres propios (I6): se coteja con el ARB del idioma.
+        final l = lookupAppLocalizations(idioma.locale!);
+        // La barra de avance no dibuja texto: su etiqueta es para el lector de pantalla.
+        expect(find.bySemanticsLabel(l.avanceObjetivo), findsWidgets, reason: 'barra de avance en $cod');
+        for (final x in [l.humedadGrano, l.reintentar, l.inicioTempInterior, l.inicioHumedadRelativa, l.inicioExterior, l.inicioPotenciaTotal]) {
+          expect(find.text(x), findsWidgets, reason: '«$x» en Inicio ($cod)');
+        }
+        h.dispose();
+      });
+    }
+  }
+
+  // Barrido de Inicio entero: tres idiomas × 360/390/412, sin desbordes ni recortes y, a 360, toques y contraste AA.
+  for (final (idioma, cod) in idiomas) {
+    for (final ancho in const [360.0, 390.0, 412.0]) {
+      testWidgets('Inicio en $cod a ${ancho.toInt()} px: sin desbordes', (t) async {
+        final temas = ancho == 360 ? Brightness.values : const [Brightness.light];
+        final fallas = <String>[];
+        for (final tema in temas) {
+          final h = t.ensureSemantics();
+          await t.pumpWidget(const SizedBox());
+          await _montar(t, PantallaInicio(irA: (_) {}), tema: tema, pestana: Pestana.inicio, idioma: idioma, ancho: ancho, alto: _altoBarrido);
+          final ex = t.takeException();
+          if (ex != null) fallas.add('inicio ($tema): $ex');
+          fallas.addAll([for (final f in _revisarTextos(t, cod, ancho, 'inicio', registrar: false)) 'inicio: $f']);
+          if (ancho == 360) {
+            await expectLater(t, meetsGuideline(_toque), reason: 'inicio ($tema)');
+            fallas.addAll([for (final f in await medirContraste(t)) 'inicio ($tema) contraste: $f']);
+          }
+          h.dispose();
+        }
         expect(fallas, isEmpty, reason: fallas.join('\n'));
       });
     }

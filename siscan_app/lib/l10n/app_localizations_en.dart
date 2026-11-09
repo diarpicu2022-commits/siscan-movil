@@ -485,4 +485,534 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get prefConfirmaHuella =>
       'Confirm your fingerprint to turn on quick sign-in';
+
+  @override
+  String get variedadSinRegistrar => 'Variety not recorded';
+
+  @override
+  String get sitioAireLibre => 'Open air';
+
+  @override
+  String get sitioSecador => 'Dryer';
+
+  @override
+  String get predCalculando => 'Calculating the prediction…';
+
+  @override
+  String predListoEn(String tiempo) {
+    return 'Ready in ~$tiempo';
+  }
+
+  @override
+  String get predRetiralo => 'Ready: take it out';
+
+  @override
+  String get predTermino => 'Finished on target';
+
+  @override
+  String get predSobresecado => 'Past the point: over-dried';
+
+  @override
+  String get predNoAlcanza => 'With this air it won\'t reach the target';
+
+  @override
+  String get predPocosPesajes => 'Too few weighings to predict';
+
+  @override
+  String get estadoAlerta => 'Alert';
+
+  @override
+  String get saludRedSinFallas => 'The neural network sees no faults';
+
+  @override
+  String get saludRedConFallas => 'The neural network sees faults';
+
+  @override
+  String saludSensoresNormales(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: '$cantidad sensors with a normal signal',
+      one: '1 sensor with a normal signal',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get saludEspConectado => 'ESP32 connected';
+
+  @override
+  String get saludEspSinConexion => 'ESP32 offline';
+
+  @override
+  String saludUltimoReporte(String cuando) {
+    return 'Last report $cuando';
+  }
+
+  @override
+  String get saludNoReporta => 'Not reporting yet';
+
+  @override
+  String saludSensoresReportando(int vivos, int total) {
+    return '$vivos of $total sensors reporting';
+  }
+
+  @override
+  String get saludActCopias => 'Actuators with duplicates';
+
+  @override
+  String get saludActRegistrados => 'Registered actuators';
+
+  @override
+  String saludActCuenta(int cantidad) {
+    return '$cantidad registered';
+  }
+
+  @override
+  String saludActCopiasGpio(int cantidad) {
+    return ' · $cantidad duplicates by GPIO';
+  }
+
+  @override
+  String get saludUltimoEstado => ' · last known state';
+
+  @override
+  String get redNormal => 'Normal';
+
+  @override
+  String get redPegado => 'Stuck';
+
+  @override
+  String get redSaturado => 'Saturated';
+
+  @override
+  String get redDeriva => 'Drift';
+
+  @override
+  String get redSalto => 'Step jump';
+
+  @override
+  String get redRuido => 'Noise';
+
+  @override
+  String get redPicos => 'Spikes';
+
+  @override
+  String get redSinDatos => 'No data';
+
+  @override
+  String get soloLecturaTitulo => 'Read-only view';
+
+  @override
+  String inicioHola(String nombre) {
+    return 'Hi, $nombre!';
+  }
+
+  @override
+  String get inicioHolaSinNombre => 'Hi!';
+
+  @override
+  String get inicioNoSeLeyo => 'Couldn\'t read the dryer';
+
+  @override
+  String get inicioLeyendo => 'Reading the dryer…';
+
+  @override
+  String inicioSubSinLotes(String secador) {
+    return '$secador · no batches';
+  }
+
+  @override
+  String inicioSubSecando(String secador, String lote) {
+    return '$secador · $lote drying';
+  }
+
+  @override
+  String inicioSubTerminado(String secador, String lote) {
+    return '$secador · $lote finished';
+  }
+
+  @override
+  String get sinLecturas => 'No readings';
+
+  @override
+  String ultimoDato(String cuando) {
+    return 'Last reading $cuando';
+  }
+
+  @override
+  String get inicioSinLotes => 'No batches recorded';
+
+  @override
+  String get inicioSinLotesTexto =>
+      'When you load coffee into the dryer, its record will show up here.';
+
+  @override
+  String get inicioTempInterior => 'Inside temp.';
+
+  @override
+  String get inicioHumedadRelativa => 'Relative humidity';
+
+  @override
+  String get inicioExterior => 'Outside';
+
+  @override
+  String get inicioPotenciaTotal => 'Total power';
+
+  @override
+  String get actEnFuncionamiento => 'Running';
+
+  @override
+  String get actDetenidos => 'Stopped';
+
+  @override
+  String actEncendiendo(String nombre) {
+    return '$nombre · Turning on…';
+  }
+
+  @override
+  String actApagando(String nombre) {
+    return '$nombre · Turning off…';
+  }
+
+  @override
+  String get ordenSeCumple => 'It takes effect when the ESP32 reports.';
+
+  @override
+  String get inicioSoloLectura =>
+      'Read-only view: sign in with your account to send commands.';
+
+  @override
+  String get alertas => 'Alerts';
+
+  @override
+  String get loteSecando => 'Drying';
+
+  @override
+  String get loteTerminado => 'Finished';
+
+  @override
+  String get humedadGrano => 'Bean moisture';
+
+  @override
+  String humedadGranoLector(String valor) {
+    return 'Bean moisture $valor';
+  }
+
+  @override
+  String get sinDato => 'no data';
+
+  @override
+  String get objetivoPrefijo => 'Target 10 – 12 % · ';
+
+  @override
+  String get predNoDisponible => 'prediction unavailable';
+
+  @override
+  String predFaltan(String tiempo) {
+    return '~$tiempo to go';
+  }
+
+  @override
+  String ultimoPesaje(String cuando) {
+    return 'Last weighing $cuando';
+  }
+
+  @override
+  String get avanceObjetivo => 'Progress toward the target';
+
+  @override
+  String get confianzaAlta => 'High confidence';
+
+  @override
+  String get confianzaMedia => 'Medium confidence';
+
+  @override
+  String get confianzaBaja => 'Low confidence';
+
+  @override
+  String get magTempInterior => 'Inside temperature';
+
+  @override
+  String get magHumInterior => 'Inside relative humidity';
+
+  @override
+  String get magTempExterior => 'Outside temperature';
+
+  @override
+  String get magHumExterior => 'Outside relative humidity';
+
+  @override
+  String get magHumGrano => 'Bean moisture (sensor)';
+
+  @override
+  String get magCorriente => 'Current';
+
+  @override
+  String get magPotControlador => 'Controller power';
+
+  @override
+  String get magPotActuadores => 'Actuator power';
+
+  @override
+  String get metaTope => 'Top of the chamber';
+
+  @override
+  String get metaCamara => 'Chamber';
+
+  @override
+  String get metaAmbiente => 'Outdoors';
+
+  @override
+  String get metaCapacitivo => 'Capacitive';
+
+  @override
+  String get metaLineaAc => 'AC line';
+
+  @override
+  String get metaEspSensores => 'ESP32 and sensors';
+
+  @override
+  String get metaVentResist => 'Fans and heaters';
+
+  @override
+  String get metaCtrlAct => 'Controller and actuators';
+
+  @override
+  String sinConexionUltimoDato(String cuando) {
+    return 'Offline · last reading $cuando';
+  }
+
+  @override
+  String get sinConexionNoReporta => 'Offline · not reporting yet';
+
+  @override
+  String get estadoEnOperacion => 'Running';
+
+  @override
+  String get estadoEnPausa => 'Paused';
+
+  @override
+  String get estadoSinConexion => 'Offline';
+
+  @override
+  String get estadoPausaSinLote => 'Paused · no active batch';
+
+  @override
+  String get errorConexion => 'We couldn\'t connect to the dryer.';
+
+  @override
+  String get haceSinDato => 'No data';
+
+  @override
+  String get haceInstantes => 'Just now';
+
+  @override
+  String haceMin(int minutos) {
+    return '$minutos min ago';
+  }
+
+  @override
+  String haceH(int horas) {
+    return '$horas h ago';
+  }
+
+  @override
+  String get claveOcultar => 'Hide password';
+
+  @override
+  String get claveMostrar => 'Show password';
+
+  @override
+  String get curvaSinPesajes =>
+      'No weighings yet: the curve appears with the first gravimetric sample.';
+
+  @override
+  String get curvaUnPesaje =>
+      'Only one weighing: the curve appears with the second.';
+
+  @override
+  String curvaResumen(String desde, String hasta) {
+    return 'Bean moisture dropped from $desde % to $hasta %. Target 10 – 12 %.';
+  }
+
+  @override
+  String get leyendaGravimetrico => 'Bean moisture (gravimetric)';
+
+  @override
+  String get leyendaPrediccionIa => 'AI prediction';
+
+  @override
+  String get leyendaObjetivo => 'Target';
+
+  @override
+  String get objetivoRango => 'Target 10 – 12 %';
+
+  @override
+  String get energiaTitulo => 'Energy use and cost';
+
+  @override
+  String get energiaSolar => 'Solar';
+
+  @override
+  String get energiaRed => 'Grid';
+
+  @override
+  String get energiaCosto => 'Cost';
+
+  @override
+  String get energiaGraficoLector =>
+      'Energy per period: solar below, grid above';
+
+  @override
+  String energiaTarifa(String tarifa) {
+    return 'Rate $tarifa/kWh';
+  }
+
+  @override
+  String get predModeloTesis => 'Thesis model';
+
+  @override
+  String get predTitulo => 'AI prediction';
+
+  @override
+  String get predTiempoRestante => 'Estimated time left';
+
+  @override
+  String get predConfianzaRotulo => 'Prediction confidence';
+
+  @override
+  String get predDatosConsiderados => 'Inputs considered';
+
+  @override
+  String get procesoLote => 'Batch process';
+
+  @override
+  String get zonaHumedo => 'Wet';
+
+  @override
+  String get zonaOreado => 'Pre-dried';
+
+  @override
+  String get zonaObjetivo => 'Target reached';
+
+  @override
+  String get zonaSobresecado => 'Over-dried';
+
+  @override
+  String get zonaHumedo53 => 'Wet 53 %';
+
+  @override
+  String get zonaActual => 'Current zone: ';
+
+  @override
+  String escalaLector(String valor, String zona) {
+    return 'Moisture scale: $valor %, $zona zone';
+  }
+
+  @override
+  String get actEncendido => 'On';
+
+  @override
+  String get actApagado => 'Off';
+
+  @override
+  String get actBloqueado => 'Locked';
+
+  @override
+  String get actEncendiendoSolo => 'Turning on…';
+
+  @override
+  String get actApagandoSolo => 'Turning off…';
+
+  @override
+  String actBloqueadoSeguridad(String motivo) {
+    return 'Locked for safety · $motivo';
+  }
+
+  @override
+  String get actPorProtocolo => 'Controlled by the protocol';
+
+  @override
+  String actNominal(String vatios) {
+    return 'Rated $vatios W';
+  }
+
+  @override
+  String get ordenEnviada => 'Command sent';
+
+  @override
+  String get mantenerHint =>
+      'Press and hold. With a screen reader, double-tap and hold.';
+
+  @override
+  String get alertasRecientes => 'Recent alerts';
+
+  @override
+  String get verTodas => 'See all';
+
+  @override
+  String get sinAlertas => 'No active alerts';
+
+  @override
+  String get todoEnOrden => 'All good.';
+
+  @override
+  String get saludTitulo => 'Is the equipment working?';
+
+  @override
+  String get saludSi => 'Yes, all good';
+
+  @override
+  String get saludRevisa => 'Check the equipment';
+
+  @override
+  String mapaLector(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Schematic map of Nariño with $cantidad dryers',
+      one: 'Schematic map of Nariño with 1 dryer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get sinOrdenes => 'No commands recorded yet.';
+
+  @override
+  String get ingresaParaCambios => 'Sign in with your account to make changes';
+
+  @override
+  String get cargandoSecador => 'Loading the dryer status…';
+
+  @override
+  String errorServidorCodigo(String codigo) {
+    return 'The server returned an error (code $codigo).';
+  }
+
+  @override
+  String get errorSinRespuesta => 'The server didn\'t respond.';
+
+  @override
+  String get errorReintentaSolo => ' It retries on its own every 30 s.';
+
+  @override
+  String get errorCargaTitulo => 'These data couldn\'t be loaded';
+
+  @override
+  String get reintentar => 'Try again';
+
+  @override
+  String avisoCopiaGuardada(String cuando) {
+    return 'No signal: you\'re seeing the saved copy ($cuando).';
+  }
+
+  @override
+  String avisoNoReportaDesde(String cuando) {
+    return 'The dryer hasn\'t reported since $cuando. You\'re seeing the last reading with its time.';
+  }
+
+  @override
+  String get avisoSuInstalacion => 'it was installed';
 }

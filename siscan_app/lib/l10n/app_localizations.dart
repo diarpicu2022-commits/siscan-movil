@@ -940,6 +940,918 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Confirma tu huella para activar el ingreso rápido'**
   String get prefConfirmaHuella;
+
+  /// Lote sin variedad en su nombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Variedad sin registrar'**
+  String get variedadSinRegistrar;
+
+  /// Lugar de secado: al aire libre (protocolo A).
+  ///
+  /// In es, this message translates to:
+  /// **'Aire libre'**
+  String get sitioAireLibre;
+
+  /// Lugar de secado: dentro del secador solar.
+  ///
+  /// In es, this message translates to:
+  /// **'Secador'**
+  String get sitioSecador;
+
+  /// Mientras llega la predicción de la tesis.
+  ///
+  /// In es, this message translates to:
+  /// **'Calculando la predicción…'**
+  String get predCalculando;
+
+  /// Tiempo que falta para el objetivo; tiempo ya formateado («5 h», «1 d 3 h»).
+  ///
+  /// In es, this message translates to:
+  /// **'Listo en ~{tiempo}'**
+  String predListoEn(String tiempo);
+
+  /// Lote en curso que ya llegó al objetivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Listo: retíralo'**
+  String get predRetiralo;
+
+  /// Lote cerrado que terminó entre 10 y 12 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Terminó en el objetivo'**
+  String get predTermino;
+
+  /// El grano quedó por debajo del 10 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasó el punto: sobre-secado'**
+  String get predSobresecado;
+
+  /// La predicción dice que con las condiciones actuales no llega al 10–12 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Con este aire no llega al objetivo'**
+  String get predNoAlcanza;
+
+  /// La red necesita más pesajes.
+  ///
+  /// In es, this message translates to:
+  /// **'Pocos pesajes para predecir'**
+  String get predPocosPesajes;
+
+  /// Estado del secador o título de una alerta sin título.
+  ///
+  /// In es, this message translates to:
+  /// **'Alerta'**
+  String get estadoAlerta;
+
+  /// Salud del equipo: veredicto de la red neuronal de la tesis.
+  ///
+  /// In es, this message translates to:
+  /// **'La red neuronal no ve fallas'**
+  String get saludRedSinFallas;
+
+  /// Salud del equipo: la red encontró sensores con falla.
+  ///
+  /// In es, this message translates to:
+  /// **'La red neuronal ve fallas'**
+  String get saludRedConFallas;
+
+  /// Detalle cuando la red no ve fallas.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad, plural, =1{1 sensor con señal normal} other{{cantidad} sensores con señal normal}}'**
+  String saludSensoresNormales(int cantidad);
+
+  /// El controlador reportó hace menos de 10 min.
+  ///
+  /// In es, this message translates to:
+  /// **'ESP32 conectado'**
+  String get saludEspConectado;
+
+  /// El controlador no reporta hace 10 min o más.
+  ///
+  /// In es, this message translates to:
+  /// **'ESP32 sin conexión'**
+  String get saludEspSinConexion;
+
+  /// Cuándo reportó el ESP32; cuando ya viene en minúscula («hace 5 min»).
+  ///
+  /// In es, this message translates to:
+  /// **'Último reporte {cuando}'**
+  String saludUltimoReporte(String cuando);
+
+  /// El ESP32 nunca ha reportado.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no reporta'**
+  String get saludNoReporta;
+
+  /// Sensores con dato reciente sobre el total.
+  ///
+  /// In es, this message translates to:
+  /// **'{vivos} de {total} sensores reportando'**
+  String saludSensoresReportando(int vivos, int total);
+
+  /// Hay actuadores repetidos en el mismo pin GPIO.
+  ///
+  /// In es, this message translates to:
+  /// **'Actuadores con copias'**
+  String get saludActCopias;
+
+  /// Título de la fila de actuadores.
+  ///
+  /// In es, this message translates to:
+  /// **'Actuadores registrados'**
+  String get saludActRegistrados;
+
+  /// Cantidad de actuadores registrados.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad} registrados'**
+  String saludActCuenta(int cantidad);
+
+  /// Se agrega después de la cantidad; empieza con espacio y punto medio.
+  ///
+  /// In es, this message translates to:
+  /// **' · {cantidad} copias por GPIO'**
+  String saludActCopiasGpio(int cantidad);
+
+  /// Se agrega cuando el ESP32 no reporta; empieza con espacio y punto medio.
+  ///
+  /// In es, this message translates to:
+  /// **' · último estado conocido'**
+  String get saludUltimoEstado;
+
+  /// Clase de la red neuronal: señal normal.
+  ///
+  /// In es, this message translates to:
+  /// **'Normal'**
+  String get redNormal;
+
+  /// Clase de la red neuronal: el sensor repite el mismo valor.
+  ///
+  /// In es, this message translates to:
+  /// **'Pegado'**
+  String get redPegado;
+
+  /// Clase de la red neuronal: el sensor está en su tope.
+  ///
+  /// In es, this message translates to:
+  /// **'Saturado'**
+  String get redSaturado;
+
+  /// Clase de la red neuronal: el sensor se desvía poco a poco.
+  ///
+  /// In es, this message translates to:
+  /// **'Deriva'**
+  String get redDeriva;
+
+  /// Clase de la red neuronal: cambio brusco de nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'Salto de escalón'**
+  String get redSalto;
+
+  /// Clase de la red neuronal: señal ruidosa.
+  ///
+  /// In es, this message translates to:
+  /// **'Ruido'**
+  String get redRuido;
+
+  /// Clase de la red neuronal: picos aislados.
+  ///
+  /// In es, this message translates to:
+  /// **'Picos'**
+  String get redPicos;
+
+  /// Clase de la red neuronal: no hay datos.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin datos'**
+  String get redSinDatos;
+
+  /// Título del bloque para quien no inició sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'Vista de solo lectura'**
+  String get soloLecturaTitulo;
+
+  /// Saludo de Inicio con el primer nombre.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Hola, {nombre}!'**
+  String inicioHola(String nombre);
+
+  /// Saludo de Inicio sin sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Hola!'**
+  String get inicioHolaSinNombre;
+
+  /// Subtítulo de Inicio cuando falló la carga.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo leer el secador'**
+  String get inicioNoSeLeyo;
+
+  /// Subtítulo de Inicio mientras carga.
+  ///
+  /// In es, this message translates to:
+  /// **'Leyendo el secador…'**
+  String get inicioLeyendo;
+
+  /// Subtítulo de Inicio sin lotes.
+  ///
+  /// In es, this message translates to:
+  /// **'{secador} · sin lotes'**
+  String inicioSubSinLotes(String secador);
+
+  /// Subtítulo de Inicio con el lote en curso.
+  ///
+  /// In es, this message translates to:
+  /// **'{secador} · {lote} secando'**
+  String inicioSubSecando(String secador, String lote);
+
+  /// Subtítulo de Inicio con el último lote cerrado.
+  ///
+  /// In es, this message translates to:
+  /// **'{secador} · {lote} terminado'**
+  String inicioSubTerminado(String secador, String lote);
+
+  /// Lectura sin ningún dato.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin lecturas'**
+  String get sinLecturas;
+
+  /// De cuándo es el último dato; cuando es «Hoy · 07:40».
+  ///
+  /// In es, this message translates to:
+  /// **'Último dato {cuando}'**
+  String ultimoDato(String cuando);
+
+  /// Estado vacío de Inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay lotes registrados'**
+  String get inicioSinLotes;
+
+  /// Texto del estado vacío de Inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuando ingreses café al secador, su registro aparecerá aquí.'**
+  String get inicioSinLotesTexto;
+
+  /// Mosaico corto de Inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Temp. interior'**
+  String get inicioTempInterior;
+
+  /// Mosaico de Inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad relativa'**
+  String get inicioHumedadRelativa;
+
+  /// Mosaico de Inicio: temperatura exterior.
+  ///
+  /// In es, this message translates to:
+  /// **'Exterior'**
+  String get inicioExterior;
+
+  /// Mosaico de Inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencia total'**
+  String get inicioPotenciaTotal;
+
+  /// Píldora: algún actuador encendido.
+  ///
+  /// In es, this message translates to:
+  /// **'En funcionamiento'**
+  String get actEnFuncionamiento;
+
+  /// Píldora: todos los actuadores apagados.
+  ///
+  /// In es, this message translates to:
+  /// **'Detenidos'**
+  String get actDetenidos;
+
+  /// Aviso mientras se manda la orden de encender.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} · Encendiendo…'**
+  String actEncendiendo(String nombre);
+
+  /// Aviso mientras se manda la orden de apagar.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} · Apagando…'**
+  String actApagando(String nombre);
+
+  /// Detalle del aviso de una orden.
+  ///
+  /// In es, this message translates to:
+  /// **'Se cumple cuando el ESP32 reporte.'**
+  String get ordenSeCumple;
+
+  /// Pie de la tarjeta Equipo sin sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'Vista de solo lectura: para mandar órdenes ingresa con tu cuenta.'**
+  String get inicioSoloLectura;
+
+  /// Botón de la campana.
+  ///
+  /// In es, this message translates to:
+  /// **'Alertas'**
+  String get alertas;
+
+  /// Píldora de lote en curso.
+  ///
+  /// In es, this message translates to:
+  /// **'Secando'**
+  String get loteSecando;
+
+  /// Píldora de lote cerrado.
+  ///
+  /// In es, this message translates to:
+  /// **'Terminado'**
+  String get loteTerminado;
+
+  /// Rótulo de la cifra principal.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad del grano'**
+  String get humedadGrano;
+
+  /// Para el lector de pantalla; valor es «10,6 %» o «sin dato».
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad del grano {valor}'**
+  String humedadGranoLector(String valor);
+
+  /// Valor que falta, en minúscula, dentro de una frase.
+  ///
+  /// In es, this message translates to:
+  /// **'sin dato'**
+  String get sinDato;
+
+  /// Inicio de la línea de predicción; termina en punto medio y espacio.
+  ///
+  /// In es, this message translates to:
+  /// **'Objetivo 10 – 12 % · '**
+  String get objetivoPrefijo;
+
+  /// Sigue a «Objetivo 10 – 12 % · ».
+  ///
+  /// In es, this message translates to:
+  /// **'predicción no disponible'**
+  String get predNoDisponible;
+
+  /// Sigue a «Objetivo 10 – 12 % · »; tiempo ya formateado.
+  ///
+  /// In es, this message translates to:
+  /// **'faltan ~{tiempo}'**
+  String predFaltan(String tiempo);
+
+  /// De cuándo es la cifra; cuando es «Hoy · 07:40».
+  ///
+  /// In es, this message translates to:
+  /// **'Último pesaje {cuando}'**
+  String ultimoPesaje(String cuando);
+
+  /// Etiqueta de la barra de avance.
+  ///
+  /// In es, this message translates to:
+  /// **'Avance hacia el objetivo'**
+  String get avanceObjetivo;
+
+  /// Confianza de la predicción ≥ 75 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza alta'**
+  String get confianzaAlta;
+
+  /// Confianza de la predicción entre 50 y 75 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza media'**
+  String get confianzaMedia;
+
+  /// Confianza de la predicción < 50 %.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza baja'**
+  String get confianzaBaja;
+
+  /// Magnitud: temperatura en el tope de la cámara.
+  ///
+  /// In es, this message translates to:
+  /// **'Temperatura interior'**
+  String get magTempInterior;
+
+  /// Magnitud: humedad del aire en la cámara.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad relativa interior'**
+  String get magHumInterior;
+
+  /// Magnitud.
+  ///
+  /// In es, this message translates to:
+  /// **'Temperatura exterior'**
+  String get magTempExterior;
+
+  /// Magnitud.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad relativa exterior'**
+  String get magHumExterior;
+
+  /// Magnitud: sonda capacitiva del grano.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad del grano (sensor)'**
+  String get magHumGrano;
+
+  /// Magnitud eléctrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Corriente'**
+  String get magCorriente;
+
+  /// Magnitud eléctrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencia del controlador'**
+  String get magPotControlador;
+
+  /// Magnitud eléctrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencia de actuadores'**
+  String get magPotActuadores;
+
+  /// Dónde mide el sensor.
+  ///
+  /// In es, this message translates to:
+  /// **'Tope de la cámara'**
+  String get metaTope;
+
+  /// Dónde mide el sensor.
+  ///
+  /// In es, this message translates to:
+  /// **'Cámara'**
+  String get metaCamara;
+
+  /// Dónde mide el sensor: fuera del secador.
+  ///
+  /// In es, this message translates to:
+  /// **'Ambiente'**
+  String get metaAmbiente;
+
+  /// Tipo de sensor.
+  ///
+  /// In es, this message translates to:
+  /// **'Capacitivo'**
+  String get metaCapacitivo;
+
+  /// Dónde mide el sensor de corriente.
+  ///
+  /// In es, this message translates to:
+  /// **'Línea AC'**
+  String get metaLineaAc;
+
+  /// Qué consume esa potencia.
+  ///
+  /// In es, this message translates to:
+  /// **'ESP32 y sensores'**
+  String get metaEspSensores;
+
+  /// Qué consume esa potencia.
+  ///
+  /// In es, this message translates to:
+  /// **'Ventiladores y resistencias'**
+  String get metaVentResist;
+
+  /// Qué suma la potencia total.
+  ///
+  /// In es, this message translates to:
+  /// **'Controlador y actuadores'**
+  String get metaCtrlAct;
+
+  /// Estado del secador; cuando es «Hoy · 07:40».
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión · último dato {cuando}'**
+  String sinConexionUltimoDato(String cuando);
+
+  /// Estado del secador que nunca reportó.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión · aún no reporta'**
+  String get sinConexionNoReporta;
+
+  /// Estado del secador.
+  ///
+  /// In es, this message translates to:
+  /// **'En operación'**
+  String get estadoEnOperacion;
+
+  /// Estado del secador.
+  ///
+  /// In es, this message translates to:
+  /// **'En pausa'**
+  String get estadoEnPausa;
+
+  /// Estado del secador.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión'**
+  String get estadoSinConexion;
+
+  /// Estado del secador sin lote en curso.
+  ///
+  /// In es, this message translates to:
+  /// **'En pausa · sin lote activo'**
+  String get estadoPausaSinLote;
+
+  /// Error de carga sin mensaje del servidor.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos conectarnos con el secador.'**
+  String get errorConexion;
+
+  /// Frescura de un dato que no existe.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin dato'**
+  String get haceSinDato;
+
+  /// Dato de hace menos de un minuto.
+  ///
+  /// In es, this message translates to:
+  /// **'Hace instantes'**
+  String get haceInstantes;
+
+  /// Antigüedad en minutos.
+  ///
+  /// In es, this message translates to:
+  /// **'Hace {minutos} min'**
+  String haceMin(int minutos);
+
+  /// Antigüedad en horas.
+  ///
+  /// In es, this message translates to:
+  /// **'Hace {horas} h'**
+  String haceH(int horas);
+
+  /// Botón del ojo del campo de contraseña.
+  ///
+  /// In es, this message translates to:
+  /// **'Ocultar contraseña'**
+  String get claveOcultar;
+
+  /// Botón del ojo del campo de contraseña.
+  ///
+  /// In es, this message translates to:
+  /// **'Mostrar contraseña'**
+  String get claveMostrar;
+
+  /// Curva de secado vacía.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin pesajes todavía: la curva aparece con la primera muestra gravimétrica.'**
+  String get curvaSinPesajes;
+
+  /// Curva de secado con un punto.
+  ///
+  /// In es, this message translates to:
+  /// **'Un solo pesaje: la curva aparece con el segundo.'**
+  String get curvaUnPesaje;
+
+  /// Resumen de la curva para el lector de pantalla; cifras ya formateadas.
+  ///
+  /// In es, this message translates to:
+  /// **'La humedad del grano bajó de {desde} % a {hasta} %; objetivo 10 – 12 %.'**
+  String curvaResumen(String desde, String hasta);
+
+  /// Leyenda de la curva.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad del grano (gravimétrico)'**
+  String get leyendaGravimetrico;
+
+  /// Leyenda de la curva.
+  ///
+  /// In es, this message translates to:
+  /// **'Predicción IA'**
+  String get leyendaPrediccionIa;
+
+  /// Leyenda de la curva.
+  ///
+  /// In es, this message translates to:
+  /// **'Objetivo'**
+  String get leyendaObjetivo;
+
+  /// Rótulo de la banda objetivo dentro del gráfico.
+  ///
+  /// In es, this message translates to:
+  /// **'Objetivo 10 – 12 %'**
+  String get objetivoRango;
+
+  /// Título de la tarjeta de energía.
+  ///
+  /// In es, this message translates to:
+  /// **'Consumo energético y costo'**
+  String get energiaTitulo;
+
+  /// Energía solar.
+  ///
+  /// In es, this message translates to:
+  /// **'Solar'**
+  String get energiaSolar;
+
+  /// Energía de la red.
+  ///
+  /// In es, this message translates to:
+  /// **'Red eléctrica'**
+  String get energiaRed;
+
+  /// Costo de la energía.
+  ///
+  /// In es, this message translates to:
+  /// **'Costo'**
+  String get energiaCosto;
+
+  /// Descripción del gráfico de barras para el lector de pantalla.
+  ///
+  /// In es, this message translates to:
+  /// **'Energía por periodo: solar abajo, red eléctrica arriba'**
+  String get energiaGraficoLector;
+
+  /// Tarifa con la moneda ya formateada.
+  ///
+  /// In es, this message translates to:
+  /// **'Tarifa {tarifa}/kWh'**
+  String energiaTarifa(String tarifa);
+
+  /// Ficha de la tarjeta de predicción.
+  ///
+  /// In es, this message translates to:
+  /// **'Modelo de la tesis'**
+  String get predModeloTesis;
+
+  /// Título de la tarjeta de predicción.
+  ///
+  /// In es, this message translates to:
+  /// **'Predicción de IA'**
+  String get predTitulo;
+
+  /// Rótulo de la cifra de la predicción.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo restante estimado'**
+  String get predTiempoRestante;
+
+  /// Rótulo de la barra de confianza.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza de la predicción'**
+  String get predConfianzaRotulo;
+
+  /// Entradas que usó el modelo.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos considerados'**
+  String get predDatosConsiderados;
+
+  /// Lector de pantalla de la línea de etapas.
+  ///
+  /// In es, this message translates to:
+  /// **'Proceso del lote'**
+  String get procesoLote;
+
+  /// Zona de la escala de humedad (> 30 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Húmedo'**
+  String get zonaHumedo;
+
+  /// Zona de la escala de humedad (20–30 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Oreado'**
+  String get zonaOreado;
+
+  /// Zona de la escala de humedad (10–12 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Objetivo alcanzado'**
+  String get zonaObjetivo;
+
+  /// Zona de la escala de humedad (< 10 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Sobresecado'**
+  String get zonaSobresecado;
+
+  /// Extremo izquierdo de la escala.
+  ///
+  /// In es, this message translates to:
+  /// **'Húmedo 53 %'**
+  String get zonaHumedo53;
+
+  /// Antes del nombre de la zona; termina en espacio.
+  ///
+  /// In es, this message translates to:
+  /// **'Zona actual: '**
+  String get zonaActual;
+
+  /// Lector de pantalla de la escala.
+  ///
+  /// In es, this message translates to:
+  /// **'Escala de humedad: {valor} %, zona {zona}'**
+  String escalaLector(String valor, String zona);
+
+  /// Estado de un actuador.
+  ///
+  /// In es, this message translates to:
+  /// **'Encendido'**
+  String get actEncendido;
+
+  /// Estado de un actuador.
+  ///
+  /// In es, this message translates to:
+  /// **'Apagado'**
+  String get actApagado;
+
+  /// Estado de un actuador bloqueado por seguridad.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueado'**
+  String get actBloqueado;
+
+  /// Estado mientras llega la orden.
+  ///
+  /// In es, this message translates to:
+  /// **'Encendiendo…'**
+  String get actEncendiendoSolo;
+
+  /// Estado mientras llega la orden.
+  ///
+  /// In es, this message translates to:
+  /// **'Apagando…'**
+  String get actApagandoSolo;
+
+  /// Motivo del bloqueo.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueado por seguridad · {motivo}'**
+  String actBloqueadoSeguridad(String motivo);
+
+  /// El protocolo automático manda el actuador.
+  ///
+  /// In es, this message translates to:
+  /// **'Controlado por el protocolo'**
+  String get actPorProtocolo;
+
+  /// Potencia nominal ya formateada.
+  ///
+  /// In es, this message translates to:
+  /// **'Nominal {vatios} W'**
+  String actNominal(String vatios);
+
+  /// Botón de mantener presionado al completar.
+  ///
+  /// In es, this message translates to:
+  /// **'Orden enviada'**
+  String get ordenEnviada;
+
+  /// Pista del lector de pantalla del botón de mantener.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantén presionado. Con lector de pantalla, toca dos veces y mantén.'**
+  String get mantenerHint;
+
+  /// Título de la tarjeta de alertas.
+  ///
+  /// In es, this message translates to:
+  /// **'Alertas recientes'**
+  String get alertasRecientes;
+
+  /// Enlace a todas las alertas.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver todas'**
+  String get verTodas;
+
+  /// Tarjeta de alertas vacía.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin alertas activas'**
+  String get sinAlertas;
+
+  /// Tarjeta de alertas vacía.
+  ///
+  /// In es, this message translates to:
+  /// **'Todo en orden.'**
+  String get todoEnOrden;
+
+  /// Título de la tarjeta de salud.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Está funcionando el equipo?'**
+  String get saludTitulo;
+
+  /// Veredicto de la tarjeta de salud.
+  ///
+  /// In es, this message translates to:
+  /// **'Sí, todo en orden'**
+  String get saludSi;
+
+  /// Veredicto de la tarjeta de salud.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa el equipo'**
+  String get saludRevisa;
+
+  /// Lector de pantalla del mapa.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad, plural, =1{Mapa esquemático de Nariño con 1 secador} other{Mapa esquemático de Nariño con {cantidad} secadores}}'**
+  String mapaLector(int cantidad);
+
+  /// Registro de órdenes vacío.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin órdenes registradas todavía.'**
+  String get sinOrdenes;
+
+  /// Aviso al intentar una acción sin sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa con tu cuenta para hacer cambios'**
+  String get ingresaParaCambios;
+
+  /// Carga de pantalla.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando el estado del secador…'**
+  String get cargandoSecador;
+
+  /// Qué pasó, con el código HTTP.
+  ///
+  /// In es, this message translates to:
+  /// **'El servidor respondió con un error (código {codigo}).'**
+  String errorServidorCodigo(String codigo);
+
+  /// Qué pasó cuando no hubo respuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'No hubo respuesta del servidor.'**
+  String get errorSinRespuesta;
+
+  /// Se agrega al final; empieza con espacio.
+  ///
+  /// In es, this message translates to:
+  /// **' Se reintenta solo cada 30 s.'**
+  String get errorReintentaSolo;
+
+  /// Título de la tarjeta de error.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible cargar estos datos'**
+  String get errorCargaTitulo;
+
+  /// Botón para volver a pedir los datos.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get reintentar;
+
+  /// Aviso de copia guardada; cuando en minúscula («hoy · 07:40»).
+  ///
+  /// In es, this message translates to:
+  /// **'Sin señal: ves la copia guardada ({cuando}).'**
+  String avisoCopiaGuardada(String cuando);
+
+  /// Aviso de sin conexión; cuando es «19 ago · 14:53» o «su instalación».
+  ///
+  /// In es, this message translates to:
+  /// **'El secador no reporta desde {cuando}. Ves el último dato con su hora.'**
+  String avisoNoReportaDesde(String cuando);
+
+  /// Sigue a «no reporta desde» cuando nunca reportó.
+  ///
+  /// In es, this message translates to:
+  /// **'su instalación'**
+  String get avisoSuInstalacion;
 }
 
 class _AppLocalizationsDelegate

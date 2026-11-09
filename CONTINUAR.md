@@ -103,7 +103,11 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
 
-### 7. Idiomas es/en/pt-BR (C4): paso 3 hecho, esperando visto bueno (2026-10-17)
+### 7. Idiomas es/en/pt-BR (C4): paso 4a hecho, esperando visto bueno (2026-11-09)
+- 2026-11-09: visto bueno al paso 3, «Fixada à mão» y píldora «Sin calibrar» debajo del nombre en Calibración.
+  Paso 4 por partes (4a Inicio y compartidos, 4b Lotes y Pesaje, 4c Equipo, ingreso, alertas, notificaciones y
+  widgets, 4d reloj). **4a hecho**: 152 claves, goldens `07i-inicio-*`, barrido de Inicio 9/9, batería en verde,
+  analyze 0. Detalle en la sección 11 del anexo. Siguiente: 4b.
 - Rama `feature/idiomas` desde `feature/invernadero-y-tema-por-hora` (PR #4 contra `feature/reloj-sistema-v2`; esa rama no
   se toca). **Sin commit.**
 - **Ojo: `C:\dev\siscan` es una unión (junction) que apunta al árbol real `App Mobile`, no una copia**: los dos son la

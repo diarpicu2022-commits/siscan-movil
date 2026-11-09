@@ -8,6 +8,7 @@ import '../core/ui/datos.dart';
 import '../core/ui/dominio.dart';
 import '../core/ui/marco.dart';
 import '../data/estado.dart';
+import '../l10n/app_localizations.dart';
 import 'alertas.dart';
 import 'cabecera_inicio.dart';
 
@@ -18,15 +19,17 @@ class PantallaInicio extends StatelessWidget {
   final void Function(Pestana) irA;
   @override
   Widget build(BuildContext context) {
-    final s = Siscan.of(context);
+    final s = Siscan.of(context), t = AppLocalizations.of(context);
     return ConEstado(builder: (context, b) {
       final nombre = s.auth.session?.displayName.split(' ').first;
       final alertas = b?.alertas.length ?? 0;
       final barra = CabeceraInicio(
         base: b,
-        saludo: nombre != null ? '¡Hola, $nombre!' : '¡Hola!',
+        saludo: nombre != null ? t.inicioHola(nombre) : t.inicioHolaSinNombre,
         // Paso 6: sin datos y con error, el subtítulo no puede decir que está leyendo.
-        subtitulo: b == null ? (s.estado.error != null ? 'No se pudo leer el secador' : 'Leyendo el secador…') : '${b.nombreSecador} · ${b.lote == null ? 'sin lotes' : '${b.lote!['name']} ${b.activo != null ? 'secando' : 'terminado'}'}',
+        subtitulo: b == null ? (s.estado.error != null ? t.inicioNoSeLeyo : t.inicioLeyendo)
+            : b.lote == null ? t.inicioSubSinLotes(b.nombreSecador)
+            : b.activo != null ? t.inicioSubSecando(b.nombreSecador, '${b.lote!['name']}') : t.inicioSubTerminado(b.nombreSecador, '${b.lote!['name']}'),
         alertas: alertas,
         onAlertas: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PantallaAlertas())),
       );
@@ -40,28 +43,28 @@ class PantallaInicio extends StatelessWidget {
         final fresca = u != null && !b.guardado && minutosDesde(u.$1) <= fueraMin;
         return LecturaTile(rotulo: rotulo, magnitud: m.tono, icono: m.icono, valor: u?.$2, unidad: m.unidad, decimales: m.dec, vivo: fresca,
             datos: serie != null && serie.length > 1 ? serie.skip(serie.length > 24 ? serie.length - 24 : 0).map((x) => x.$2).toList() : null,
-            sub: u == null ? 'Sin lecturas' : fresca ? null : 'Último dato ${corta(u.$1)}');
+            sub: u == null ? t.sinLecturas : fresca ? null : t.ultimoDato(corta(u.$1)));
       }
       final ultimoOn = b.actuadores.any((a) => a['status'] == 'ON');
       return CuerpoPantalla(barra: barra, franjaDesde: franja, onRefrescar: s.estado.cargar, hijos: [
         if (b.estado.$1 == Estado.offline) AvisoSinConexion(base: b, onReintentar: s.estado.cargar),
-        if (b.lote == null) const EstadoVacio(titulo: 'No hay lotes registrados', texto: 'Cuando ingreses café al secador, su registro aparecerá aquí.', ilustracion: false),
+        if (b.lote == null) EstadoVacio(titulo: t.inicioSinLotes, texto: t.inicioSinLotesTexto, ilustracion: false),
         Column(children: [
-          for (final (i, par) in const [(('TEMPERATURE_TOPE', 'Temp. interior'), ('HUMIDITY_TOPE', 'Humedad relativa')), (('TEMPERATURE_EXTERIOR', 'Exterior'), ('POWER_TOTAL_W', 'Potencia total'))].indexed)
+          for (final (i, par) in [(('TEMPERATURE_TOPE', t.inicioTempInterior), ('HUMIDITY_TOPE', t.inicioHumedadRelativa)), (('TEMPERATURE_EXTERIOR', t.inicioExterior), ('POWER_TOTAL_W', t.inicioPotenciaTotal))].indexed)
             Padding(padding: EdgeInsets.only(top: i == 0 ? 0 : 10), child: IntrinsicHeight(child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               Expanded(child: tile(par.$1.$1, par.$1.$2)), const SizedBox(width: 10), Expanded(child: tile(par.$2.$1, par.$2.$2)),
             ]))),
         ]),
         Tarjeta(child: Column(children: [
-          TituloTarjeta(icono: 'ventilador', titulo: 'Equipo', derecha: Pildora(estado: ultimoOn ? Estado.running : Estado.paused, chica: true, texto: ultimoOn ? 'En funcionamiento' : 'Detenidos')),
+          TituloTarjeta(icono: 'ventilador', titulo: t.navEquipo, derecha: Pildora(estado: ultimoOn ? Estado.running : Estado.paused, chica: true, texto: ultimoOn ? t.actEnFuncionamiento : t.actDetenidos)),
           for (final (i, a) in b.actuadores.indexed) Padding(padding: EdgeInsets.only(top: i == 0 ? 0 : 8), child: FilaActuador(
             nombre: a['name'] as String, calefactor: a['type'] == 'HEATER', encendido: a['status'] == 'ON', vatios: double.tryParse('${a['powerW']}') ?? 0, mostrarMeta: false,
             auto: b.control?['pedido'] == 'AUTO', soloLectura: s.cabecera == null,
             // La resistencia nunca se enciende con un toque: se va a Equipo, donde hay que mantener presionado.
             onChanged: (v) => a['type'] == 'HEATER' && v ? irA(Pestana.equipo)
-                : s.hacer(context, (h) => s.api.actuador(int.parse('${a['id']}'), v, h), '${a['name']} · ${v ? 'Encendiendo…' : 'Apagando…'}', detalle: 'Se cumple cuando el ESP32 reporte.'),
+                : s.hacer(context, (h) => s.api.actuador(int.parse('${a['id']}'), v, h), v ? t.actEncendiendo('${a['name']}') : t.actApagando('${a['name']}'), detalle: t.ordenSeCumple),
           )),
-          if (s.cabecera == null) const Pie('Vista de solo lectura: para mandar órdenes ingresa con tu cuenta.', icono: 'candado'),
+          if (s.cabecera == null) Pie(t.inicioSoloLectura, icono: 'candado'),
         ])),
         ListaAlertas(items: itemsAlerta(b).take(2).toList(), onVerTodas: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PantallaAlertas()))),
       ]);

@@ -484,6 +484,535 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get prefConfirmaHuella =>
       'Confirme sua digital para ativar a entrada rápida';
+
+  @override
+  String get variedadSinRegistrar => 'Variedade não registrada';
+
+  @override
+  String get sitioAireLibre => 'Ao ar livre';
+
+  @override
+  String get sitioSecador => 'Secador';
+
+  @override
+  String get predCalculando => 'Calculando a previsão…';
+
+  @override
+  String predListoEn(String tiempo) {
+    return 'Pronto em ~$tiempo';
+  }
+
+  @override
+  String get predRetiralo => 'Pronto: pode retirar';
+
+  @override
+  String get predTermino => 'Terminou no objetivo';
+
+  @override
+  String get predSobresecado => 'Passou do ponto: secagem excessiva';
+
+  @override
+  String get predNoAlcanza => 'Com este ar não chega ao objetivo';
+
+  @override
+  String get predPocosPesajes => 'Poucas pesagens para prever';
+
+  @override
+  String get estadoAlerta => 'Alerta';
+
+  @override
+  String get saludRedSinFallas => 'A rede neural não vê falhas';
+
+  @override
+  String get saludRedConFallas => 'A rede neural vê falhas';
+
+  @override
+  String saludSensoresNormales(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: '$cantidad sensores com sinal normal',
+      one: '1 sensor com sinal normal',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get saludEspConectado => 'ESP32 conectado';
+
+  @override
+  String get saludEspSinConexion => 'ESP32 sem conexão';
+
+  @override
+  String saludUltimoReporte(String cuando) {
+    return 'Último envio $cuando';
+  }
+
+  @override
+  String get saludNoReporta => 'Ainda não enviou dados';
+
+  @override
+  String saludSensoresReportando(int vivos, int total) {
+    return '$vivos de $total sensores enviando dados';
+  }
+
+  @override
+  String get saludActCopias => 'Atuadores com cópias';
+
+  @override
+  String get saludActRegistrados => 'Atuadores registrados';
+
+  @override
+  String saludActCuenta(int cantidad) {
+    return '$cantidad registrados';
+  }
+
+  @override
+  String saludActCopiasGpio(int cantidad) {
+    return ' · $cantidad cópias por GPIO';
+  }
+
+  @override
+  String get saludUltimoEstado => ' · último estado conhecido';
+
+  @override
+  String get redNormal => 'Normal';
+
+  @override
+  String get redPegado => 'Travado';
+
+  @override
+  String get redSaturado => 'Saturado';
+
+  @override
+  String get redDeriva => 'Deriva';
+
+  @override
+  String get redSalto => 'Salto de degrau';
+
+  @override
+  String get redRuido => 'Ruído';
+
+  @override
+  String get redPicos => 'Picos';
+
+  @override
+  String get redSinDatos => 'Sem dados';
+
+  @override
+  String get soloLecturaTitulo => 'Somente leitura';
+
+  @override
+  String inicioHola(String nombre) {
+    return 'Olá, $nombre!';
+  }
+
+  @override
+  String get inicioHolaSinNombre => 'Olá!';
+
+  @override
+  String get inicioNoSeLeyo => 'Não foi possível ler o secador';
+
+  @override
+  String get inicioLeyendo => 'Lendo o secador…';
+
+  @override
+  String inicioSubSinLotes(String secador) {
+    return '$secador · sem lotes';
+  }
+
+  @override
+  String inicioSubSecando(String secador, String lote) {
+    return '$secador · $lote secando';
+  }
+
+  @override
+  String inicioSubTerminado(String secador, String lote) {
+    return '$secador · $lote terminado';
+  }
+
+  @override
+  String get sinLecturas => 'Sem leituras';
+
+  @override
+  String ultimoDato(String cuando) {
+    return 'Último dado $cuando';
+  }
+
+  @override
+  String get inicioSinLotes => 'Nenhum lote registrado';
+
+  @override
+  String get inicioSinLotesTexto =>
+      'Quando você colocar café no secador, o registro aparecerá aqui.';
+
+  @override
+  String get inicioTempInterior => 'Temp. interna';
+
+  @override
+  String get inicioHumedadRelativa => 'Umidade relativa';
+
+  @override
+  String get inicioExterior => 'Externa';
+
+  @override
+  String get inicioPotenciaTotal => 'Potência total';
+
+  @override
+  String get actEnFuncionamiento => 'Em funcionamento';
+
+  @override
+  String get actDetenidos => 'Parados';
+
+  @override
+  String actEncendiendo(String nombre) {
+    return '$nombre · Ligando…';
+  }
+
+  @override
+  String actApagando(String nombre) {
+    return '$nombre · Desligando…';
+  }
+
+  @override
+  String get ordenSeCumple => 'Vale quando o ESP32 enviar dados.';
+
+  @override
+  String get inicioSoloLectura =>
+      'Somente leitura: entre com sua conta para enviar comandos.';
+
+  @override
+  String get alertas => 'Alertas';
+
+  @override
+  String get loteSecando => 'Secando';
+
+  @override
+  String get loteTerminado => 'Terminado';
+
+  @override
+  String get humedadGrano => 'Umidade do grão';
+
+  @override
+  String humedadGranoLector(String valor) {
+    return 'Umidade do grão $valor';
+  }
+
+  @override
+  String get sinDato => 'sem dado';
+
+  @override
+  String get objetivoPrefijo => 'Objetivo 10 – 12 % · ';
+
+  @override
+  String get predNoDisponible => 'previsão indisponível';
+
+  @override
+  String predFaltan(String tiempo) {
+    return 'faltam ~$tiempo';
+  }
+
+  @override
+  String ultimoPesaje(String cuando) {
+    return 'Última pesagem $cuando';
+  }
+
+  @override
+  String get avanceObjetivo => 'Progresso até o objetivo';
+
+  @override
+  String get confianzaAlta => 'Confiança alta';
+
+  @override
+  String get confianzaMedia => 'Confiança média';
+
+  @override
+  String get confianzaBaja => 'Confiança baixa';
+
+  @override
+  String get magTempInterior => 'Temperatura interna';
+
+  @override
+  String get magHumInterior => 'Umidade relativa interna';
+
+  @override
+  String get magTempExterior => 'Temperatura externa';
+
+  @override
+  String get magHumExterior => 'Umidade relativa externa';
+
+  @override
+  String get magHumGrano => 'Umidade do grão (sensor)';
+
+  @override
+  String get magCorriente => 'Corrente';
+
+  @override
+  String get magPotControlador => 'Potência do controlador';
+
+  @override
+  String get magPotActuadores => 'Potência dos atuadores';
+
+  @override
+  String get metaTope => 'Topo da câmara';
+
+  @override
+  String get metaCamara => 'Câmara';
+
+  @override
+  String get metaAmbiente => 'Ambiente';
+
+  @override
+  String get metaCapacitivo => 'Capacitivo';
+
+  @override
+  String get metaLineaAc => 'Linha CA';
+
+  @override
+  String get metaEspSensores => 'ESP32 e sensores';
+
+  @override
+  String get metaVentResist => 'Ventiladores e resistências';
+
+  @override
+  String get metaCtrlAct => 'Controlador e atuadores';
+
+  @override
+  String sinConexionUltimoDato(String cuando) {
+    return 'Sem conexão · último dado $cuando';
+  }
+
+  @override
+  String get sinConexionNoReporta => 'Sem conexão · ainda não enviou dados';
+
+  @override
+  String get estadoEnOperacion => 'Em operação';
+
+  @override
+  String get estadoEnPausa => 'Em pausa';
+
+  @override
+  String get estadoSinConexion => 'Sem conexão';
+
+  @override
+  String get estadoPausaSinLote => 'Em pausa · sem lote ativo';
+
+  @override
+  String get errorConexion => 'Não conseguimos conectar ao secador.';
+
+  @override
+  String get haceSinDato => 'Sem dado';
+
+  @override
+  String get haceInstantes => 'Agora há pouco';
+
+  @override
+  String haceMin(int minutos) {
+    return 'Há $minutos min';
+  }
+
+  @override
+  String haceH(int horas) {
+    return 'Há $horas h';
+  }
+
+  @override
+  String get claveOcultar => 'Ocultar senha';
+
+  @override
+  String get claveMostrar => 'Mostrar senha';
+
+  @override
+  String get curvaSinPesajes =>
+      'Nenhuma pesagem ainda: a curva aparece com a primeira amostra gravimétrica.';
+
+  @override
+  String get curvaUnPesaje => 'Só uma pesagem: a curva aparece com a segunda.';
+
+  @override
+  String curvaResumen(String desde, String hasta) {
+    return 'A umidade do grão caiu de $desde % para $hasta %. Objetivo 10 – 12 %.';
+  }
+
+  @override
+  String get leyendaGravimetrico => 'Umidade do grão (gravimétrica)';
+
+  @override
+  String get leyendaPrediccionIa => 'Previsão IA';
+
+  @override
+  String get leyendaObjetivo => 'Objetivo';
+
+  @override
+  String get objetivoRango => 'Objetivo 10 – 12 %';
+
+  @override
+  String get energiaTitulo => 'Consumo de energia e custo';
+
+  @override
+  String get energiaSolar => 'Solar';
+
+  @override
+  String get energiaRed => 'Rede elétrica';
+
+  @override
+  String get energiaCosto => 'Custo';
+
+  @override
+  String get energiaGraficoLector =>
+      'Energia por período: solar embaixo, rede elétrica em cima';
+
+  @override
+  String energiaTarifa(String tarifa) {
+    return 'Tarifa $tarifa/kWh';
+  }
+
+  @override
+  String get predModeloTesis => 'Modelo da tese';
+
+  @override
+  String get predTitulo => 'Previsão de IA';
+
+  @override
+  String get predTiempoRestante => 'Tempo restante estimado';
+
+  @override
+  String get predConfianzaRotulo => 'Confiança da previsão';
+
+  @override
+  String get predDatosConsiderados => 'Dados considerados';
+
+  @override
+  String get procesoLote => 'Processo do lote';
+
+  @override
+  String get zonaHumedo => 'Úmido';
+
+  @override
+  String get zonaOreado => 'Pré-seco';
+
+  @override
+  String get zonaObjetivo => 'Objetivo alcançado';
+
+  @override
+  String get zonaSobresecado => 'Secagem excessiva';
+
+  @override
+  String get zonaHumedo53 => 'Úmido 53 %';
+
+  @override
+  String get zonaActual => 'Zona atual: ';
+
+  @override
+  String escalaLector(String valor, String zona) {
+    return 'Escala de umidade: $valor %, zona $zona';
+  }
+
+  @override
+  String get actEncendido => 'Ligado';
+
+  @override
+  String get actApagado => 'Desligado';
+
+  @override
+  String get actBloqueado => 'Bloqueado';
+
+  @override
+  String get actEncendiendoSolo => 'Ligando…';
+
+  @override
+  String get actApagandoSolo => 'Desligando…';
+
+  @override
+  String actBloqueadoSeguridad(String motivo) {
+    return 'Bloqueado por segurança · $motivo';
+  }
+
+  @override
+  String get actPorProtocolo => 'Controlado pelo protocolo';
+
+  @override
+  String actNominal(String vatios) {
+    return 'Nominal $vatios W';
+  }
+
+  @override
+  String get ordenEnviada => 'Comando enviado';
+
+  @override
+  String get mantenerHint =>
+      'Mantenha pressionado. Com leitor de tela, toque duas vezes e mantenha.';
+
+  @override
+  String get alertasRecientes => 'Alertas recentes';
+
+  @override
+  String get verTodas => 'Ver todas';
+
+  @override
+  String get sinAlertas => 'Nenhum alerta ativo';
+
+  @override
+  String get todoEnOrden => 'Tudo certo.';
+
+  @override
+  String get saludTitulo => 'Os aparelhos estão funcionando?';
+
+  @override
+  String get saludSi => 'Sim, tudo certo';
+
+  @override
+  String get saludRevisa => 'Verifique os aparelhos';
+
+  @override
+  String mapaLector(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Mapa esquemático de Nariño com $cantidad secadores',
+      one: 'Mapa esquemático de Nariño com 1 secador',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get sinOrdenes => 'Nenhum comando registrado ainda.';
+
+  @override
+  String get ingresaParaCambios => 'Entre com sua conta para fazer alterações';
+
+  @override
+  String get cargandoSecador => 'Carregando o estado do secador…';
+
+  @override
+  String errorServidorCodigo(String codigo) {
+    return 'O servidor respondeu com um erro (código $codigo).';
+  }
+
+  @override
+  String get errorSinRespuesta => 'O servidor não respondeu.';
+
+  @override
+  String get errorReintentaSolo => ' Tenta de novo sozinho a cada 30 s.';
+
+  @override
+  String get errorCargaTitulo => 'Não foi possível carregar estes dados';
+
+  @override
+  String get reintentar => 'Tentar de novo';
+
+  @override
+  String avisoCopiaGuardada(String cuando) {
+    return 'Sem sinal: você está vendo a cópia salva ($cuando).';
+  }
+
+  @override
+  String avisoNoReportaDesde(String cuando) {
+    return 'O secador não envia dados desde $cuando. Você vê o último dado com a hora.';
+  }
+
+  @override
+  String get avisoSuInstalacion => 'a instalação';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).

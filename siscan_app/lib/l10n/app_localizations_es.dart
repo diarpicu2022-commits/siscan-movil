@@ -485,4 +485,534 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get prefConfirmaHuella =>
       'Confirma tu huella para activar el ingreso rápido';
+
+  @override
+  String get variedadSinRegistrar => 'Variedad sin registrar';
+
+  @override
+  String get sitioAireLibre => 'Aire libre';
+
+  @override
+  String get sitioSecador => 'Secador';
+
+  @override
+  String get predCalculando => 'Calculando la predicción…';
+
+  @override
+  String predListoEn(String tiempo) {
+    return 'Listo en ~$tiempo';
+  }
+
+  @override
+  String get predRetiralo => 'Listo: retíralo';
+
+  @override
+  String get predTermino => 'Terminó en el objetivo';
+
+  @override
+  String get predSobresecado => 'Pasó el punto: sobre-secado';
+
+  @override
+  String get predNoAlcanza => 'Con este aire no llega al objetivo';
+
+  @override
+  String get predPocosPesajes => 'Pocos pesajes para predecir';
+
+  @override
+  String get estadoAlerta => 'Alerta';
+
+  @override
+  String get saludRedSinFallas => 'La red neuronal no ve fallas';
+
+  @override
+  String get saludRedConFallas => 'La red neuronal ve fallas';
+
+  @override
+  String saludSensoresNormales(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: '$cantidad sensores con señal normal',
+      one: '1 sensor con señal normal',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get saludEspConectado => 'ESP32 conectado';
+
+  @override
+  String get saludEspSinConexion => 'ESP32 sin conexión';
+
+  @override
+  String saludUltimoReporte(String cuando) {
+    return 'Último reporte $cuando';
+  }
+
+  @override
+  String get saludNoReporta => 'Todavía no reporta';
+
+  @override
+  String saludSensoresReportando(int vivos, int total) {
+    return '$vivos de $total sensores reportando';
+  }
+
+  @override
+  String get saludActCopias => 'Actuadores con copias';
+
+  @override
+  String get saludActRegistrados => 'Actuadores registrados';
+
+  @override
+  String saludActCuenta(int cantidad) {
+    return '$cantidad registrados';
+  }
+
+  @override
+  String saludActCopiasGpio(int cantidad) {
+    return ' · $cantidad copias por GPIO';
+  }
+
+  @override
+  String get saludUltimoEstado => ' · último estado conocido';
+
+  @override
+  String get redNormal => 'Normal';
+
+  @override
+  String get redPegado => 'Pegado';
+
+  @override
+  String get redSaturado => 'Saturado';
+
+  @override
+  String get redDeriva => 'Deriva';
+
+  @override
+  String get redSalto => 'Salto de escalón';
+
+  @override
+  String get redRuido => 'Ruido';
+
+  @override
+  String get redPicos => 'Picos';
+
+  @override
+  String get redSinDatos => 'Sin datos';
+
+  @override
+  String get soloLecturaTitulo => 'Vista de solo lectura';
+
+  @override
+  String inicioHola(String nombre) {
+    return '¡Hola, $nombre!';
+  }
+
+  @override
+  String get inicioHolaSinNombre => '¡Hola!';
+
+  @override
+  String get inicioNoSeLeyo => 'No se pudo leer el secador';
+
+  @override
+  String get inicioLeyendo => 'Leyendo el secador…';
+
+  @override
+  String inicioSubSinLotes(String secador) {
+    return '$secador · sin lotes';
+  }
+
+  @override
+  String inicioSubSecando(String secador, String lote) {
+    return '$secador · $lote secando';
+  }
+
+  @override
+  String inicioSubTerminado(String secador, String lote) {
+    return '$secador · $lote terminado';
+  }
+
+  @override
+  String get sinLecturas => 'Sin lecturas';
+
+  @override
+  String ultimoDato(String cuando) {
+    return 'Último dato $cuando';
+  }
+
+  @override
+  String get inicioSinLotes => 'No hay lotes registrados';
+
+  @override
+  String get inicioSinLotesTexto =>
+      'Cuando ingreses café al secador, su registro aparecerá aquí.';
+
+  @override
+  String get inicioTempInterior => 'Temp. interior';
+
+  @override
+  String get inicioHumedadRelativa => 'Humedad relativa';
+
+  @override
+  String get inicioExterior => 'Exterior';
+
+  @override
+  String get inicioPotenciaTotal => 'Potencia total';
+
+  @override
+  String get actEnFuncionamiento => 'En funcionamiento';
+
+  @override
+  String get actDetenidos => 'Detenidos';
+
+  @override
+  String actEncendiendo(String nombre) {
+    return '$nombre · Encendiendo…';
+  }
+
+  @override
+  String actApagando(String nombre) {
+    return '$nombre · Apagando…';
+  }
+
+  @override
+  String get ordenSeCumple => 'Se cumple cuando el ESP32 reporte.';
+
+  @override
+  String get inicioSoloLectura =>
+      'Vista de solo lectura: para mandar órdenes ingresa con tu cuenta.';
+
+  @override
+  String get alertas => 'Alertas';
+
+  @override
+  String get loteSecando => 'Secando';
+
+  @override
+  String get loteTerminado => 'Terminado';
+
+  @override
+  String get humedadGrano => 'Humedad del grano';
+
+  @override
+  String humedadGranoLector(String valor) {
+    return 'Humedad del grano $valor';
+  }
+
+  @override
+  String get sinDato => 'sin dato';
+
+  @override
+  String get objetivoPrefijo => 'Objetivo 10 – 12 % · ';
+
+  @override
+  String get predNoDisponible => 'predicción no disponible';
+
+  @override
+  String predFaltan(String tiempo) {
+    return 'faltan ~$tiempo';
+  }
+
+  @override
+  String ultimoPesaje(String cuando) {
+    return 'Último pesaje $cuando';
+  }
+
+  @override
+  String get avanceObjetivo => 'Avance hacia el objetivo';
+
+  @override
+  String get confianzaAlta => 'Confianza alta';
+
+  @override
+  String get confianzaMedia => 'Confianza media';
+
+  @override
+  String get confianzaBaja => 'Confianza baja';
+
+  @override
+  String get magTempInterior => 'Temperatura interior';
+
+  @override
+  String get magHumInterior => 'Humedad relativa interior';
+
+  @override
+  String get magTempExterior => 'Temperatura exterior';
+
+  @override
+  String get magHumExterior => 'Humedad relativa exterior';
+
+  @override
+  String get magHumGrano => 'Humedad del grano (sensor)';
+
+  @override
+  String get magCorriente => 'Corriente';
+
+  @override
+  String get magPotControlador => 'Potencia del controlador';
+
+  @override
+  String get magPotActuadores => 'Potencia de actuadores';
+
+  @override
+  String get metaTope => 'Tope de la cámara';
+
+  @override
+  String get metaCamara => 'Cámara';
+
+  @override
+  String get metaAmbiente => 'Ambiente';
+
+  @override
+  String get metaCapacitivo => 'Capacitivo';
+
+  @override
+  String get metaLineaAc => 'Línea AC';
+
+  @override
+  String get metaEspSensores => 'ESP32 y sensores';
+
+  @override
+  String get metaVentResist => 'Ventiladores y resistencias';
+
+  @override
+  String get metaCtrlAct => 'Controlador y actuadores';
+
+  @override
+  String sinConexionUltimoDato(String cuando) {
+    return 'Sin conexión · último dato $cuando';
+  }
+
+  @override
+  String get sinConexionNoReporta => 'Sin conexión · aún no reporta';
+
+  @override
+  String get estadoEnOperacion => 'En operación';
+
+  @override
+  String get estadoEnPausa => 'En pausa';
+
+  @override
+  String get estadoSinConexion => 'Sin conexión';
+
+  @override
+  String get estadoPausaSinLote => 'En pausa · sin lote activo';
+
+  @override
+  String get errorConexion => 'No pudimos conectarnos con el secador.';
+
+  @override
+  String get haceSinDato => 'Sin dato';
+
+  @override
+  String get haceInstantes => 'Hace instantes';
+
+  @override
+  String haceMin(int minutos) {
+    return 'Hace $minutos min';
+  }
+
+  @override
+  String haceH(int horas) {
+    return 'Hace $horas h';
+  }
+
+  @override
+  String get claveOcultar => 'Ocultar contraseña';
+
+  @override
+  String get claveMostrar => 'Mostrar contraseña';
+
+  @override
+  String get curvaSinPesajes =>
+      'Sin pesajes todavía: la curva aparece con la primera muestra gravimétrica.';
+
+  @override
+  String get curvaUnPesaje =>
+      'Un solo pesaje: la curva aparece con el segundo.';
+
+  @override
+  String curvaResumen(String desde, String hasta) {
+    return 'La humedad del grano bajó de $desde % a $hasta %; objetivo 10 – 12 %.';
+  }
+
+  @override
+  String get leyendaGravimetrico => 'Humedad del grano (gravimétrico)';
+
+  @override
+  String get leyendaPrediccionIa => 'Predicción IA';
+
+  @override
+  String get leyendaObjetivo => 'Objetivo';
+
+  @override
+  String get objetivoRango => 'Objetivo 10 – 12 %';
+
+  @override
+  String get energiaTitulo => 'Consumo energético y costo';
+
+  @override
+  String get energiaSolar => 'Solar';
+
+  @override
+  String get energiaRed => 'Red eléctrica';
+
+  @override
+  String get energiaCosto => 'Costo';
+
+  @override
+  String get energiaGraficoLector =>
+      'Energía por periodo: solar abajo, red eléctrica arriba';
+
+  @override
+  String energiaTarifa(String tarifa) {
+    return 'Tarifa $tarifa/kWh';
+  }
+
+  @override
+  String get predModeloTesis => 'Modelo de la tesis';
+
+  @override
+  String get predTitulo => 'Predicción de IA';
+
+  @override
+  String get predTiempoRestante => 'Tiempo restante estimado';
+
+  @override
+  String get predConfianzaRotulo => 'Confianza de la predicción';
+
+  @override
+  String get predDatosConsiderados => 'Datos considerados';
+
+  @override
+  String get procesoLote => 'Proceso del lote';
+
+  @override
+  String get zonaHumedo => 'Húmedo';
+
+  @override
+  String get zonaOreado => 'Oreado';
+
+  @override
+  String get zonaObjetivo => 'Objetivo alcanzado';
+
+  @override
+  String get zonaSobresecado => 'Sobresecado';
+
+  @override
+  String get zonaHumedo53 => 'Húmedo 53 %';
+
+  @override
+  String get zonaActual => 'Zona actual: ';
+
+  @override
+  String escalaLector(String valor, String zona) {
+    return 'Escala de humedad: $valor %, zona $zona';
+  }
+
+  @override
+  String get actEncendido => 'Encendido';
+
+  @override
+  String get actApagado => 'Apagado';
+
+  @override
+  String get actBloqueado => 'Bloqueado';
+
+  @override
+  String get actEncendiendoSolo => 'Encendiendo…';
+
+  @override
+  String get actApagandoSolo => 'Apagando…';
+
+  @override
+  String actBloqueadoSeguridad(String motivo) {
+    return 'Bloqueado por seguridad · $motivo';
+  }
+
+  @override
+  String get actPorProtocolo => 'Controlado por el protocolo';
+
+  @override
+  String actNominal(String vatios) {
+    return 'Nominal $vatios W';
+  }
+
+  @override
+  String get ordenEnviada => 'Orden enviada';
+
+  @override
+  String get mantenerHint =>
+      'Mantén presionado. Con lector de pantalla, toca dos veces y mantén.';
+
+  @override
+  String get alertasRecientes => 'Alertas recientes';
+
+  @override
+  String get verTodas => 'Ver todas';
+
+  @override
+  String get sinAlertas => 'Sin alertas activas';
+
+  @override
+  String get todoEnOrden => 'Todo en orden.';
+
+  @override
+  String get saludTitulo => '¿Está funcionando el equipo?';
+
+  @override
+  String get saludSi => 'Sí, todo en orden';
+
+  @override
+  String get saludRevisa => 'Revisa el equipo';
+
+  @override
+  String mapaLector(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Mapa esquemático de Nariño con $cantidad secadores',
+      one: 'Mapa esquemático de Nariño con 1 secador',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get sinOrdenes => 'Sin órdenes registradas todavía.';
+
+  @override
+  String get ingresaParaCambios => 'Ingresa con tu cuenta para hacer cambios';
+
+  @override
+  String get cargandoSecador => 'Cargando el estado del secador…';
+
+  @override
+  String errorServidorCodigo(String codigo) {
+    return 'El servidor respondió con un error (código $codigo).';
+  }
+
+  @override
+  String get errorSinRespuesta => 'No hubo respuesta del servidor.';
+
+  @override
+  String get errorReintentaSolo => ' Se reintenta solo cada 30 s.';
+
+  @override
+  String get errorCargaTitulo => 'No fue posible cargar estos datos';
+
+  @override
+  String get reintentar => 'Reintentar';
+
+  @override
+  String avisoCopiaGuardada(String cuando) {
+    return 'Sin señal: ves la copia guardada ($cuando).';
+  }
+
+  @override
+  String avisoNoReportaDesde(String cuando) {
+    return 'El secador no reporta desde $cuando. Ves el último dato con su hora.';
+  }
+
+  @override
+  String get avisoSuInstalacion => 'su instalación';
 }

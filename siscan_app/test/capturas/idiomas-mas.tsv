@@ -817,15 +817,15 @@ pt	360	historial-7d	ficha	1	sí	Rede sem leituras	106.5	sin límite	—	1	una l�
 pt	360	historial-7d	título de tarjeta	1	no	Energia · últimos 7 dias	169.9	125.5	-44.4	2	2 líneas
 pt	360	historial-7d	título de tarjeta	2	no	Comandos aos aparelhos	189.7	254.0	64.3	1	una línea
 pt	360	ubicacion	barra superior	1	sí	Localização do secador	240.9	282.0	41.1	1	una línea
-pt	360	ubicacion	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
-pt	360	ubicacion	título de tarjeta	1	no	Localização	89.5	76.6	-12.8	2	2 líneas
+pt	360	ubicacion	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
+pt	360	ubicacion	título de tarjeta	1	no	Localização	89.5	134.3	44.8	1	una línea
 pt	360	ubicacion	botón	1	no	Usar minha localização atual	196.9	229.0	32.1	1	una línea
 pt	360	ubicacion	botón	2	no	Salvar localização e atualizar o clima	252.1	255.0	2.9	1	una línea
 pt	360	ubicacion-aviso	barra superior	1	sí	Localização do secador	240.9	282.0	41.1	1	una línea
-pt	360	ubicacion-aviso	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
+pt	360	ubicacion-aviso	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
 pt	360	ubicacion-aviso	botón de diálogo	1	sí	Agora não	69.1	208.0	138.9	1	una línea
 pt	360	ubicacion-aviso	botón de diálogo	2	sí	Continuar	67.0	208.0	141.0	1	una línea
-pt	360	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	76.6	-12.8	2	2 líneas
+pt	360	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	134.3	44.8	1	una línea
 pt	360	ubicacion-aviso	botón	1	no	Usar minha localização atual	196.9	229.0	32.1	1	una línea
 pt	360	ubicacion-aviso	botón	2	no	Salvar localização e atualizar o clima	252.1	255.0	2.9	1	una línea
 pt	360	reloj	barra superior	1	sí	Relógio inteligente	192.7	282.0	89.3	1	una línea
@@ -938,15 +938,15 @@ pt	390	historial-7d	ficha	1	sí	Rede sem leituras	106.5	sin límite	—	1	una l�
 pt	390	historial-7d	título de tarjeta	1	no	Energia · últimos 7 dias	169.9	155.5	-14.4	2	2 líneas
 pt	390	historial-7d	título de tarjeta	2	no	Comandos aos aparelhos	189.7	284.0	94.3	1	una línea
 pt	390	ubicacion	barra superior	1	sí	Localização do secador	240.9	312.0	71.1	1	una línea
-pt	390	ubicacion	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
-pt	390	ubicacion	título de tarjeta	1	no	Localização	89.5	106.6	17.2	1	una línea
+pt	390	ubicacion	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
+pt	390	ubicacion	título de tarjeta	1	no	Localização	89.5	164.3	74.8	1	una línea
 pt	390	ubicacion	botón	1	no	Usar minha localização atual	196.9	259.0	62.1	1	una línea
 pt	390	ubicacion	botón	2	no	Salvar localização e atualizar o clima	252.1	285.0	32.9	1	una línea
 pt	390	ubicacion-aviso	barra superior	1	sí	Localização do secador	240.9	312.0	71.1	1	una línea
-pt	390	ubicacion-aviso	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
+pt	390	ubicacion-aviso	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
 pt	390	ubicacion-aviso	botón de diálogo	1	sí	Agora não	69.1	238.0	168.9	1	una línea
 pt	390	ubicacion-aviso	botón de diálogo	2	sí	Continuar	67.0	238.0	171.0	1	una línea
-pt	390	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	106.6	17.2	1	una línea
+pt	390	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	164.3	74.8	1	una línea
 pt	390	ubicacion-aviso	botón	1	no	Usar minha localização atual	196.9	259.0	62.1	1	una línea
 pt	390	ubicacion-aviso	botón	2	no	Salvar localização e atualizar o clima	252.1	285.0	32.9	1	una línea
 pt	390	reloj	barra superior	1	sí	Relógio inteligente	192.7	312.0	119.3	1	una línea
@@ -1059,15 +1059,15 @@ pt	412	historial-7d	ficha	1	sí	Rede sem leituras	106.5	sin límite	—	1	una l�
 pt	412	historial-7d	título de tarjeta	1	no	Energia · últimos 7 dias	169.9	177.5	7.6	1	una línea
 pt	412	historial-7d	título de tarjeta	2	no	Comandos aos aparelhos	189.7	306.0	116.3	1	una línea
 pt	412	ubicacion	barra superior	1	sí	Localização do secador	240.9	334.0	93.1	1	una línea
-pt	412	ubicacion	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
-pt	412	ubicacion	título de tarjeta	1	no	Localização	89.5	128.6	39.2	1	una línea
+pt	412	ubicacion	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
+pt	412	ubicacion	título de tarjeta	1	no	Localização	89.5	186.3	96.8	1	una línea
 pt	412	ubicacion	botón	1	no	Usar minha localização atual	196.9	281.0	84.1	1	una línea
 pt	412	ubicacion	botón	2	no	Salvar localização e atualizar o clima	252.1	307.0	54.9	1	una línea
 pt	412	ubicacion-aviso	barra superior	1	sí	Localização do secador	240.9	334.0	93.1	1	una línea
-pt	412	ubicacion-aviso	ficha	1	sí	Definida manualmente	136.4	sin límite	—	1	una línea
+pt	412	ubicacion-aviso	ficha	1	sí	Fixada à mão	78.7	sin límite	—	1	una línea
 pt	412	ubicacion-aviso	botón de diálogo	1	sí	Agora não	69.1	260.0	190.9	1	una línea
 pt	412	ubicacion-aviso	botón de diálogo	2	sí	Continuar	67.0	260.0	193.0	1	una línea
-pt	412	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	128.6	39.2	1	una línea
+pt	412	ubicacion-aviso	título de tarjeta	1	no	Localização	89.5	186.3	96.8	1	una línea
 pt	412	ubicacion-aviso	botón	1	no	Usar minha localização atual	196.9	281.0	84.1	1	una línea
 pt	412	ubicacion-aviso	botón	2	no	Salvar localização e atualizar o clima	252.1	307.0	54.9	1	una línea
 pt	412	reloj	barra superior	1	sí	Relógio inteligente	192.7	334.0	141.3	1	una línea

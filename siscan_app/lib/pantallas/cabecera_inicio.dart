@@ -17,6 +17,7 @@ import '../core/ui/base.dart';
 import '../core/ui/dominio.dart';
 import '../core/ui/marco.dart';
 import '../data/estado.dart';
+import '../l10n/app_localizations.dart';
 
 /// Medidas de la cabecera, en un solo lugar para que la prueba mida lo mismo que se dibuja.
 abstract final class MedidasCabecera {
@@ -76,7 +77,7 @@ class CabeceraInicio extends StatelessWidget {
                 Padding(padding: const EdgeInsets.only(left: 6), child: Logo(claro: noche, alto: 30)),
                 const Spacer(),
                 // Sobre la escena la campana va en tinta (enmienda del 2026-10-15): en tinta-suave daba 3,08:1 al atardecer.
-                BotonIcono(icono: 'alertas', etiqueta: 'Alertas', cuenta: alertas, oscuro: noche, colorIcono: c.tinta, onPressed: onAlertas),
+                BotonIcono(icono: 'alertas', etiqueta: AppLocalizations.of(context).alertas, cuenta: alertas, oscuro: noche, colorIcono: c.tinta, onPressed: onAlertas),
               ])),
               Padding(
                 padding: const EdgeInsets.fromLTRB(6, SiscanSpace.s2, 6, 0),
@@ -143,18 +144,18 @@ class TarjetaLoteVidrio extends StatelessWidget {
               clave: '${lote['id']}-${lote['sampleCount']}',
               cargar: () => s.api.prediccion(lote['id'] as int),
               builder: (context, p, e, cargando) {
-                final enCurso = p?['estado'] == 'EN_CURSO';
+                final enCurso = p?['estado'] == 'EN_CURSO', t = AppLocalizations.of(context);
                 return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Wrap(spacing: SiscanSpace.s2, runSpacing: 6, children: [
                     Ficha('${lote['name']}', icono: 'lotes'),
-                    Pildora(estado: activo ? Estado.running : Estado.paused, vivo: activo, texto: activo ? 'Secando' : 'Terminado'),
+                    Pildora(estado: activo ? Estado.running : Estado.paused, vivo: activo, texto: activo ? t.loteSecando : t.loteTerminado),
                   ]),
                   const SizedBox(height: SiscanSpace.s3),
                   // Un solo nodo para el lector: «Humedad del grano 10,6 %».
                   Semantics(
-                    container: true, label: 'Humedad del grano ${hum == null ? 'sin dato' : '${cifra(hum)} %'}',
+                    container: true, label: t.humedadGranoLector(hum == null ? t.sinDato : '${cifra(hum)} %'),
                     child: ExcludeSemantics(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text('Humedad del grano', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: c.tintaSuave)),
+                      Text(t.humedadGrano, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: c.tintaSuave)),
                       Row(crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [
                         Text(hum == null ? '—' : cifra(hum), style: TextStyle(fontFamily: SiscanType.display, fontSize: 52, height: 56 / 52,
                             fontWeight: FontWeight.w700, letterSpacing: -1.56, color: c.tinta, fontFeatures: const [FontFeature.tabularFigures()])),
@@ -164,23 +165,23 @@ class TarjetaLoteVidrio extends StatelessWidget {
                     ])),
                   ),
                   Text.rich(TextSpan(style: apoyo, children: [
-                    const TextSpan(text: 'Objetivo 10 – 12 % · '),
-                    if (e != null) const TextSpan(text: 'predicción no disponible')
-                    else if (enCurso) TextSpan(text: 'faltan ~${duracion(p!['horasRestantes'] as num?)}', style: TextStyle(fontWeight: FontWeight.w700, color: c.hoja))
+                    TextSpan(text: t.objetivoPrefijo),
+                    if (e != null) TextSpan(text: t.predNoDisponible)
+                    else if (enCurso) TextSpan(text: t.predFaltan(duracion(p!['horasRestantes'] as num?)), style: TextStyle(fontWeight: FontWeight.w700, color: c.hoja))
                     else TextSpan(text: textoPrediccion(p, enCurso: activo)),
                   ])),
                   // Paso 6: de cuándo es la cifra (sc-bhero-meta). La humedad sale del último pesaje, no del ESP32.
                   if (lote['lastSampleAt'] != null) Padding(padding: const EdgeInsets.only(top: SiscanSpace.s1), child: Row(children: [
                     Icono('balanza', size: 14, color: c.tintaSuave), const SizedBox(width: 5),
-                    Expanded(child: Text('Último pesaje ${corta(fecha(lote['lastSampleAt']))}',
+                    Expanded(child: Text(t.ultimoPesaje(corta(fecha(lote['lastSampleAt']))),
                         style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.tintaSuave))),
                   ])),
                   const SizedBox(height: SiscanSpace.s3),
-                  Progreso(valor: avanceLote(lote), etiqueta: 'Avance hacia el objetivo'),
+                  Progreso(valor: avanceLote(lote), etiqueta: t.avanceObjetivo),
                   if (enCurso && p!['confianza'] != null) ...[
                     const SizedBox(height: SiscanSpace.s3),
                     Row(children: [Icono('ia', size: 14, color: c.prediccion), const SizedBox(width: 5),
-                      Text('Confianza ${(p['confianza'] as num) >= 75 ? 'alta' : (p['confianza'] as num) >= 50 ? 'media' : 'baja'}',
+                      Text((p['confianza'] as num) >= 75 ? t.confianzaAlta : (p['confianza'] as num) >= 50 ? t.confianzaMedia : t.confianzaBaja,
                           style: SiscanType.apoyo.copyWith(fontWeight: FontWeight.w700, color: c.prediccion))]),
                   ],
                 ]);

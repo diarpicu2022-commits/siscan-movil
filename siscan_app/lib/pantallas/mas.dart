@@ -169,7 +169,7 @@ class _PantallaCalibracionState extends State<PantallaCalibracion> {
                 final m = magnitud(x['key'] as String);
                 return InkWell(onTap: () => _ajustar(x), child: FilaSensor(nombre: m.nombre, meta: t.calGanancia(cifra(x['gain'] as num, 3), cifra(x['offset'] as num, 2)),
                     valor: x['lastCalibrated'] != null ? '${cifra(x['lastCalibrated'] as num, m.dec)} ${x['unit']}' : '—', icono: m.icono, color: tono(c, m.tono),
-                    estado: x['calibrated'] == true ? Estado.running : Estado.paused, estadoTexto: x['calibrated'] == true ? t.calCalibrado : t.calSinCalibrar, ultima: i == filas.length - 1));
+                    estado: x['calibrated'] == true ? Estado.running : Estado.paused, estadoTexto: x['calibrated'] == true ? t.calCalibrado : t.calSinCalibrar, ultima: i == filas.length - 1, pildoraAbajo: true));
               }(),
               Pie(t.calPie),
             ]));
