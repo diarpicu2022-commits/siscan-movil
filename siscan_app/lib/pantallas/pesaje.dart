@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../app/comun.dart';
 import '../app/contexto.dart';
+import '../core/textos.dart';
 import '../core/theme/siscan_theme.dart';
 import '../core/theme/siscan_tokens.dart';
 import '../core/ui/base.dart';
@@ -20,18 +21,18 @@ class PantallaPesaje extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = Siscan.of(context);
     return ConEstado(builder: (context, b) {
-      const barra = BarraApp(titulo: 'Pesaje');
-      if (b == null) return const CuerpoPantalla(barra: barra, hijos: [Cargando()]);
+      final barra = BarraApp(titulo: context.tx.navPesaje);
+      if (b == null) return CuerpoPantalla(barra: barra, hijos: const [Cargando()]);
       final l = b.activo;
       if (l == null) {
-        return CuerpoPantalla(barra: barra, hijos: [EstadoVacio(titulo: 'Sin lote activo', texto: 'Inicia un lote para empezar a pesar la muestra cada mañana.', accion: 'Nuevo lote',
+        return CuerpoPantalla(barra: barra, hijos: [EstadoVacio(titulo: context.tx.sinLoteActivo, texto: context.tx.sinLoteActivoTexto, accion: context.tx.nuevoLote,
             onAccion: () => s.cabecera == null ? onIngresar() : Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PantallaNuevoLote())))]);
       }
       return Pedido<(J, List<J>)>(
         clave: '${l['id']}-${l['sampleCount']}-${l['lastSampleAt']}',
         cargar: () async => (await s.api.calibracion(l['id'] as int), await s.api.curva(l['id'] as int)),
         builder: (context, d, e, cargando) => d == null
-            ? CuerpoPantalla(barra: barra, hijos: [e != null ? ErrorCarga(detalle: '$e', onReintentar: s.estado.cargar) : const Cargando(texto: 'Cargando los pesajes…')])
+            ? CuerpoPantalla(barra: barra, hijos: [e != null ? ErrorCarga(detalle: '$e', onReintentar: s.estado.cargar) : Cargando(texto: context.tx.cargandoPesajes)])
             : _Pesaje(lote: l, cal: d.$1, curva: d.$2, onIngresar: onIngresar),
       );
     });
@@ -63,10 +64,10 @@ class _PesajeState extends State<_Pesaje> {
   Future<void> _escribir() async {
     final ctl = TextEditingController(text: cifra(_g));
     final v = await showDialog<double>(context: context, builder: (d) => AlertDialog(
-      title: const Text('Peso de la muestra'),
+      title: Text(context.tx.pesoMuestra),
       content: Campo(controller: ctl, sufijo: 'g', teclado: const TextInputType.numberWithOptions(decimal: true), grande: true),
-      actions: [TextButton(onPressed: () => Navigator.pop(d), child: const Text('Cancelar')),
-        TextButton(onPressed: () => Navigator.pop(d, double.tryParse(ctl.text.replaceAll('.', '').replaceAll(',', '.'))), child: const Text('Listo'))],
+      actions: [TextButton(onPressed: () => Navigator.pop(d), child: Text(context.tx.cancelar)),
+        TextButton(onPressed: () => Navigator.pop(d, double.tryParse(ctl.text.replaceAll('.', '').replaceAll(',', '.'))), child: Text(context.tx.hecho))],
     ));
     if (v != null && v > 0) setState(() => _g = v);
   }
@@ -82,23 +83,23 @@ class _PesajeState extends State<_Pesaje> {
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Center(child: Container(width: 42, height: 4, decoration: BoxDecoration(color: context.c.lineaFuerte.withValues(alpha: .5), borderRadius: BorderRadius.circular(2)))),
             const SizedBox(height: 14),
-            Text('Corregir pesaje · ${corta(fecha(x['timestamp']))}', style: TextStyle(fontFamily: SiscanType.display, fontSize: 20, fontWeight: FontWeight.w700, color: context.c.tinta)),
+            Text(context.tx.corregirPesaje(corta(fecha(x['timestamp']))), style: TextStyle(fontFamily: SiscanType.display, fontSize: 20, fontWeight: FontWeight.w700, color: context.c.tinta)),
             const SizedBox(height: 14),
-            Campo(etiqueta: 'Peso corregido', controller: ctl, sufijo: 'g', teclado: const TextInputType.numberWithOptions(decimal: true), grande: true),
+            Campo(etiqueta: context.tx.pesoCorregido, controller: ctl, sufijo: 'g', teclado: const TextInputType.numberWithOptions(decimal: true), grande: true),
             const SizedBox(height: 14),
-            Boton('Guardar', variante: VarianteBoton.primary, grande: true, bloque: true, onPressed: () => Navigator.pop(d, 'guardar')),
+            Boton(context.tx.guardar, variante: VarianteBoton.primary, grande: true, bloque: true, onPressed: () => Navigator.pop(d, 'guardar')),
             const SizedBox(height: 8),
-            Boton('Eliminar pesaje', icono: 'borrar', variante: VarianteBoton.danger, bloque: true, onPressed: () => Navigator.pop(d, 'eliminar')),
+            Boton(context.tx.eliminarPesaje, icono: 'borrar', variante: VarianteBoton.danger, bloque: true, onPressed: () => Navigator.pop(d, 'eliminar')),
           ]),
         ));
     if (!mounted || r == null) return;
     final lote = widget.lote['id'] as int, id = x['id'] as int;
     if (r == 'guardar') {
       final g = double.tryParse(ctl.text.replaceAll('.', '').replaceAll(',', '.'));
-      if (g == null || g <= 0) { aviso(context, 'Escribe el peso corregido en gramos.', error: true); return; }
-      await s.hacer(context, (h) => s.api.corregirPesaje(lote, id, g, h), 'Pesaje corregido');
+      if (g == null || g <= 0) { aviso(context, context.tx.escribePesoCorregido, error: true); return; }
+      await s.hacer(context, (h) => s.api.corregirPesaje(lote, id, g, h), context.tx.pesajeCorregido);
     } else {
-      await s.hacer(context, (h) => s.api.eliminarPesaje(lote, id, h), 'Pesaje eliminado');
+      await s.hacer(context, (h) => s.api.eliminarPesaje(lote, id, h), context.tx.pesajeEliminado);
     }
   }
 
@@ -106,48 +107,48 @@ class _PesajeState extends State<_Pesaje> {
   Widget build(BuildContext context) {
     final c = context.c, s = Siscan.of(context);
     final hum = (1 - _seca / _g) * 100;
-    final (ver, col) = hum > 12 ? ('Todavía le falta secar', c.pausa) : hum >= 10 ? ('Está en el rango comercial: retíralo', c.operando) : ('Ya pasó el punto: está sobre-secado', c.alerta);
+    final (ver, col) = hum > 12 ? (context.tx.faltaSecar, c.pausa) : hum >= 10 ? (context.tx.rangoComercial, c.operando) : (context.tx.yaPaso, c.alerta);
     Widget redondo(String ic, String et, double d) => Semantics(container: true, button: true, label: et, child: GestureDetector(
           onTap: () => _paso(d), onLongPressStart: (_) => _repetir(d * 10), onLongPressEnd: (_) => _rep?.cancel(),
           child: Container(width: 48, height: 48, alignment: Alignment.center, decoration: BoxDecoration(shape: BoxShape.circle, color: c.superficie, boxShadow: context.sombraTarjeta),
               child: Icono(ic, size: 22, color: c.cafe))));
-    return CuerpoPantalla(barra: const BarraApp(titulo: 'Pesaje'), onRefrescar: s.estado.cargar, hijos: [
+    return CuerpoPantalla(barra: BarraApp(titulo: context.tx.navPesaje), onRefrescar: s.estado.cargar, hijos: [
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
         decoration: BoxDecoration(color: c.cafeSuave, borderRadius: BorderRadius.circular(26)),
         child: Column(children: [
-          Text('Peso de la muestra · ${widget.lote['name']}', textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.tintaSuave)),
+          Text(context.tx.pesoMuestraDe('${widget.lote['name']}'), textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.tintaSuave)),
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            redondo('menos', 'Restar 0,1 g', -.1),
+            redondo('menos', context.tx.restarDecima, -.1),
             const SizedBox(width: 16),
-            Flexible(child: Semantics(container: true, button: true, label: 'Peso ${cifra(_g)} gramos. Toca para escribirlo.', child: GestureDetector(onTap: _escribir, child: FittedBox(child: Text.rich(TextSpan(children: [
+            Flexible(child: Semantics(container: true, button: true, label: context.tx.pesoLector(cifra(_g)), child: GestureDetector(onTap: _escribir, child: FittedBox(child: Text.rich(TextSpan(children: [
               TextSpan(text: cifra(_g), style: TextStyle(fontFamily: SiscanType.display, fontSize: 52, height: 56 / 52, fontWeight: FontWeight.w700, color: c.cafe, fontFeatures: const [FontFeature.tabularFigures()])),
               TextSpan(text: ' g', style: TextStyle(fontSize: 22, color: c.tintaSuave)),
             ])))))),
             const SizedBox(width: 16),
-            redondo('mas', 'Sumar 0,1 g', .1),
+            redondo('mas', context.tx.sumarDecima, .1),
           ]),
           const SizedBox(height: 8),
           Text('= ${cifra(hum)} % · $ver', textAlign: TextAlign.center, style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: col)),
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icono('balanza', size: 18, color: c.tintaSuave), const SizedBox(width: 6),
-            Text.rich(TextSpan(text: 'Retira entre ', style: TextStyle(fontSize: 13, color: c.tintaSuave),
-                children: [TextSpan(text: '${cifra(_seca / .90)} y ${cifra(_seca / .88)} g', style: TextStyle(fontWeight: FontWeight.w700, color: c.cafe))])),
+            Text.rich(TextSpan(text: context.tx.retiraEntre, style: TextStyle(fontSize: 13, color: c.tintaSuave),
+                children: [TextSpan(text: context.tx.rangoGramos(cifra(_seca / .90), cifra(_seca / .88)), style: TextStyle(fontWeight: FontWeight.w700, color: c.cafe))])),
           ]),
         ]),
       ),
-      Boton('Registrar pesaje', icono: 'check', variante: VarianteBoton.primary, grande: true, bloque: true, ocupado: _o,
+      Boton(context.tx.registrarPesaje, icono: 'check', variante: VarianteBoton.primary, grande: true, bloque: true, ocupado: _o,
           onPressed: s.cabecera == null ? widget.onIngresar : () async {
             setState(() => _o = true);
-            await s.hacer(context, (h) => s.api.pesaje(widget.lote['id'] as int, _g, h), 'Pesaje registrado', detalle: '${cifra(_g)} g · ${cifra(hum)} % de humedad');
+            await s.hacer(context, (h) => s.api.pesaje(widget.lote['id'] as int, _g, h), context.tx.pesajeRegistrado, detalle: context.tx.pesajeDetalle(cifra(_g), cifra(hum)));
             if (mounted) setState(() => _o = false);
           }),
-      if (s.cabecera == null) Text('Para registrar pesajes, ingresa con tu cuenta.', textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: c.tintaSuave)),
+      if (s.cabecera == null) Text(context.tx.ingresaParaPesar, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: c.tintaSuave)),
       Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TituloTarjeta(icono: 'historial', titulo: 'Pesajes de ${widget.lote['name']}'),
-        if (_lista.isEmpty) Text('Todavía no hay pesajes de este lote.', style: TextStyle(fontSize: 14, color: c.tintaSuave)),
+        TituloTarjeta(icono: 'historial', titulo: context.tx.pesajesDe('${widget.lote['name']}')),
+        if (_lista.isEmpty) Text(context.tx.sinPesajesLote, style: TextStyle(fontSize: 14, color: c.tintaSuave)),
         for (final (i, x) in _lista.reversed.indexed) InkWell(
           onTap: () => _corregir(x),
           child: Container(
@@ -160,7 +161,7 @@ class _PesajeState extends State<_Pesaje> {
             ]),
           ),
         ),
-        Pie('Humedad por conservación de materia seca (Cenicafé)${widget.cal['source'] == 'MEASURED' ? ', ajustada con puntos medidos' : ''}: ${cifra(_seca)} g de materia seca. Toca un pesaje para corregirlo.'),
+        Pie(context.tx.pesajePie(widget.cal['source'] == 'MEASURED' ? context.tx.ajustadaPuntos : '', cifra(_seca))),
       ])),
     ]);
   }

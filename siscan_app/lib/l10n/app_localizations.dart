@@ -1852,6 +1852,546 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'su instalación'**
   String get avisoSuInstalacion;
+
+  /// Acción de la barra: volver a cargar.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar'**
+  String get actualizar;
+
+  /// Etiqueta del selector de filtro (lector de pantalla).
+  ///
+  /// In es, this message translates to:
+  /// **'Filtro'**
+  String get filtro;
+
+  /// Filtro de lotes: todos.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get filtroTodos;
+
+  /// Lista de lotes vacía por el filtro.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay lotes con este filtro.'**
+  String get lotesSinFiltro;
+
+  /// Botón y título para crear un lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo lote'**
+  String get nuevoLote;
+
+  /// Título de la ficha de un lote mientras carga.
+  ///
+  /// In es, this message translates to:
+  /// **'Lote'**
+  String get loteTitulo;
+
+  /// Carga de la ficha del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando el lote…'**
+  String get cargandoLote;
+
+  /// Título de la tarjeta de la curva.
+  ///
+  /// In es, this message translates to:
+  /// **'Curva de humedad'**
+  String get curvaHumedad;
+
+  /// Título de la tarjeta de etapas.
+  ///
+  /// In es, this message translates to:
+  /// **'Proceso'**
+  String get proceso;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get faseInicio;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Calentamiento'**
+  String get faseCalentamiento;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Secado activo'**
+  String get faseSecadoActivo;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Reducción de humedad'**
+  String get faseReduccion;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes'**
+  String get faseAjustes;
+
+  /// Etapa del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Finalización'**
+  String get faseFinalizacion;
+
+  /// Etapa actual con su inicio.
+  ///
+  /// In es, this message translates to:
+  /// **'En curso · desde {cuando}'**
+  String faseEnCursoDesde(String cuando);
+
+  /// Etapa pasada sin fecha.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin registro'**
+  String get faseSinRegistro;
+
+  /// Etapa actual sin fecha.
+  ///
+  /// In es, this message translates to:
+  /// **'En curso'**
+  String get faseEnCurso;
+
+  /// Etapa que falta.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente'**
+  String get fasePendiente;
+
+  /// Rango de la predicción: «Entre 5 h y 8 h». Termina en espacio.
+  ///
+  /// In es, this message translates to:
+  /// **'Entre '**
+  String get predEntre;
+
+  /// Une los dos extremos del rango, con espacios.
+  ///
+  /// In es, this message translates to:
+  /// **' y '**
+  String get predY;
+
+  /// Antes de la fecha estimada; empieza y termina en espacio.
+  ///
+  /// In es, this message translates to:
+  /// **' · listo cerca de las '**
+  String get predListoCerca;
+
+  /// Entrada del modelo: cantidad de pesajes.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad} pesajes'**
+  String predPesajes(String cantidad);
+
+  /// Entrada del modelo.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad} ajustes bootstrap'**
+  String predAjustesBootstrap(String cantidad);
+
+  /// Pie cuando la predicción no es fiable.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo {cantidad} pesajes: por debajo de {minimo} la tesis lo considera orientativo.'**
+  String predOrientativo(String cantidad, String minimo);
+
+  /// Mientras calcula la predicción.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustando los modelos de la tesis…'**
+  String get predAjustando;
+
+  /// Error de la predicción.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible calcular la predicción.'**
+  String get predNoCalculo;
+
+  /// Cifra de la predicción: el lote llegó.
+  ///
+  /// In es, this message translates to:
+  /// **'Listo'**
+  String get predListo;
+
+  /// Explicación del lote listo; valor ya formateado.
+  ///
+  /// In es, this message translates to:
+  /// **'La muestra está en {valor} %: dentro de la ventana comercial. Retíralo.'**
+  String predListoTexto(String valor);
+
+  /// Cifra de la predicción: se pasó del objetivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasado'**
+  String get predPasado;
+
+  /// Explicación del sobresecado.
+  ///
+  /// In es, this message translates to:
+  /// **'La muestra está en {valor} %, por debajo del 10 %: está sobre-secado.'**
+  String predPasadoTexto(String valor);
+
+  /// Cifra de la predicción: no llega al objetivo.
+  ///
+  /// In es, this message translates to:
+  /// **'No llega'**
+  String get predNoLlega;
+
+  /// Explicación cuando faltan pesajes.
+  ///
+  /// In es, this message translates to:
+  /// **'Pocos pesajes para predecir.'**
+  String get predPocosPesajesPunto;
+
+  /// Lista «Lewis 40 h · Page 38 h».
+  ///
+  /// In es, this message translates to:
+  /// **'Punto de retiro por modelo: {lista} desde el primer pesaje.'**
+  String predPuntoRetiro(String lista);
+
+  /// Dentro de la lista por modelo, en minúscula.
+  ///
+  /// In es, this message translates to:
+  /// **'no llega'**
+  String get predNoLlegaMin;
+
+  /// Título de la tarjeta de la red neuronal.
+  ///
+  /// In es, this message translates to:
+  /// **'Red neuronal · sensores'**
+  String get redTitulo;
+
+  /// Píldora con la cantidad de sensores con falla.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad} con falla'**
+  String redConFalla(int cantidad);
+
+  /// Píldora sin fallas.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin fallas'**
+  String get redSinFallas;
+
+  /// Ventana de señal analizada.
+  ///
+  /// In es, this message translates to:
+  /// **'2 h hasta {cuando}'**
+  String red2hHasta(String cuando);
+
+  /// Pie de la red neuronal.
+  ///
+  /// In es, this message translates to:
+  /// **'MLP (32, 16) de la tesis, F1 {f1} en prueba. Clasifica la forma de la señal: normal, pegado, deriva, salto de escalón, ruido, picos o saturado.'**
+  String redPie(String f1);
+
+  /// Error de la segunda opinión.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible consultar la IA. ({error})'**
+  String iaError(String error);
+
+  /// Título de la tarjeta de Groq.
+  ///
+  /// In es, this message translates to:
+  /// **'Segunda opinión de IA'**
+  String get iaTitulo;
+
+  /// Pie de la segunda opinión.
+  ///
+  /// In es, this message translates to:
+  /// **'Texto generado por IA con los datos del lote, la predicción de la tesis, la red neuronal y el clima · {cuando}. No reemplaza la medición.'**
+  String iaPie(String cuando);
+
+  /// Qué hace la segunda opinión, antes de pedirla.
+  ///
+  /// In es, this message translates to:
+  /// **'Un modelo de lenguaje lee los datos del lote y la predicción de la tesis, y da su estimación con una recomendación.'**
+  String get iaExplica;
+
+  /// Botón de la segunda opinión.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a consultar'**
+  String get iaVolver;
+
+  /// Botón de la segunda opinión.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar a la IA'**
+  String get iaConsultar;
+
+  /// Campo del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre del lote'**
+  String get nombreLote;
+
+  /// Ejemplo del campo; Castillo es una variedad (no se traduce).
+  ///
+  /// In es, this message translates to:
+  /// **'Lote C · Castillo'**
+  String get nombreLoteEjemplo;
+
+  /// Pista del campo.
+  ///
+  /// In es, this message translates to:
+  /// **'Así aparecerá en el panel, la app y el reloj.'**
+  String get nombreLotePista;
+
+  /// Pregunta del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Dónde se seca?'**
+  String get dondeSeSeca;
+
+  /// Campo del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Variedad'**
+  String get variedad;
+
+  /// Variedad sin elegir.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin especificar'**
+  String get sinEspecificar;
+
+  /// Campo del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Protocolo'**
+  String get protocolo;
+
+  /// Peso de la muestra del Gravimet.
+  ///
+  /// In es, this message translates to:
+  /// **'Muestra'**
+  String get muestra;
+
+  /// Campo del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad inicial'**
+  String get humedadInicial;
+
+  /// Campo del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad objetivo'**
+  String get humedadObjetivo;
+
+  /// Resultado del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso de retiro calculado'**
+  String get pesoRetiro;
+
+  /// Bajo el peso de retiro.
+  ///
+  /// In es, this message translates to:
+  /// **'con {gramos} g de materia seca'**
+  String materiaSeca(String gramos);
+
+  /// Botón del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Iniciar lote'**
+  String get iniciarLote;
+
+  /// Error del formulario.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el nombre del lote.'**
+  String get escribeNombre;
+
+  /// Aviso al crear el lote.
+  ///
+  /// In es, this message translates to:
+  /// **'Lote iniciado'**
+  String get loteIniciado;
+
+  /// Pesaje vacío.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin lote activo'**
+  String get sinLoteActivo;
+
+  /// Pesaje vacío.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicia un lote para empezar a pesar la muestra cada mañana.'**
+  String get sinLoteActivoTexto;
+
+  /// Carga de Pesaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando los pesajes…'**
+  String get cargandoPesajes;
+
+  /// Título del diálogo para escribir el peso.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso de la muestra'**
+  String get pesoMuestra;
+
+  /// Botón que cierra un diálogo aceptando.
+  ///
+  /// In es, this message translates to:
+  /// **'Listo'**
+  String get hecho;
+
+  /// Título de la hoja de corrección.
+  ///
+  /// In es, this message translates to:
+  /// **'Corregir pesaje · {cuando}'**
+  String corregirPesaje(String cuando);
+
+  /// Campo de la hoja de corrección.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso corregido'**
+  String get pesoCorregido;
+
+  /// Botón guardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get guardar;
+
+  /// Botón de la hoja de corrección.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar pesaje'**
+  String get eliminarPesaje;
+
+  /// Error de la corrección.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el peso corregido en gramos.'**
+  String get escribePesoCorregido;
+
+  /// Aviso.
+  ///
+  /// In es, this message translates to:
+  /// **'Pesaje corregido'**
+  String get pesajeCorregido;
+
+  /// Aviso.
+  ///
+  /// In es, this message translates to:
+  /// **'Pesaje eliminado'**
+  String get pesajeEliminado;
+
+  /// Veredicto del pesaje (> 12 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía le falta secar'**
+  String get faltaSecar;
+
+  /// Veredicto del pesaje (10–12 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Está en el rango comercial: retíralo'**
+  String get rangoComercial;
+
+  /// Veredicto del pesaje (< 10 %).
+  ///
+  /// In es, this message translates to:
+  /// **'Ya pasó el punto: está sobre-secado'**
+  String get yaPaso;
+
+  /// Encima de la cifra del peso.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso de la muestra · {lote}'**
+  String pesoMuestraDe(String lote);
+
+  /// Botón redondo (lector de pantalla); la cifra con el separador del idioma.
+  ///
+  /// In es, this message translates to:
+  /// **'Restar 0,1 g'**
+  String get restarDecima;
+
+  /// Botón redondo (lector de pantalla); la cifra con el separador del idioma.
+  ///
+  /// In es, this message translates to:
+  /// **'Sumar 0,1 g'**
+  String get sumarDecima;
+
+  /// Lector de pantalla de la cifra del peso.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso {gramos} gramos. Toca para escribirlo.'**
+  String pesoLector(String gramos);
+
+  /// Antes del rango en gramos; termina en espacio.
+  ///
+  /// In es, this message translates to:
+  /// **'Retira entre '**
+  String get retiraEntre;
+
+  /// Rango de retiro en gramos.
+  ///
+  /// In es, this message translates to:
+  /// **'{desde} y {hasta} g'**
+  String rangoGramos(String desde, String hasta);
+
+  /// Botón principal de Pesaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar pesaje'**
+  String get registrarPesaje;
+
+  /// Aviso.
+  ///
+  /// In es, this message translates to:
+  /// **'Pesaje registrado'**
+  String get pesajeRegistrado;
+
+  /// Detalle del aviso.
+  ///
+  /// In es, this message translates to:
+  /// **'{gramos} g · {humedad} % de humedad'**
+  String pesajeDetalle(String gramos, String humedad);
+
+  /// Pesaje sin sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'Para registrar pesajes, ingresa con tu cuenta.'**
+  String get ingresaParaPesar;
+
+  /// Título del historial.
+  ///
+  /// In es, this message translates to:
+  /// **'Pesajes de {lote}'**
+  String pesajesDe(String lote);
+
+  /// Historial vacío.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay pesajes de este lote.'**
+  String get sinPesajesLote;
+
+  /// Pie del historial; ajuste es vacío o «, ajustada con puntos medidos».
+  ///
+  /// In es, this message translates to:
+  /// **'Humedad por conservación de materia seca (Cenicafé){ajuste}: {gramos} g de materia seca. Toca un pesaje para corregirlo.'**
+  String pesajePie(String ajuste, String gramos);
+
+  /// Se agrega dentro del pie; empieza con coma.
+  ///
+  /// In es, this message translates to:
+  /// **', ajustada con puntos medidos'**
+  String get ajustadaPuntos;
 }
 
 class _AppLocalizationsDelegate

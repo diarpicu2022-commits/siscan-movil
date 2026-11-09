@@ -489,7 +489,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get variedadSinRegistrar => 'Variedade não registrada';
 
   @override
-  String get sitioAireLibre => 'Ao ar livre';
+  String get sitioAireLibre => 'Ar livre';
 
   @override
   String get sitioSecador => 'Secador';
@@ -1013,6 +1013,320 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get avisoSuInstalacion => 'a instalação';
+
+  @override
+  String get actualizar => 'Atualizar';
+
+  @override
+  String get filtro => 'Filtro';
+
+  @override
+  String get filtroTodos => 'Todos';
+
+  @override
+  String get lotesSinFiltro => 'Nenhum lote com este filtro.';
+
+  @override
+  String get nuevoLote => 'Novo lote';
+
+  @override
+  String get loteTitulo => 'Lote';
+
+  @override
+  String get cargandoLote => 'Carregando o lote…';
+
+  @override
+  String get curvaHumedad => 'Curva de umidade';
+
+  @override
+  String get proceso => 'Processo';
+
+  @override
+  String get faseInicio => 'Início';
+
+  @override
+  String get faseCalentamiento => 'Aquecimento';
+
+  @override
+  String get faseSecadoActivo => 'Secagem ativa';
+
+  @override
+  String get faseReduccion => 'Redução de umidade';
+
+  @override
+  String get faseAjustes => 'Ajustes';
+
+  @override
+  String get faseFinalizacion => 'Finalização';
+
+  @override
+  String faseEnCursoDesde(String cuando) {
+    return 'Em andamento · desde $cuando';
+  }
+
+  @override
+  String get faseSinRegistro => 'Sem registro';
+
+  @override
+  String get faseEnCurso => 'Em andamento';
+
+  @override
+  String get fasePendiente => 'Pendente';
+
+  @override
+  String get predEntre => 'Entre ';
+
+  @override
+  String get predY => ' e ';
+
+  @override
+  String get predListoCerca => ' · pronto por volta de ';
+
+  @override
+  String predPesajes(String cantidad) {
+    return '$cantidad pesagens';
+  }
+
+  @override
+  String predAjustesBootstrap(String cantidad) {
+    return '$cantidad ajustes bootstrap';
+  }
+
+  @override
+  String predOrientativo(String cantidad, String minimo) {
+    return 'Só $cantidad pesagens: abaixo de $minimo a tese a considera apenas indicativa.';
+  }
+
+  @override
+  String get predAjustando => 'Ajustando os modelos da tese…';
+
+  @override
+  String get predNoCalculo => 'Não foi possível calcular a previsão.';
+
+  @override
+  String get predListo => 'Pronto';
+
+  @override
+  String predListoTexto(String valor) {
+    return 'A amostra está em $valor %: dentro da faixa comercial. Pode retirar.';
+  }
+
+  @override
+  String get predPasado => 'Passou';
+
+  @override
+  String predPasadoTexto(String valor) {
+    return 'A amostra está em $valor %, abaixo de 10 %: secagem excessiva.';
+  }
+
+  @override
+  String get predNoLlega => 'Não chega';
+
+  @override
+  String get predPocosPesajesPunto => 'Poucas pesagens para prever.';
+
+  @override
+  String predPuntoRetiro(String lista) {
+    return 'Ponto de retirada por modelo: $lista desde a primeira pesagem.';
+  }
+
+  @override
+  String get predNoLlegaMin => 'não chega';
+
+  @override
+  String get redTitulo => 'Rede neural · sensores';
+
+  @override
+  String redConFalla(int cantidad) {
+    return '$cantidad com falha';
+  }
+
+  @override
+  String get redSinFallas => 'Sem falhas';
+
+  @override
+  String red2hHasta(String cuando) {
+    return '2 h até $cuando';
+  }
+
+  @override
+  String redPie(String f1) {
+    return 'MLP (32, 16) da tese, F1 $f1 no teste. Classifica a forma do sinal: normal, travado, deriva, salto de degrau, ruído, picos ou saturado.';
+  }
+
+  @override
+  String iaError(String error) {
+    return 'Não foi possível consultar a IA. ($error)';
+  }
+
+  @override
+  String get iaTitulo => 'Segunda opinião de IA';
+
+  @override
+  String iaPie(String cuando) {
+    return 'Texto gerado por IA com os dados do lote, a previsão da tese, a rede neural e o clima · $cuando. Não substitui a medição.';
+  }
+
+  @override
+  String get iaExplica =>
+      'Um modelo de linguagem lê os dados do lote e a previsão da tese e dá sua estimativa com uma recomendação.';
+
+  @override
+  String get iaVolver => 'Consultar de novo';
+
+  @override
+  String get iaConsultar => 'Consultar a IA';
+
+  @override
+  String get nombreLote => 'Nome do lote';
+
+  @override
+  String get nombreLoteEjemplo => 'Lote C · Castillo';
+
+  @override
+  String get nombreLotePista =>
+      'Assim aparecerá no painel, no app e no relógio.';
+
+  @override
+  String get dondeSeSeca => 'Onde seca?';
+
+  @override
+  String get variedad => 'Variedade';
+
+  @override
+  String get sinEspecificar => 'Não especificada';
+
+  @override
+  String get protocolo => 'Protocolo';
+
+  @override
+  String get muestra => 'Amostra';
+
+  @override
+  String get humedadInicial => 'Umidade inicial';
+
+  @override
+  String get humedadObjetivo => 'Umidade objetivo';
+
+  @override
+  String get pesoRetiro => 'Peso de retirada calculado';
+
+  @override
+  String materiaSeca(String gramos) {
+    return 'com $gramos g de matéria seca';
+  }
+
+  @override
+  String get iniciarLote => 'Iniciar lote';
+
+  @override
+  String get escribeNombre => 'Escreva o nome do lote.';
+
+  @override
+  String get loteIniciado => 'Lote iniciado';
+
+  @override
+  String get sinLoteActivo => 'Nenhum lote ativo';
+
+  @override
+  String get sinLoteActivoTexto =>
+      'Inicie um lote para começar a pesar a amostra toda manhã.';
+
+  @override
+  String get cargandoPesajes => 'Carregando as pesagens…';
+
+  @override
+  String get pesoMuestra => 'Peso da amostra';
+
+  @override
+  String get hecho => 'Pronto';
+
+  @override
+  String corregirPesaje(String cuando) {
+    return 'Corrigir pesagem · $cuando';
+  }
+
+  @override
+  String get pesoCorregido => 'Peso corrigido';
+
+  @override
+  String get guardar => 'Salvar';
+
+  @override
+  String get eliminarPesaje => 'Excluir pesagem';
+
+  @override
+  String get escribePesoCorregido => 'Escreva o peso corrigido em gramas.';
+
+  @override
+  String get pesajeCorregido => 'Pesagem corrigida';
+
+  @override
+  String get pesajeEliminado => 'Pesagem excluída';
+
+  @override
+  String get faltaSecar => 'Ainda falta secar';
+
+  @override
+  String get rangoComercial => 'Está na faixa comercial: pode retirar';
+
+  @override
+  String get yaPaso => 'Passou do ponto: secagem excessiva';
+
+  @override
+  String pesoMuestraDe(String lote) {
+    return 'Peso da amostra · $lote';
+  }
+
+  @override
+  String get restarDecima => 'Diminuir 0,1 g';
+
+  @override
+  String get sumarDecima => 'Aumentar 0,1 g';
+
+  @override
+  String pesoLector(String gramos) {
+    return 'Peso $gramos gramas. Toque para digitar.';
+  }
+
+  @override
+  String get retiraEntre => 'Retire entre ';
+
+  @override
+  String rangoGramos(String desde, String hasta) {
+    return '$desde e $hasta g';
+  }
+
+  @override
+  String get registrarPesaje => 'Registrar pesagem';
+
+  @override
+  String get pesajeRegistrado => 'Pesagem registrada';
+
+  @override
+  String pesajeDetalle(String gramos, String humedad) {
+    return '$gramos g · $humedad % de umidade';
+  }
+
+  @override
+  String get ingresaParaPesar =>
+      'Para registrar pesagens, entre com sua conta.';
+
+  @override
+  String pesajesDe(String lote) {
+    return 'Pesagens de $lote';
+  }
+
+  @override
+  String get sinPesajesLote => 'Este lote ainda não tem pesagens.';
+
+  @override
+  String pesajePie(String ajuste, String gramos) {
+    return 'Umidade por conservação de matéria seca (Cenicafé)$ajuste: $gramos g de matéria seca. Toque numa pesagem para corrigi-la.';
+  }
+
+  @override
+  String get ajustadaPuntos => ', ajustada com pontos medidos';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).

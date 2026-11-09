@@ -103,7 +103,9 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
 
-### 7. Idiomas es/en/pt-BR (C4): paso 4a hecho, esperando visto bueno (2026-11-09)
+### 7. Idiomas es/en/pt-BR (C4): paso 4b hecho, esperando visto bueno (2026-11-09)
+- 4a aprobado el 2026-11-09. **4b hecho** (Lotes y Pesaje): 90 claves, barrido del paso 4 9/9 con red de español
+  suelto, goldens `07l-*`. Tres decisiones para Diego en la sección 12 del anexo. Siguiente: 4c.
 - 2026-11-09: visto bueno al paso 3, «Fixada à mão» y píldora «Sin calibrar» debajo del nombre en Calibración.
   Paso 4 por partes (4a Inicio y compartidos, 4b Lotes y Pesaje, 4c Equipo, ingreso, alertas, notificaciones y
   widgets, 4d reloj). **4a hecho**: 152 claves, goldens `07i-inicio-*`, barrido de Inicio 9/9, batería en verde,

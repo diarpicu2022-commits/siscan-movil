@@ -1015,4 +1015,318 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avisoSuInstalacion => 'it was installed';
+
+  @override
+  String get actualizar => 'Refresh';
+
+  @override
+  String get filtro => 'Filter';
+
+  @override
+  String get filtroTodos => 'All';
+
+  @override
+  String get lotesSinFiltro => 'No batches match this filter.';
+
+  @override
+  String get nuevoLote => 'New batch';
+
+  @override
+  String get loteTitulo => 'Batch';
+
+  @override
+  String get cargandoLote => 'Loading the batch…';
+
+  @override
+  String get curvaHumedad => 'Moisture curve';
+
+  @override
+  String get proceso => 'Process';
+
+  @override
+  String get faseInicio => 'Start';
+
+  @override
+  String get faseCalentamiento => 'Warm-up';
+
+  @override
+  String get faseSecadoActivo => 'Active drying';
+
+  @override
+  String get faseReduccion => 'Moisture reduction';
+
+  @override
+  String get faseAjustes => 'Adjustments';
+
+  @override
+  String get faseFinalizacion => 'Completion';
+
+  @override
+  String faseEnCursoDesde(String cuando) {
+    return 'In progress · since $cuando';
+  }
+
+  @override
+  String get faseSinRegistro => 'Not recorded';
+
+  @override
+  String get faseEnCurso => 'In progress';
+
+  @override
+  String get fasePendiente => 'Pending';
+
+  @override
+  String get predEntre => 'Between ';
+
+  @override
+  String get predY => ' and ';
+
+  @override
+  String get predListoCerca => ' · ready around ';
+
+  @override
+  String predPesajes(String cantidad) {
+    return '$cantidad weighings';
+  }
+
+  @override
+  String predAjustesBootstrap(String cantidad) {
+    return '$cantidad bootstrap fits';
+  }
+
+  @override
+  String predOrientativo(String cantidad, String minimo) {
+    return 'Only $cantidad weighings: below $minimo the thesis treats it as a rough guide.';
+  }
+
+  @override
+  String get predAjustando => 'Fitting the thesis models…';
+
+  @override
+  String get predNoCalculo => 'The prediction couldn\'t be calculated.';
+
+  @override
+  String get predListo => 'Ready';
+
+  @override
+  String predListoTexto(String valor) {
+    return 'The sample is at $valor %: within the commercial window. Take it out.';
+  }
+
+  @override
+  String get predPasado => 'Over';
+
+  @override
+  String predPasadoTexto(String valor) {
+    return 'The sample is at $valor %, below 10 %: it\'s over-dried.';
+  }
+
+  @override
+  String get predNoLlega => 'Won\'t reach';
+
+  @override
+  String get predPocosPesajesPunto => 'Too few weighings to predict.';
+
+  @override
+  String predPuntoRetiro(String lista) {
+    return 'Removal point by model: $lista from the first weighing.';
+  }
+
+  @override
+  String get predNoLlegaMin => 'won\'t reach';
+
+  @override
+  String get redTitulo => 'Neural network · sensors';
+
+  @override
+  String redConFalla(int cantidad) {
+    return '$cantidad faulty';
+  }
+
+  @override
+  String get redSinFallas => 'No faults';
+
+  @override
+  String red2hHasta(String cuando) {
+    return '2 h up to $cuando';
+  }
+
+  @override
+  String redPie(String f1) {
+    return 'Thesis MLP (32, 16), F1 $f1 on the test set. It classifies the signal shape: normal, stuck, drift, step jump, noise, spikes or saturated.';
+  }
+
+  @override
+  String iaError(String error) {
+    return 'The AI couldn\'t be reached. ($error)';
+  }
+
+  @override
+  String get iaTitulo => 'AI second opinion';
+
+  @override
+  String iaPie(String cuando) {
+    return 'AI-generated text from the batch data, the thesis prediction, the neural network and the weather · $cuando. It doesn\'t replace measuring.';
+  }
+
+  @override
+  String get iaExplica =>
+      'A language model reads the batch data and the thesis prediction, and gives its estimate with a recommendation.';
+
+  @override
+  String get iaVolver => 'Ask again';
+
+  @override
+  String get iaConsultar => 'Ask the AI';
+
+  @override
+  String get nombreLote => 'Batch name';
+
+  @override
+  String get nombreLoteEjemplo => 'Batch C · Castillo';
+
+  @override
+  String get nombreLotePista =>
+      'This is how it will show on the dashboard, the app and the watch.';
+
+  @override
+  String get dondeSeSeca => 'Where does it dry?';
+
+  @override
+  String get variedad => 'Variety';
+
+  @override
+  String get sinEspecificar => 'Not specified';
+
+  @override
+  String get protocolo => 'Protocol';
+
+  @override
+  String get muestra => 'Sample';
+
+  @override
+  String get humedadInicial => 'Initial moisture';
+
+  @override
+  String get humedadObjetivo => 'Target moisture';
+
+  @override
+  String get pesoRetiro => 'Calculated removal weight';
+
+  @override
+  String materiaSeca(String gramos) {
+    return 'with $gramos g of dry matter';
+  }
+
+  @override
+  String get iniciarLote => 'Start batch';
+
+  @override
+  String get escribeNombre => 'Write the batch name.';
+
+  @override
+  String get loteIniciado => 'Batch started';
+
+  @override
+  String get sinLoteActivo => 'No active batch';
+
+  @override
+  String get sinLoteActivoTexto =>
+      'Start a batch to begin weighing the sample every morning.';
+
+  @override
+  String get cargandoPesajes => 'Loading the weighings…';
+
+  @override
+  String get pesoMuestra => 'Sample weight';
+
+  @override
+  String get hecho => 'Done';
+
+  @override
+  String corregirPesaje(String cuando) {
+    return 'Correct weighing · $cuando';
+  }
+
+  @override
+  String get pesoCorregido => 'Corrected weight';
+
+  @override
+  String get guardar => 'Save';
+
+  @override
+  String get eliminarPesaje => 'Delete weighing';
+
+  @override
+  String get escribePesoCorregido => 'Write the corrected weight in grams.';
+
+  @override
+  String get pesajeCorregido => 'Weighing corrected';
+
+  @override
+  String get pesajeEliminado => 'Weighing deleted';
+
+  @override
+  String get faltaSecar => 'It still needs drying';
+
+  @override
+  String get rangoComercial => 'It\'s in the commercial range: take it out';
+
+  @override
+  String get yaPaso => 'Past the point: it\'s over-dried';
+
+  @override
+  String pesoMuestraDe(String lote) {
+    return 'Sample weight · $lote';
+  }
+
+  @override
+  String get restarDecima => 'Subtract 0.1 g';
+
+  @override
+  String get sumarDecima => 'Add 0.1 g';
+
+  @override
+  String pesoLector(String gramos) {
+    return 'Weight $gramos grams. Tap to type it.';
+  }
+
+  @override
+  String get retiraEntre => 'Take it out between ';
+
+  @override
+  String rangoGramos(String desde, String hasta) {
+    return '$desde and $hasta g';
+  }
+
+  @override
+  String get registrarPesaje => 'Record weighing';
+
+  @override
+  String get pesajeRegistrado => 'Weighing recorded';
+
+  @override
+  String pesajeDetalle(String gramos, String humedad) {
+    return '$gramos g · $humedad % moisture';
+  }
+
+  @override
+  String get ingresaParaPesar =>
+      'Sign in with your account to record weighings.';
+
+  @override
+  String pesajesDe(String lote) {
+    return 'Weighings for $lote';
+  }
+
+  @override
+  String get sinPesajesLote => 'This batch has no weighings yet.';
+
+  @override
+  String pesajePie(String ajuste, String gramos) {
+    return 'Moisture by dry-matter conservation (Cenicafé)$ajuste: $gramos g of dry matter. Tap a weighing to correct it.';
+  }
+
+  @override
+  String get ajustadaPuntos => ', adjusted with measured points';
 }

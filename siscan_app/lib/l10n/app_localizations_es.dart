@@ -1015,4 +1015,317 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get avisoSuInstalacion => 'su instalación';
+
+  @override
+  String get actualizar => 'Actualizar';
+
+  @override
+  String get filtro => 'Filtro';
+
+  @override
+  String get filtroTodos => 'Todos';
+
+  @override
+  String get lotesSinFiltro => 'No hay lotes con este filtro.';
+
+  @override
+  String get nuevoLote => 'Nuevo lote';
+
+  @override
+  String get loteTitulo => 'Lote';
+
+  @override
+  String get cargandoLote => 'Cargando el lote…';
+
+  @override
+  String get curvaHumedad => 'Curva de humedad';
+
+  @override
+  String get proceso => 'Proceso';
+
+  @override
+  String get faseInicio => 'Inicio';
+
+  @override
+  String get faseCalentamiento => 'Calentamiento';
+
+  @override
+  String get faseSecadoActivo => 'Secado activo';
+
+  @override
+  String get faseReduccion => 'Reducción de humedad';
+
+  @override
+  String get faseAjustes => 'Ajustes';
+
+  @override
+  String get faseFinalizacion => 'Finalización';
+
+  @override
+  String faseEnCursoDesde(String cuando) {
+    return 'En curso · desde $cuando';
+  }
+
+  @override
+  String get faseSinRegistro => 'Sin registro';
+
+  @override
+  String get faseEnCurso => 'En curso';
+
+  @override
+  String get fasePendiente => 'Pendiente';
+
+  @override
+  String get predEntre => 'Entre ';
+
+  @override
+  String get predY => ' y ';
+
+  @override
+  String get predListoCerca => ' · listo cerca de las ';
+
+  @override
+  String predPesajes(String cantidad) {
+    return '$cantidad pesajes';
+  }
+
+  @override
+  String predAjustesBootstrap(String cantidad) {
+    return '$cantidad ajustes bootstrap';
+  }
+
+  @override
+  String predOrientativo(String cantidad, String minimo) {
+    return 'Solo $cantidad pesajes: por debajo de $minimo la tesis lo considera orientativo.';
+  }
+
+  @override
+  String get predAjustando => 'Ajustando los modelos de la tesis…';
+
+  @override
+  String get predNoCalculo => 'No fue posible calcular la predicción.';
+
+  @override
+  String get predListo => 'Listo';
+
+  @override
+  String predListoTexto(String valor) {
+    return 'La muestra está en $valor %: dentro de la ventana comercial. Retíralo.';
+  }
+
+  @override
+  String get predPasado => 'Pasado';
+
+  @override
+  String predPasadoTexto(String valor) {
+    return 'La muestra está en $valor %, por debajo del 10 %: está sobre-secado.';
+  }
+
+  @override
+  String get predNoLlega => 'No llega';
+
+  @override
+  String get predPocosPesajesPunto => 'Pocos pesajes para predecir.';
+
+  @override
+  String predPuntoRetiro(String lista) {
+    return 'Punto de retiro por modelo: $lista desde el primer pesaje.';
+  }
+
+  @override
+  String get predNoLlegaMin => 'no llega';
+
+  @override
+  String get redTitulo => 'Red neuronal · sensores';
+
+  @override
+  String redConFalla(int cantidad) {
+    return '$cantidad con falla';
+  }
+
+  @override
+  String get redSinFallas => 'Sin fallas';
+
+  @override
+  String red2hHasta(String cuando) {
+    return '2 h hasta $cuando';
+  }
+
+  @override
+  String redPie(String f1) {
+    return 'MLP (32, 16) de la tesis, F1 $f1 en prueba. Clasifica la forma de la señal: normal, pegado, deriva, salto de escalón, ruido, picos o saturado.';
+  }
+
+  @override
+  String iaError(String error) {
+    return 'No fue posible consultar la IA. ($error)';
+  }
+
+  @override
+  String get iaTitulo => 'Segunda opinión de IA';
+
+  @override
+  String iaPie(String cuando) {
+    return 'Texto generado por IA con los datos del lote, la predicción de la tesis, la red neuronal y el clima · $cuando. No reemplaza la medición.';
+  }
+
+  @override
+  String get iaExplica =>
+      'Un modelo de lenguaje lee los datos del lote y la predicción de la tesis, y da su estimación con una recomendación.';
+
+  @override
+  String get iaVolver => 'Volver a consultar';
+
+  @override
+  String get iaConsultar => 'Consultar a la IA';
+
+  @override
+  String get nombreLote => 'Nombre del lote';
+
+  @override
+  String get nombreLoteEjemplo => 'Lote C · Castillo';
+
+  @override
+  String get nombreLotePista => 'Así aparecerá en el panel, la app y el reloj.';
+
+  @override
+  String get dondeSeSeca => '¿Dónde se seca?';
+
+  @override
+  String get variedad => 'Variedad';
+
+  @override
+  String get sinEspecificar => 'Sin especificar';
+
+  @override
+  String get protocolo => 'Protocolo';
+
+  @override
+  String get muestra => 'Muestra';
+
+  @override
+  String get humedadInicial => 'Humedad inicial';
+
+  @override
+  String get humedadObjetivo => 'Humedad objetivo';
+
+  @override
+  String get pesoRetiro => 'Peso de retiro calculado';
+
+  @override
+  String materiaSeca(String gramos) {
+    return 'con $gramos g de materia seca';
+  }
+
+  @override
+  String get iniciarLote => 'Iniciar lote';
+
+  @override
+  String get escribeNombre => 'Escribe el nombre del lote.';
+
+  @override
+  String get loteIniciado => 'Lote iniciado';
+
+  @override
+  String get sinLoteActivo => 'Sin lote activo';
+
+  @override
+  String get sinLoteActivoTexto =>
+      'Inicia un lote para empezar a pesar la muestra cada mañana.';
+
+  @override
+  String get cargandoPesajes => 'Cargando los pesajes…';
+
+  @override
+  String get pesoMuestra => 'Peso de la muestra';
+
+  @override
+  String get hecho => 'Listo';
+
+  @override
+  String corregirPesaje(String cuando) {
+    return 'Corregir pesaje · $cuando';
+  }
+
+  @override
+  String get pesoCorregido => 'Peso corregido';
+
+  @override
+  String get guardar => 'Guardar';
+
+  @override
+  String get eliminarPesaje => 'Eliminar pesaje';
+
+  @override
+  String get escribePesoCorregido => 'Escribe el peso corregido en gramos.';
+
+  @override
+  String get pesajeCorregido => 'Pesaje corregido';
+
+  @override
+  String get pesajeEliminado => 'Pesaje eliminado';
+
+  @override
+  String get faltaSecar => 'Todavía le falta secar';
+
+  @override
+  String get rangoComercial => 'Está en el rango comercial: retíralo';
+
+  @override
+  String get yaPaso => 'Ya pasó el punto: está sobre-secado';
+
+  @override
+  String pesoMuestraDe(String lote) {
+    return 'Peso de la muestra · $lote';
+  }
+
+  @override
+  String get restarDecima => 'Restar 0,1 g';
+
+  @override
+  String get sumarDecima => 'Sumar 0,1 g';
+
+  @override
+  String pesoLector(String gramos) {
+    return 'Peso $gramos gramos. Toca para escribirlo.';
+  }
+
+  @override
+  String get retiraEntre => 'Retira entre ';
+
+  @override
+  String rangoGramos(String desde, String hasta) {
+    return '$desde y $hasta g';
+  }
+
+  @override
+  String get registrarPesaje => 'Registrar pesaje';
+
+  @override
+  String get pesajeRegistrado => 'Pesaje registrado';
+
+  @override
+  String pesajeDetalle(String gramos, String humedad) {
+    return '$gramos g · $humedad % de humedad';
+  }
+
+  @override
+  String get ingresaParaPesar =>
+      'Para registrar pesajes, ingresa con tu cuenta.';
+
+  @override
+  String pesajesDe(String lote) {
+    return 'Pesajes de $lote';
+  }
+
+  @override
+  String get sinPesajesLote => 'Todavía no hay pesajes de este lote.';
+
+  @override
+  String pesajePie(String ajuste, String gramos) {
+    return 'Humedad por conservación de materia seca (Cenicafé)$ajuste: $gramos g de materia seca. Toca un pesaje para corregirlo.';
+  }
+
+  @override
+  String get ajustadaPuntos => ', ajustada con puntos medidos';
 }
