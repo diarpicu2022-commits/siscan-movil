@@ -103,7 +103,9 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
 
-### 7. Idiomas es/en/pt-BR (C4): paso 6 hecho, esperando visto bueno (2026-11-09)
+### 7. Idiomas es/en/pt-BR (C4): terminado y en `develop` (PR #5, 2026-11-09)
+- PR #2, #3, #4 y #5 mergeados en `develop` el 2026-11-09. El widget en release se dibuja bien (la falla era solo de
+  depuración); compilar release desde `C:\dev\siscan-build`. Pendiente: teléfono físico, abogado y revisión nativa.
 - Paso 6 en el emulador `Agenda_Pixel`: 5 pestañas, canales y widget en tres idiomas, 0 fallas. Arreglado: la
   descripción del widget no se guardaba. **Pendiente:** las imágenes del widget no se dibujan (`'!debugNeedsPaint'`,
   probar en release desde `C:\dev\siscan-build`), teléfono físico, abogado y revisión nativa. Sección 16 del anexo.
