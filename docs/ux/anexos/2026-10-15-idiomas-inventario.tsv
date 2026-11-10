@@ -1,0 +1,747 @@
+zona	archivo	línea	texto
+teléfono	siscan_app/lib/app/comun.dart	50	Variedad sin registrar
+teléfono	siscan_app/lib/app/comun.dart	54	Aire libre
+teléfono	siscan_app/lib/app/comun.dart	54	Secador
+teléfono	siscan_app/lib/app/comun.dart	59	Calculando la predicción…
+teléfono	siscan_app/lib/app/comun.dart	61	Listo en ~${duracion(p[
+teléfono	siscan_app/lib/app/comun.dart	62	Listo: retíralo
+teléfono	siscan_app/lib/app/comun.dart	62	Terminó en el objetivo
+teléfono	siscan_app/lib/app/comun.dart	63	Pasó el punto: sobre-secado
+teléfono	siscan_app/lib/app/comun.dart	64	Con este aire no llega al objetivo
+teléfono	siscan_app/lib/app/comun.dart	65	Pocos pesajes para predecir
+teléfono	siscan_app/lib/app/comun.dart	72	Alerta
+teléfono	siscan_app/lib/app/comun.dart	87	La red neuronal no ve fallas
+teléfono	siscan_app/lib/app/comun.dart	87	La red neuronal ve fallas
+teléfono	siscan_app/lib/app/comun.dart	88	${red.length} sensores con señal normal
+teléfono	siscan_app/lib/app/comun.dart	89	ESP32 conectado
+teléfono	siscan_app/lib/app/comun.dart	89	ESP32 sin conexión
+teléfono	siscan_app/lib/app/comun.dart	89	Último reporte ${hace(b.ultimaT).toLowerCase()}
+teléfono	siscan_app/lib/app/comun.dart	89	Todavía no reporta
+teléfono	siscan_app/lib/app/comun.dart	90	$vivos de ${tipos.length} sensores reportando
+teléfono	siscan_app/lib/app/comun.dart	91	Actuadores con copias
+teléfono	siscan_app/lib/app/comun.dart	91	Actuadores registrados
+teléfono	siscan_app/lib/app/comun.dart	91	${b.actuadores.length} registrados${copias > 0 ? 
+teléfono	siscan_app/lib/app/comun.dart	91	 · último estado conocido
+teléfono	siscan_app/lib/app/comun.dart	97	Normal
+teléfono	siscan_app/lib/app/comun.dart	98	Pegado
+teléfono	siscan_app/lib/app/comun.dart	99	Saturado
+teléfono	siscan_app/lib/app/comun.dart	100	Deriva
+teléfono	siscan_app/lib/app/comun.dart	101	Salto de escalón
+teléfono	siscan_app/lib/app/comun.dart	102	Ruido
+teléfono	siscan_app/lib/app/comun.dart	103	Picos
+teléfono	siscan_app/lib/app/comun.dart	104	Sin datos
+teléfono	siscan_app/lib/app/comun.dart	109	Pasto
+teléfono	siscan_app/lib/app/comun.dart	109	Chachagüí
+teléfono	siscan_app/lib/app/comun.dart	109	La Unión
+teléfono	siscan_app/lib/app/comun.dart	109	Sandoná
+teléfono	siscan_app/lib/app/comun.dart	109	Ipiales
+teléfono	siscan_app/lib/app/comun.dart	138	Vista de solo lectura
+teléfono	siscan_app/lib/app/comun.dart	141	Ingresar
+teléfono	siscan_app/lib/app/contexto.dart	92	Ingresa con tu cuenta para hacer cambios
+teléfono	siscan_app/lib/app/contexto.dart	121	Cargando el estado del secador…
+teléfono	siscan_app/lib/app/contexto.dart	143	código (\d+)
+teléfono	siscan_app/lib/app/contexto.dart	144	El servidor respondió con un error (código $codigo).
+teléfono	siscan_app/lib/app/contexto.dart	145	No fue posible cargar
+teléfono	siscan_app/lib/app/contexto.dart	145	No hubo respuesta del servidor.
+teléfono	siscan_app/lib/app/contexto.dart	147	No fue posible cargar estos datos
+teléfono	siscan_app/lib/app/contexto.dart	150	Reintentar
+teléfono	siscan_app/lib/app/contexto.dart	163	Sin señal: ves la copia guardada (${corta(base.cargadoEn).toLowerCase()}).
+teléfono	siscan_app/lib/app/contexto.dart	163	El secador no reporta desde ${base.ultimaT != null ? corta(base.ultimaT) : 
+teléfono	siscan_app/lib/app/contexto.dart	170	Reintentar
+teléfono	siscan_app/lib/app/notificaciones.dart	18	Alertas del secador
+teléfono	siscan_app/lib/app/notificaciones.dart	18	Temperatura, humedad y equipo fuera de rango.
+teléfono	siscan_app/lib/app/notificaciones.dart	19	Pesaje y lote listo
+teléfono	siscan_app/lib/app/notificaciones.dart	19	Hora de pesar la muestra y predicción de la tesis.
+teléfono	siscan_app/lib/app/notificaciones.dart	20	Lote en curso
+teléfono	siscan_app/lib/app/notificaciones.dart	20	Avance del lote en la pantalla de bloqueo.
+teléfono	siscan_app/lib/app/notificaciones.dart	63	Alerta
+teléfono	siscan_app/lib/app/notificaciones.dart	64	Alerta crítica
+teléfono	siscan_app/lib/app/notificaciones.dart	64	Advertencia
+teléfono	siscan_app/lib/app/notificaciones.dart	65	Ver equipo
+teléfono	siscan_app/lib/app/notificaciones.dart	78	Hora de pesar la muestra
+teléfono	siscan_app/lib/app/notificaciones.dart	78	aún sin pesajes
+teléfono	siscan_app/lib/app/notificaciones.dart	78	último pesaje hace ${DateTime.now().difference(ult).inHours} h
+teléfono	siscan_app/lib/app/notificaciones.dart	79	Registrar pesaje
+teléfono	siscan_app/lib/app/notificaciones.dart	81	Secando
+teléfono	siscan_app/lib/app/notificaciones.dart	84	Secando · listo en ~${duracion(pr[
+teléfono	siscan_app/lib/app/notificaciones.dart	87	La muestra está en ${pr[
+teléfono	siscan_app/lib/app/preferencias.dart	31	Android no dio permiso para notificaciones. Actívalo en los ajustes del teléfono.
+teléfono	siscan_app/lib/app/preferencias.dart	45	Este teléfono no tiene huella configurada.
+teléfono	siscan_app/lib/app/preferencias.dart	46	Confirma tu huella para activar el ingreso rápido
+teléfono	siscan_app/lib/app/widgets_inicio.dart	36	MoistureWidgetProvider
+teléfono	siscan_app/lib/app/widgets_inicio.dart	36	BatchWidgetProvider
+teléfono	siscan_app/lib/app/widgets_inicio.dart	42	SISCAN: sin lotes registrados.
+teléfono	siscan_app/lib/app/widgets_inicio.dart	43	SISCAN, ${l[
+teléfono	siscan_app/lib/app/widgets_inicio.dart	83	humedad del grano
+teléfono	siscan_app/lib/app/widgets_inicio.dart	83	sin conexión · ${dia(base.ultimaT)}
+teléfono	siscan_app/lib/app/widgets_inicio.dart	88	— °C
+teléfono	siscan_app/lib/app/widgets_inicio.dart	90	— % HR
+teléfono	siscan_app/lib/app/widgets_inicio.dart	92	Sin conexión · ${dia(base.ultimaT)}
+teléfono	siscan_app/lib/app/widgets_inicio.dart	92	Secando
+teléfono	siscan_app/lib/app/widgets_inicio.dart	92	Lote terminado
+teléfono	siscan_app/lib/core/momento.dart	42	sin límite en 48 h
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	284	Outfit
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	285	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	288	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	290	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	292	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	294	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	296	Outfit
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	298	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	300	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	302	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	304	PlusJakartaSans
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	306	Outfit
+teléfono	siscan_app/lib/core/theme/siscan_tokens.dart	308	Outfit
+teléfono	siscan_app/lib/core/ui/base.dart	96	En operación
+teléfono	siscan_app/lib/core/ui/base.dart	96	En pausa
+teléfono	siscan_app/lib/core/ui/base.dart	96	Alerta
+teléfono	siscan_app/lib/core/ui/base.dart	96	Sin conexión
+teléfono	siscan_app/lib/core/ui/base.dart	318	Ocultar contraseña
+teléfono	siscan_app/lib/core/ui/base.dart	318	Mostrar contraseña
+teléfono	siscan_app/lib/core/ui/datos.dart	69	$rotulo: ${texto ?? cifra(valor, decimales)} $unidad${sub != null ? 
+teléfono	siscan_app/lib/core/ui/datos.dart	153	Sin pesajes todavía: la curva aparece con la primera muestra gravimétrica.
+teléfono	siscan_app/lib/core/ui/datos.dart	153	Un solo pesaje: la curva aparece con el segundo.
+teléfono	siscan_app/lib/core/ui/datos.dart	156	La humedad del grano bajó de ${cifra(datos.first)} % a ${cifra(datos.last)} %; objetivo 10 – 12 %.
+teléfono	siscan_app/lib/core/ui/datos.dart	161	Humedad del grano (gravimétrico)
+teléfono	siscan_app/lib/core/ui/datos.dart	162	Predicción IA
+teléfono	siscan_app/lib/core/ui/datos.dart	163	Objetivo
+teléfono	siscan_app/lib/core/ui/datos.dart	199	Objetivo 10 – 12 %
+teléfono	siscan_app/lib/core/ui/datos.dart	239	Consumo energético y costo
+teléfono	siscan_app/lib/core/ui/datos.dart	262	Solar
+teléfono	siscan_app/lib/core/ui/datos.dart	263	Red eléctrica
+teléfono	siscan_app/lib/core/ui/datos.dart	264	Costo
+teléfono	siscan_app/lib/core/ui/datos.dart	277	Energía por periodo: solar abajo, red eléctrica arriba
+teléfono	siscan_app/lib/core/ui/datos.dart	293	Solar
+teléfono	siscan_app/lib/core/ui/datos.dart	294	Red eléctrica
+teléfono	siscan_app/lib/core/ui/datos.dart	295	Tarifa ${dinero(tarifa)}/kWh
+teléfono	siscan_app/lib/core/ui/datos.dart	304	Modelo de la tesis
+teléfono	siscan_app/lib/core/ui/datos.dart	321	Predicción de IA
+teléfono	siscan_app/lib/core/ui/datos.dart	321	Confianza $conf
+teléfono	siscan_app/lib/core/ui/datos.dart	322	Tiempo restante estimado
+teléfono	siscan_app/lib/core/ui/datos.dart	329	Confianza de la predicción
+teléfono	siscan_app/lib/core/ui/datos.dart	331	Confianza de la predicción
+teléfono	siscan_app/lib/core/ui/datos.dart	335	Datos considerados
+teléfono	siscan_app/lib/core/ui/datos.dart	355	Proceso del lote
+teléfono	siscan_app/lib/core/ui/datos.dart	386	Húmedo
+teléfono	siscan_app/lib/core/ui/datos.dart	386	Oreado
+teléfono	siscan_app/lib/core/ui/datos.dart	386	Secando
+teléfono	siscan_app/lib/core/ui/datos.dart	386	Objetivo alcanzado
+teléfono	siscan_app/lib/core/ui/datos.dart	386	Sobresecado
+teléfono	siscan_app/lib/core/ui/datos.dart	388	Escala de humedad: ${cifra(valor)} %, zona $zona
+teléfono	siscan_app/lib/core/ui/datos.dart	403	Húmedo 53 %
+teléfono	siscan_app/lib/core/ui/datos.dart	403	Oreado
+teléfono	siscan_app/lib/core/ui/datos.dart	403	Secando
+teléfono	siscan_app/lib/core/ui/datos.dart	407	Zona actual: 
+teléfono	siscan_app/lib/core/ui/dominio.dart	47	Encendido
+teléfono	siscan_app/lib/core/ui/dominio.dart	47	Apagado
+teléfono	siscan_app/lib/core/ui/dominio.dart	47	Bloqueado
+teléfono	siscan_app/lib/core/ui/dominio.dart	47	Apagando…
+teléfono	siscan_app/lib/core/ui/dominio.dart	47	Encendiendo…
+teléfono	siscan_app/lib/core/ui/dominio.dart	49	Bloqueado por seguridad · $bloqueado
+teléfono	siscan_app/lib/core/ui/dominio.dart	49	Controlado por el protocolo
+teléfono	siscan_app/lib/core/ui/dominio.dart	49	Nominal ${cifra(vatios, 0)} W${desde != null ? 
+teléfono	siscan_app/lib/core/ui/dominio.dart	78	Orden enviada
+teléfono	siscan_app/lib/core/ui/dominio.dart	105	Mantén presionado. Con lector de pantalla, toca dos veces y mantén.
+teléfono	siscan_app/lib/core/ui/dominio.dart	177	Alertas recientes
+teléfono	siscan_app/lib/core/ui/dominio.dart	187	Ver todas
+teléfono	siscan_app/lib/core/ui/dominio.dart	192	Sin alertas activas
+teléfono	siscan_app/lib/core/ui/dominio.dart	193	Todo en orden.
+teléfono	siscan_app/lib/core/ui/dominio.dart	221	¿Está funcionando el equipo?
+teléfono	siscan_app/lib/core/ui/dominio.dart	223	Sí, todo en orden
+teléfono	siscan_app/lib/core/ui/dominio.dart	223	Revisa el equipo
+teléfono	siscan_app/lib/core/ui/dominio.dart	242	Pasto
+teléfono	siscan_app/lib/core/ui/dominio.dart	242	Chachagüí
+teléfono	siscan_app/lib/core/ui/dominio.dart	242	La Unión
+teléfono	siscan_app/lib/core/ui/dominio.dart	242	Sandoná
+teléfono	siscan_app/lib/core/ui/dominio.dart	242	Ipiales
+teléfono	siscan_app/lib/core/ui/dominio.dart	248	<path d="M-10 $y C80 ${y - 30} 160 ${y + 25} 240 ${y - 12} S360 ${y - 28} 430 ${y - 6}"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	249	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" preserveAspectRatio="xMidYMid slice">
+teléfono	siscan_app/lib/core/ui/dominio.dart	250	<rect width="420" height="260" fill="${_hex(c.superficieHoja)}"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	251	<path fill="${_hex(c.brote)}" d="M0 70 C60 40 120 80 180 50 S300 30 420 60 V260 H0 Z"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	252	<path fill="${_hex(c.broteVivo)}" fill-opacity=".5" d="M0 130 C70 100 140 150 220 110 S340 90 420 120 V260 H0 Z"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	253	<path fill="${_hex(c.hoja)}" fill-opacity=".45" d="M0 195 C80 165 170 215 250 185 S360 165 420 190 V260 H0 Z"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	254	<g fill="none" stroke="${_hex(c.bosque)}" stroke-opacity=".14">$curvas</g>
+teléfono	siscan_app/lib/core/ui/dominio.dart	255	<path fill="none" stroke="${_hex(c.datoExterior)}" stroke-width="3.5" stroke-opacity=".55" stroke-linecap="round" d="M20 260 C70 220 80 190 140 168 S230 132 262 92 S330 46 370 0"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	256	<path fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="8 6" stroke-opacity=".85" stroke-linecap="round" d="M175 228 C200 205 230 190 250 172 S240 120 222 92 S290 70 330 54"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	258	<circle cx="${p.$2}" cy="${p.$3}" r="3" fill="${_hex(pueblo)}"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	260	<text x="${p.$2 + 6}" y="${p.$3 + 4}" font-size="11" font-weight="800" font-family="PlusJakartaSans" fill="none" stroke="$borde" stroke-width="3" stroke-linejoin="round">${p.$1}</text>
+teléfono	siscan_app/lib/core/ui/dominio.dart	261	<text x="${p.$2 + 6}" y="${p.$3 + 4}" font-size="11" font-weight="800" font-family="PlusJakartaSans" fill="${_hex(pueblo)}">${p.$1}</text>
+teléfono	siscan_app/lib/core/ui/dominio.dart	265	<g transform="translate(${p.$1} ${p.$2})"><path d="M0 0 C-3 -6 -11 -12 -11 -20 A11 11 0 0 1 11 -20 C11 -12 3 -6 0 0 Z" fill="${_hex(col)}" stroke="#ffffff" stroke-width="2"/>
+teléfono	siscan_app/lib/core/ui/dominio.dart	266	<circle cy="-20" r="4" fill="#ffffff"/>${p.$4 != null ? 
+teléfono	siscan_app/lib/core/ui/dominio.dart	266	PlusJakartaSans
+teléfono	siscan_app/lib/core/ui/dominio.dart	267	<text x="14" y="-16" font-size="11" font-weight="800" font-family="PlusJakartaSans" fill="${_hex(c.tinta)}">${p.$4}</text>
+teléfono	siscan_app/lib/core/ui/dominio.dart	271	Mapa esquemático de Nariño con ${pines.length} ${pines.length == 1 ? 
+teléfono	siscan_app/lib/core/ui/dominio.dart	279	Nariño
+teléfono	siscan_app/lib/core/ui/dominio.dart	293	En operación
+teléfono	siscan_app/lib/core/ui/dominio.dart	293	En pausa
+teléfono	siscan_app/lib/core/ui/dominio.dart	293	Alerta
+teléfono	siscan_app/lib/core/ui/dominio.dart	293	Sin conexión
+teléfono	siscan_app/lib/core/ui/dominio.dart	438	Sin órdenes registradas todavía.
+teléfono	siscan_app/lib/core/ui/marco.dart	20	SISCAN · Secado Inteligente de Café
+teléfono	siscan_app/lib/core/ui/marco.dart	42	Volver
+teléfono	siscan_app/lib/core/ui/marco.dart	80	Inicio
+teléfono	siscan_app/lib/core/ui/marco.dart	80	Lotes
+teléfono	siscan_app/lib/core/ui/marco.dart	80	Pesaje
+teléfono	siscan_app/lib/core/ui/marco.dart	80	Equipo
+teléfono	siscan_app/lib/core/ui/marco.dart	80	Más
+teléfono	siscan_app/lib/core/ui/marco.dart	88	, $alertas alertas
+teléfono	siscan_app/lib/data/api.dart	16	Accept
+teléfono	siscan_app/lib/data/api.dart	18	No pudimos conectarnos con el secador. Verifica la conexión e intenta nuevamente.
+teléfono	siscan_app/lib/data/api.dart	20	No fue posible cargar estos datos (código ${r.statusCode}).
+teléfono	siscan_app/lib/data/api.dart	26	Authorization
+teléfono	siscan_app/lib/data/api.dart	26	Content-Type
+teléfono	siscan_app/lib/data/api.dart	26	Accept
+teléfono	siscan_app/lib/data/api.dart	32	No fue posible guardar. Verifica la conexión.
+teléfono	siscan_app/lib/data/api.dart	35	Tu sesión venció o ya no tiene permiso. Ingresa de nuevo.
+teléfono	siscan_app/lib/data/api.dart	36	El secador está en modo automático.
+teléfono	siscan_app/lib/data/api.dart	37	No fue posible guardar (código ${r.statusCode}).
+teléfono	siscan_app/lib/data/auth.dart	68	Escribe tu usuario y tu contraseña de aplicación.
+teléfono	siscan_app/lib/data/auth.dart	72	Basic ${base64Encode(utf8.encode(
+teléfono	siscan_app/lib/data/auth.dart	73	Authorization
+teléfono	siscan_app/lib/data/auth.dart	74	El usuario o la contraseña de aplicación no son correctos.
+teléfono	siscan_app/lib/data/auth.dart	75	No pudimos verificar tu cuenta. Intenta nuevamente.
+teléfono	siscan_app/lib/data/auth.dart	83	Tu cuenta no tiene permiso de «Gestor del Secador». Pídelo al CISNA.
+teléfono	siscan_app/lib/data/auth.dart	85	No pudimos conectarnos. Verifica la conexión e intenta nuevamente.
+teléfono	siscan_app/lib/data/estado.dart	18	${(s as String).replaceFirst(
+teléfono	siscan_app/lib/data/estado.dart	27	Hoy · ${hm(d)}
+teléfono	siscan_app/lib/data/estado.dart	28	Ayer · ${hm(d)}
+teléfono	siscan_app/lib/data/estado.dart	34	Sin dato
+teléfono	siscan_app/lib/data/estado.dart	35	Hace instantes
+teléfono	siscan_app/lib/data/estado.dart	36	Hace ${m.round()} min
+teléfono	siscan_app/lib/data/estado.dart	37	Hace ${(m / 60).round()} h
+teléfono	siscan_app/lib/data/estado.dart	44	$d d $h h
+teléfono	siscan_app/lib/data/estado.dart	55	Temperatura interior
+teléfono	siscan_app/lib/data/estado.dart	55	Tope de la cámara
+teléfono	siscan_app/lib/data/estado.dart	56	Humedad relativa interior
+teléfono	siscan_app/lib/data/estado.dart	56	Cámara
+teléfono	siscan_app/lib/data/estado.dart	57	Temperatura exterior
+teléfono	siscan_app/lib/data/estado.dart	57	Ambiente
+teléfono	siscan_app/lib/data/estado.dart	58	Humedad relativa exterior
+teléfono	siscan_app/lib/data/estado.dart	58	Ambiente
+teléfono	siscan_app/lib/data/estado.dart	59	Humedad del grano (sensor)
+teléfono	siscan_app/lib/data/estado.dart	59	Capacitivo
+teléfono	siscan_app/lib/data/estado.dart	60	Corriente
+teléfono	siscan_app/lib/data/estado.dart	60	Línea AC
+teléfono	siscan_app/lib/data/estado.dart	61	Potencia del controlador
+teléfono	siscan_app/lib/data/estado.dart	61	ESP32 y sensores
+teléfono	siscan_app/lib/data/estado.dart	62	Potencia de actuadores
+teléfono	siscan_app/lib/data/estado.dart	62	Ventiladores y resistencias
+teléfono	siscan_app/lib/data/estado.dart	63	Potencia total
+teléfono	siscan_app/lib/data/estado.dart	63	Controlador y actuadores
+teléfono	siscan_app/lib/data/estado.dart	104	Sin conexión · último dato ${corta(ultimaT)}
+teléfono	siscan_app/lib/data/estado.dart	104	Sin conexión · aún no reporta
+teléfono	siscan_app/lib/data/estado.dart	105	Alerta
+teléfono	siscan_app/lib/data/estado.dart	106	En operación
+teléfono	siscan_app/lib/data/estado.dart	107	En pausa · sin lote activo
+teléfono	siscan_app/lib/data/estado.dart	110	Secador
+teléfono	siscan_app/lib/data/estado.dart	111	Nariño
+teléfono	siscan_app/lib/data/estado.dart	149	No pudimos conectarnos con el secador.
+teléfono	siscan_app/lib/main.dart	21	Lucide (íconos)
+teléfono	siscan_app/lib/pantallas/alertas.dart	17	Alertas
+teléfono	siscan_app/lib/pantallas/alertas.dart	17	Actualizar
+teléfono	siscan_app/lib/pantallas/alertas.dart	21	Activas
+teléfono	siscan_app/lib/pantallas/alertas.dart	23	Avisos anteriores
+teléfono	siscan_app/lib/pantallas/alertas.dart	23	$previas sin revisar
+teléfono	siscan_app/lib/pantallas/alertas.dart	24	Hay $previas avisos de días anteriores sin revisar en el panel.
+teléfono	siscan_app/lib/pantallas/alertas.dart	24	No hay avisos anteriores pendientes.
+teléfono	siscan_app/lib/pantallas/alertas.dart	27	Marcar todo como leído
+teléfono	siscan_app/lib/pantallas/alertas.dart	28	Marcar avisos como leídos
+teléfono	siscan_app/lib/pantallas/alertas.dart	29	¿Marcar como leídos los $previas avisos anteriores?
+teléfono	siscan_app/lib/pantallas/alertas.dart	30	Cancelar
+teléfono	siscan_app/lib/pantallas/alertas.dart	30	Marcar
+teléfono	siscan_app/lib/pantallas/alertas.dart	31	Avisos marcados como leídos
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	79	Alertas
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	149	, icono: 
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	150	Secando
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	150	Terminado
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	155	Humedad del grano ${hum == null ? 
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	157	Humedad del grano
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	167	Objetivo 10 – 12 % · 
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	168	predicción no disponible
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	169	faltan ~${duracion(p![
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	175	Último pesaje ${corta(fecha(lote[
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	179	Avance hacia el objetivo
+teléfono	siscan_app/lib/pantallas/cabecera_inicio.dart	183	Confianza ${(p[
+teléfono	siscan_app/lib/pantallas/equipo.dart	29	Encendiendo…
+teléfono	siscan_app/lib/pantallas/equipo.dart	29	Apagando…
+teléfono	siscan_app/lib/pantallas/equipo.dart	29	, detalle: 
+teléfono	siscan_app/lib/pantallas/equipo.dart	37	Equipo
+teléfono	siscan_app/lib/pantallas/equipo.dart	37	Actualizar
+teléfono	siscan_app/lib/pantallas/equipo.dart	44	El servidor todavía no informa el modo del secador
+teléfono	siscan_app/lib/pantallas/equipo.dart	45	Confirmado por el ESP32 · ${corta(fecha(ctl[
+teléfono	siscan_app/lib/pantallas/equipo.dart	45	 · ${ctl[
+teléfono	siscan_app/lib/pantallas/equipo.dart	45	On-Off
+teléfono	siscan_app/lib/pantallas/equipo.dart	46	El ESP32 está en ${ctl[
+teléfono	siscan_app/lib/pantallas/equipo.dart	46	automático
+teléfono	siscan_app/lib/pantallas/equipo.dart	47	El ESP32 todavía no ha reportado su modo
+teléfono	siscan_app/lib/pantallas/equipo.dart	47	Pedido · el ESP32 todavía no lo confirma
+teléfono	siscan_app/lib/pantallas/equipo.dart	53	Modo de operación
+teléfono	siscan_app/lib/pantallas/equipo.dart	57	Modo automático pedido
+teléfono	siscan_app/lib/pantallas/equipo.dart	57	Modo manual pedido
+teléfono	siscan_app/lib/pantallas/equipo.dart	57	Se aplica cuando el ESP32 lo confirme.
+teléfono	siscan_app/lib/pantallas/equipo.dart	60	Automático
+teléfono	siscan_app/lib/pantallas/equipo.dart	60	Manual
+teléfono	siscan_app/lib/pantallas/equipo.dart	63	Enviando…
+teléfono	siscan_app/lib/pantallas/equipo.dart	67	Actuadores
+teléfono	siscan_app/lib/pantallas/equipo.dart	67	En funcionamiento
+teléfono	siscan_app/lib/pantallas/equipo.dart	67	Detenidos
+teléfono	siscan_app/lib/pantallas/equipo.dart	69	), heater = a[
+teléfono	siscan_app/lib/pantallas/equipo.dart	73	copia de «${real[
+teléfono	siscan_app/lib/pantallas/equipo.dart	79	El protocolo decide cuándo encender. Cambia a Manual para mandar órdenes.
+teléfono	siscan_app/lib/pantallas/equipo.dart	79	Las órdenes se cumplen cuando el ESP32 las lee. Si el secador no reporta, se aplican al reconectar.
+teléfono	siscan_app/lib/pantallas/equipo.dart	79	Vista de solo lectura: para mandar órdenes ingresa con tu cuenta.
+teléfono	siscan_app/lib/pantallas/equipo.dart	85	), 0)} W
+teléfono	siscan_app/lib/pantallas/equipo.dart	87	Encender ${_armada![
+teléfono	siscan_app/lib/pantallas/equipo.dart	87	, child: BotonMantener(key: ValueKey(_armada![
+teléfono	siscan_app/lib/pantallas/equipo.dart	87	Mantén presionado para encender
+teléfono	siscan_app/lib/pantallas/equipo.dart	91	Para encender una resistencia, toca su interruptor y luego mantén presionado el botón que aparece.
+teléfono	siscan_app/lib/pantallas/equipo.dart	93	Puedes ver el estado del equipo. Encender o apagar exige la cuenta de «Gestor del Secador».
+teléfono	siscan_app/lib/pantallas/equipo.dart	95	Sensores
+teléfono	siscan_app/lib/pantallas/equipo.dart	96	El secador todavía no envía lecturas.
+teléfono	siscan_app/lib/pantallas/equipo.dart	102	 · red: ${estadoRed(dg![
+teléfono	siscan_app/lib/pantallas/equipo.dart	104	Hace ${min.round()} min
+teléfono	siscan_app/lib/pantallas/equipo.dart	104	Desactualizado
+teléfono	siscan_app/lib/pantallas/ingreso.dart	28	Leyendo el secador…
+teléfono	siscan_app/lib/pantallas/ingreso.dart	60	Ingresa a SISCAN con tu huella
+teléfono	siscan_app/lib/pantallas/ingreso.dart	63	No pudimos usar la credencial guardada. Ingresa con tu contraseña.
+teléfono	siscan_app/lib/pantallas/ingreso.dart	89	Hola de nuevo
+teléfono	siscan_app/lib/pantallas/ingreso.dart	89	Ingresa a SISCAN
+teléfono	siscan_app/lib/pantallas/ingreso.dart	91	Usa tu huella para entrar rápido.
+teléfono	siscan_app/lib/pantallas/ingreso.dart	91	Con tu cuenta del portal CISNA y una contraseña de aplicación.
+teléfono	siscan_app/lib/pantallas/ingreso.dart	97	Toca el sensor de huella
+teléfono	siscan_app/lib/pantallas/ingreso.dart	105	Toca el sensor de huella
+teléfono	siscan_app/lib/pantallas/ingreso.dart	110	Usuario o correo
+teléfono	siscan_app/lib/pantallas/ingreso.dart	112	Contraseña de aplicación
+teléfono	siscan_app/lib/pantallas/ingreso.dart	113	No es tu contraseña normal: la creas en tu perfil de WordPress y puedes revocarla cuando quieras.
+teléfono	siscan_app/lib/pantallas/ingreso.dart	116	Recordarme
+teléfono	siscan_app/lib/pantallas/ingreso.dart	118	Crear contraseña
+teléfono	siscan_app/lib/pantallas/ingreso.dart	122	Usar correo y contraseña
+teléfono	siscan_app/lib/pantallas/ingreso.dart	122	Ingresar
+teléfono	siscan_app/lib/pantallas/ingreso.dart	125	Ingresar con huella
+teléfono	siscan_app/lib/pantallas/ingreso.dart	128	Ver el secador sin cuenta (solo lectura)
+teléfono	siscan_app/lib/pantallas/ingreso.dart	129	Subsecretaría de Innovación · Gobernación de Nariño
+teléfono	siscan_app/lib/pantallas/inicio.dart	27	¡Hola, $nombre!
+teléfono	siscan_app/lib/pantallas/inicio.dart	27	¡Hola!
+teléfono	siscan_app/lib/pantallas/inicio.dart	29	No se pudo leer el secador
+teléfono	siscan_app/lib/pantallas/inicio.dart	29	Leyendo el secador…
+teléfono	siscan_app/lib/pantallas/inicio.dart	29	${b.nombreSecador} · ${b.lote == null ? 
+teléfono	siscan_app/lib/pantallas/inicio.dart	43	Sin lecturas
+teléfono	siscan_app/lib/pantallas/inicio.dart	43	Último dato ${corta(u.$1)}
+teléfono	siscan_app/lib/pantallas/inicio.dart	48	No hay lotes registrados
+teléfono	siscan_app/lib/pantallas/inicio.dart	48	Cuando ingreses café al secador, su registro aparecerá aquí.
+teléfono	siscan_app/lib/pantallas/inicio.dart	50	Temp. interior
+teléfono	siscan_app/lib/pantallas/inicio.dart	50	Humedad relativa
+teléfono	siscan_app/lib/pantallas/inicio.dart	50	Exterior
+teléfono	siscan_app/lib/pantallas/inicio.dart	50	Potencia total
+teléfono	siscan_app/lib/pantallas/inicio.dart	56	Equipo
+teléfono	siscan_app/lib/pantallas/inicio.dart	56	En funcionamiento
+teléfono	siscan_app/lib/pantallas/inicio.dart	56	Detenidos
+teléfono	siscan_app/lib/pantallas/inicio.dart	62	), v, h), 
+teléfono	siscan_app/lib/pantallas/inicio.dart	62	Encendiendo…
+teléfono	siscan_app/lib/pantallas/inicio.dart	62	Apagando…
+teléfono	siscan_app/lib/pantallas/inicio.dart	62	, detalle: 
+teléfono	siscan_app/lib/pantallas/inicio.dart	64	Vista de solo lectura: para mandar órdenes ingresa con tu cuenta.
+teléfono	siscan_app/lib/pantallas/lotes.dart	28	Lotes
+teléfono	siscan_app/lib/pantallas/lotes.dart	28	Actualizar
+teléfono	siscan_app/lib/pantallas/lotes.dart	32	Filtro
+teléfono	siscan_app/lib/pantallas/lotes.dart	33	Todos
+teléfono	siscan_app/lib/pantallas/lotes.dart	33	Secador
+teléfono	siscan_app/lib/pantallas/lotes.dart	33	Aire libre
+teléfono	siscan_app/lib/pantallas/lotes.dart	34	No hay lotes registrados
+teléfono	siscan_app/lib/pantallas/lotes.dart	34	Cuando ingreses café al secador, su registro aparecerá aquí.
+teléfono	siscan_app/lib/pantallas/lotes.dart	34	No hay lotes con este filtro.
+teléfono	siscan_app/lib/pantallas/lotes.dart	38	${sitioLote(l)} · ${corta(fecha(l[
+teléfono	siscan_app/lib/pantallas/lotes.dart	39	 · ${cifra(l[
+teléfono	siscan_app/lib/pantallas/lotes.dart	40	Secando
+teléfono	siscan_app/lib/pantallas/lotes.dart	40	Terminado
+teléfono	siscan_app/lib/pantallas/lotes.dart	46	Nuevo lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	46	Nuevo lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	67	Lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	67	Cargando el lote…
+teléfono	siscan_app/lib/pantallas/lotes.dart	77	, tono: 
+teléfono	siscan_app/lib/pantallas/lotes.dart	80	Curva de humedad
+teléfono	siscan_app/lib/pantallas/lotes.dart	85	Proceso
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Inicio
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Calentamiento
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Secado activo
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Reducción de humedad
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Ajustes
+teléfono	siscan_app/lib/pantallas/lotes.dart	100	Finalización
+teléfono	siscan_app/lib/pantallas/lotes.dart	106	En curso · desde ${corta(t[i])}
+teléfono	siscan_app/lib/pantallas/lotes.dart	106	Sin registro
+teléfono	siscan_app/lib/pantallas/lotes.dart	106	En curso
+teléfono	siscan_app/lib/pantallas/lotes.dart	106	Pendiente
+teléfono	siscan_app/lib/pantallas/lotes.dart	125	Entre 
+teléfono	siscan_app/lib/pantallas/lotes.dart	127	 · listo cerca de las 
+teléfono	siscan_app/lib/pantallas/lotes.dart	128	Lewis · Page · Henderson-Pabis
+teléfono	siscan_app/lib/pantallas/lotes.dart	129	Solo ${p[
+teléfono	siscan_app/lib/pantallas/lotes.dart	132	Ajustando los modelos de la tesis…
+teléfono	siscan_app/lib/pantallas/lotes.dart	132	No fue posible calcular la predicción.
+teléfono	siscan_app/lib/pantallas/lotes.dart	133	Listo
+teléfono	siscan_app/lib/pantallas/lotes.dart	133	La muestra está en ${cifra(p[
+teléfono	siscan_app/lib/pantallas/lotes.dart	134	Pasado
+teléfono	siscan_app/lib/pantallas/lotes.dart	134	La muestra está en ${cifra(p[
+teléfono	siscan_app/lib/pantallas/lotes.dart	135	No llega
+teléfono	siscan_app/lib/pantallas/lotes.dart	136	Pocos pesajes para predecir.
+teléfono	siscan_app/lib/pantallas/lotes.dart	140	Punto de retiro por modelo: ${pm.entries.map((e) => 
+teléfono	siscan_app/lib/pantallas/lotes.dart	140	HendersonPabis
+teléfono	siscan_app/lib/pantallas/lotes.dart	140	Henderson-Pabis
+teléfono	siscan_app/lib/pantallas/lotes.dart	140	no llega
+teléfono	siscan_app/lib/pantallas/lotes.dart	140	)} desde el primer pesaje.
+teléfono	siscan_app/lib/pantallas/lotes.dart	159	Red neuronal · sensores
+teléfono	siscan_app/lib/pantallas/lotes.dart	159	$fallas con falla
+teléfono	siscan_app/lib/pantallas/lotes.dart	159	Sin fallas
+teléfono	siscan_app/lib/pantallas/lotes.dart	162	2 h hasta ${corta(fecha(x[
+teléfono	siscan_app/lib/pantallas/lotes.dart	162	 : (x[
+teléfono	siscan_app/lib/pantallas/lotes.dart	166	MLP (32, 16) de la tesis, F1 ${cifra(g[
+teléfono	siscan_app/lib/pantallas/lotes.dart	184	No fue posible consultar la IA. ($e)
+teléfono	siscan_app/lib/pantallas/lotes.dart	195	Segunda opinión de IA
+teléfono	siscan_app/lib/pantallas/lotes.dart	195	Groq · ${_r![
+teléfono	siscan_app/lib/pantallas/lotes.dart	198	Texto generado por IA con los datos del lote, la predicción de la tesis, la red neuronal y el clima · ${corta(fecha(_r![
+teléfono	siscan_app/lib/pantallas/lotes.dart	199	Un modelo de lenguaje lee los datos del lote y la predicción de la tesis, y da su estimación con una recomendación.
+teléfono	siscan_app/lib/pantallas/lotes.dart	202	Volver a consultar
+teléfono	siscan_app/lib/pantallas/lotes.dart	202	Consultar a la IA
+teléfono	siscan_app/lib/pantallas/lotes.dart	217	Sin especificar
+teléfono	siscan_app/lib/pantallas/lotes.dart	233	Nuevo lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	234	Nombre del lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	234	Lote C · Castillo
+teléfono	siscan_app/lib/pantallas/lotes.dart	234	Así aparecerá en el panel, la app y el reloj.
+teléfono	siscan_app/lib/pantallas/lotes.dart	236	¿Dónde se seca?
+teléfono	siscan_app/lib/pantallas/lotes.dart	237	¿Dónde se seca?
+teléfono	siscan_app/lib/pantallas/lotes.dart	237	Secador
+teléfono	siscan_app/lib/pantallas/lotes.dart	237	Aire libre
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Variedad
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Sin especificar
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Castillo
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Caturra
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Colombia
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Tabi
+teléfono	siscan_app/lib/pantallas/lotes.dart	239	Cenicafé 1
+teléfono	siscan_app/lib/pantallas/lotes.dart	240	Protocolo
+teléfono	siscan_app/lib/pantallas/lotes.dart	242	Muestra
+teléfono	siscan_app/lib/pantallas/lotes.dart	244	Humedad inicial
+teléfono	siscan_app/lib/pantallas/lotes.dart	246	Humedad objetivo
+teléfono	siscan_app/lib/pantallas/lotes.dart	251	Peso de retiro calculado
+teléfono	siscan_app/lib/pantallas/lotes.dart	253	con ${cifra(seca)} g de materia seca
+teléfono	siscan_app/lib/pantallas/lotes.dart	256	Iniciar lote
+teléfono	siscan_app/lib/pantallas/lotes.dart	258	Escribe el nombre del lote.
+teléfono	siscan_app/lib/pantallas/lotes.dart	259	Sin especificar
+teléfono	siscan_app/lib/pantallas/lotes.dart	262	Lote iniciado
+teléfono	siscan_app/lib/pantallas/mas.dart	27	Claro
+teléfono	siscan_app/lib/pantallas/mas.dart	27	Oscuro
+teléfono	siscan_app/lib/pantallas/mas.dart	27	Según la hora
+teléfono	siscan_app/lib/pantallas/mas.dart	27	Como el teléfono
+teléfono	siscan_app/lib/pantallas/mas.dart	29	Vista pública
+teléfono	siscan_app/lib/pantallas/mas.dart	30	Sin cuenta · solo lectura
+teléfono	siscan_app/lib/pantallas/mas.dart	30	Sin permiso de control
+teléfono	siscan_app/lib/pantallas/mas.dart	33	Calibración
+teléfono	siscan_app/lib/pantallas/mas.dart	33	Gravimet y sensores
+teléfono	siscan_app/lib/pantallas/mas.dart	34	Mapa de secadores
+teléfono	siscan_app/lib/pantallas/mas.dart	35	Historial del equipo
+teléfono	siscan_app/lib/pantallas/mas.dart	35	Órdenes y energía
+teléfono	siscan_app/lib/pantallas/mas.dart	36	Ubicación del secador
+teléfono	siscan_app/lib/pantallas/mas.dart	36	} · ${b?.secador?[
+teléfono	siscan_app/lib/pantallas/mas.dart	36	fijada a mano
+teléfono	siscan_app/lib/pantallas/mas.dart	36	por IP del ESP32
+teléfono	siscan_app/lib/pantallas/mas.dart	38	Reloj inteligente
+teléfono	siscan_app/lib/pantallas/mas.dart	38	SISCAN para Wear OS · lee el secador y, con tu sesión, manda órdenes
+teléfono	siscan_app/lib/pantallas/mas.dart	41	Notificaciones
+teléfono	siscan_app/lib/pantallas/mas.dart	41	Alertas, hora de pesar y lote listo
+teléfono	siscan_app/lib/pantallas/mas.dart	42	Notificaciones
+teléfono	siscan_app/lib/pantallas/mas.dart	43	Ingreso con huella
+teléfono	siscan_app/lib/pantallas/mas.dart	43	Primero ingresa con tu cuenta
+teléfono	siscan_app/lib/pantallas/mas.dart	43	Entra rápido sin escribir la contraseña
+teléfono	siscan_app/lib/pantallas/mas.dart	44	Ingreso con huella
+teléfono	siscan_app/lib/pantallas/mas.dart	45	Tema
+teléfono	siscan_app/lib/pantallas/mas.dart	46	Acerca de y licencias
+teléfono	siscan_app/lib/pantallas/mas.dart	46	Íconos Lucide y software de terceros
+teléfono	siscan_app/lib/pantallas/mas.dart	47	Tus datos y privacidad
+teléfono	siscan_app/lib/pantallas/mas.dart	47	Política, exportar y borrar
+teléfono	siscan_app/lib/pantallas/mas.dart	48	Ingresar
+teléfono	siscan_app/lib/pantallas/mas.dart	48	Para registrar pesajes y mandar órdenes
+teléfono	siscan_app/lib/pantallas/mas.dart	49	Cerrar sesión
+teléfono	siscan_app/lib/pantallas/mas.dart	61	Tema
+teléfono	siscan_app/lib/pantallas/mas.dart	65	Claro
+teléfono	siscan_app/lib/pantallas/mas.dart	65	Siempre claro
+teléfono	siscan_app/lib/pantallas/mas.dart	66	Oscuro
+teléfono	siscan_app/lib/pantallas/mas.dart	66	Siempre oscuro
+teléfono	siscan_app/lib/pantallas/mas.dart	67	Según la hora
+teléfono	siscan_app/lib/pantallas/mas.dart	67	Claro de 6:00 a 19:00, oscuro de noche (hora de Colombia)
+teléfono	siscan_app/lib/pantallas/mas.dart	68	Como el teléfono
+teléfono	siscan_app/lib/pantallas/mas.dart	68	Sigue el ajuste del sistema
+teléfono	siscan_app/lib/pantallas/mas.dart	91	Calibración
+teléfono	siscan_app/lib/pantallas/mas.dart	94	Qué calibrar
+teléfono	siscan_app/lib/pantallas/mas.dart	94	Gravimet
+teléfono	siscan_app/lib/pantallas/mas.dart	94	Sensores
+teléfono	siscan_app/lib/pantallas/mas.dart	95	Sin lotes para calibrar
+teléfono	siscan_app/lib/pantallas/mas.dart	95	La calibración del Gravimet se hace sobre un lote con pesajes.
+teléfono	siscan_app/lib/pantallas/mas.dart	102	Forma de calibrar · ${l[
+teléfono	siscan_app/lib/pantallas/mas.dart	102	, derecha: Ficha(cal?[
+teléfono	siscan_app/lib/pantallas/mas.dart	102	Con puntos
+teléfono	siscan_app/lib/pantallas/mas.dart	102	Cenicafé
+teléfono	siscan_app/lib/pantallas/mas.dart	103	Referencia Cenicafé (53 %)
+teléfono	siscan_app/lib/pantallas/mas.dart	106	Lectura del medidor
+teléfono	siscan_app/lib/pantallas/mas.dart	108	Peso de la muestra
+teléfono	siscan_app/lib/pantallas/mas.dart	108	Usa el peso del último pesaje.
+teléfono	siscan_app/lib/pantallas/mas.dart	111	Calibrar y recalcular
+teléfono	siscan_app/lib/pantallas/mas.dart	114	Referencia Cenicafé aplicada
+teléfono	siscan_app/lib/pantallas/mas.dart	118	Escribe la lectura del medidor (0–99,9 %) y el peso en gramos.
+teléfono	siscan_app/lib/pantallas/mas.dart	119	Punto medido agregado
+teléfono	siscan_app/lib/pantallas/mas.dart	119	El lote se recalculó.
+teléfono	siscan_app/lib/pantallas/mas.dart	123	Puntos medidos
+teléfono	siscan_app/lib/pantallas/mas.dart	136	Sensores
+teléfono	siscan_app/lib/pantallas/mas.dart	137	Cargando la corrección de sensores…
+teléfono	siscan_app/lib/pantallas/mas.dart	140	Ganancia ${cifra(x[
+teléfono	siscan_app/lib/pantallas/mas.dart	142	Calibrado
+teléfono	siscan_app/lib/pantallas/mas.dart	142	Sin calibrar
+teléfono	siscan_app/lib/pantallas/mas.dart	144	Toca un sensor para corregirlo con un punto: escribe el valor real medido con tu instrumento.
+teléfono	siscan_app/lib/pantallas/mas.dart	156	Corregir ${m.nombre}
+teléfono	siscan_app/lib/pantallas/mas.dart	158	Lectura actual del sensor: ${cifra(x[
+teléfono	siscan_app/lib/pantallas/mas.dart	159	Valor real (${x[
+teléfono	siscan_app/lib/pantallas/mas.dart	161	Cancelar
+teléfono	siscan_app/lib/pantallas/mas.dart	161	Aplicar
+teléfono	siscan_app/lib/pantallas/mas.dart	165	Calibrado: ${m.nombre}
+teléfono	siscan_app/lib/pantallas/mas.dart	174	Mapa
+teléfono	siscan_app/lib/pantallas/mas.dart	186	Foto del ${b.nombreSecador}
+teléfono	siscan_app/lib/pantallas/mas.dart	192	Foto del secador
+teléfono	siscan_app/lib/pantallas/mas.dart	192	Sin foto todavía
+teléfono	siscan_app/lib/pantallas/mas.dart	213	Desde el panel
+teléfono	siscan_app/lib/pantallas/mas.dart	213	Desde la app
+teléfono	siscan_app/lib/pantallas/mas.dart	213	Desde el reloj
+teléfono	siscan_app/lib/pantallas/mas.dart	213	ESP32
+teléfono	siscan_app/lib/pantallas/mas.dart	213	El ESP32
+teléfono	siscan_app/lib/pantallas/mas.dart	213	Protocolo
+teléfono	siscan_app/lib/pantallas/mas.dart	213	Protocolo
+teléfono	siscan_app/lib/pantallas/mas.dart	217	Historial del equipo
+teléfono	siscan_app/lib/pantallas/mas.dart	218	Periodo
+teléfono	siscan_app/lib/pantallas/mas.dart	218	Últimas 24 h
+teléfono	siscan_app/lib/pantallas/mas.dart	218	Últimos 7 días
+teléfono	siscan_app/lib/pantallas/mas.dart	222	Calculando la energía…
+teléfono	siscan_app/lib/pantallas/mas.dart	223	Energía · ${_horas == 24 ? 
+teléfono	siscan_app/lib/pantallas/mas.dart	223	últimos 7 días
+teléfono	siscan_app/lib/pantallas/mas.dart	223	, solar: (e[
+teléfono	siscan_app/lib/pantallas/mas.dart	226	Red sin lecturas
+teléfono	siscan_app/lib/pantallas/mas.dart	226	Estimado
+teléfono	siscan_app/lib/pantallas/mas.dart	226	Solar: ${e[
+teléfono	siscan_app/lib/pantallas/mas.dart	231	Órdenes al equipo
+teléfono	siscan_app/lib/pantallas/mas.dart	232	Cargando las órdenes…
+teléfono	siscan_app/lib/pantallas/mas.dart	233	Encender
+teléfono	siscan_app/lib/pantallas/mas.dart	233	Apagar
+teléfono	siscan_app/lib/pantallas/mas.dart	233	Origen sin registrar
+teléfono	siscan_app/lib/pantallas/mas.dart	261	Ubicación del secador
+teléfono	siscan_app/lib/pantallas/mas.dart	263	Ubicación
+teléfono	siscan_app/lib/pantallas/mas.dart	263	Fijada a mano
+teléfono	siscan_app/lib/pantallas/mas.dart	263	Por IP del ESP32
+teléfono	siscan_app/lib/pantallas/mas.dart	264	Latitud
+teléfono	siscan_app/lib/pantallas/mas.dart	265	Longitud
+teléfono	siscan_app/lib/pantallas/mas.dart	267	Nombre del sitio (opcional)
+teléfono	siscan_app/lib/pantallas/mas.dart	269	Bloquear la ubicación (ignorar la geolocalización por IP del ESP32)
+teléfono	siscan_app/lib/pantallas/mas.dart	271	Usar mi ubicación actual
+teléfono	siscan_app/lib/pantallas/mas.dart	278	Ubicación del secador
+teléfono	siscan_app/lib/pantallas/mas.dart	279	SISCAN usará la ubicación de este teléfono una sola vez para fijar dónde está el secador 
+teléfono	siscan_app/lib/pantallas/mas.dart	280	y consultar su clima. Se envía al servidor del CISNA como ubicación del equipo; no se guarda en el teléfono ni se usa en segundo plano.
+teléfono	siscan_app/lib/pantallas/mas.dart	281	Ahora no
+teléfono	siscan_app/lib/pantallas/mas.dart	281	Continuar
+teléfono	siscan_app/lib/pantallas/mas.dart	290	Ubicación tomada del teléfono
+teléfono	siscan_app/lib/pantallas/mas.dart	290	Revisa y guarda.
+teléfono	siscan_app/lib/pantallas/mas.dart	292	No fue posible obtener tu ubicación. Revisa el permiso de ubicación.
+teléfono	siscan_app/lib/pantallas/mas.dart	297	Guardar ubicación y refrescar clima
+teléfono	siscan_app/lib/pantallas/mas.dart	299	Revisa la latitud y la longitud.
+teléfono	siscan_app/lib/pantallas/mas.dart	300	Ubicación guardada
+teléfono	siscan_app/lib/pantallas/mas.dart	300	El clima se consulta con el sitio correcto.
+teléfono	siscan_app/lib/pantallas/mas.dart	302	La ubicación del teléfono solo se usa cuando tocas «Usar mi ubicación actual»; no se guarda en el teléfono.
+teléfono	siscan_app/lib/pantallas/mas.dart	312	Reloj inteligente
+teléfono	siscan_app/lib/pantallas/mas.dart	314	SISCAN en Wear OS
+teléfono	siscan_app/lib/pantallas/mas.dart	315	El reloj muestra el monitoreo del lote, las lecturas, el equipo, la predicción y las alertas. Con la sesión iniciada en este teléfono, 
+teléfono	siscan_app/lib/pantallas/mas.dart	316	también puede encender o apagar actuadores y registrar pesajes: el reloj le pide la orden al teléfono y el teléfono la envía con tu cuenta (ingresa con «Recordarme»).
+teléfono	siscan_app/lib/pantallas/mas.dart	318	Instala SISCAN en el reloj desde el mismo paquete de la app. Sin sesión en el teléfono, el reloj solo lee.
+teléfono	siscan_app/lib/pantallas/mas.dart	333	Acerca de y licencias
+teléfono	siscan_app/lib/pantallas/mas.dart	335	Íconos
+teléfono	siscan_app/lib/pantallas/mas.dart	336	Los íconos de SISCAN salen de Lucide (lucide.dev), con trazo propio de 1,75. Estos son sus avisos de licencia.
+teléfono	siscan_app/lib/pantallas/mas.dart	343	No se pudo leer el aviso de licencia.
+teléfono	siscan_app/lib/pantallas/mas.dart	343	Cargando…
+teléfono	siscan_app/lib/pantallas/mas.dart	347	Software de terceros
+teléfono	siscan_app/lib/pantallas/mas.dart	348	Flutter y los paquetes que usa la app, cada uno con su licencia.
+teléfono	siscan_app/lib/pantallas/mas.dart	350	Ver todas las licencias
+teléfono	siscan_app/lib/pantallas/mas.dart	358	0.2 · 8 de octubre de 2026 (borrador para revisión de un abogado)
+teléfono	siscan_app/lib/pantallas/mas.dart	360	Qué guarda la app
+teléfono	siscan_app/lib/pantallas/mas.dart	360	El último estado del secador (lecturas, lote, equipo y alertas) para mostrarlo sin señal; no son datos personales. 
+teléfono	siscan_app/lib/pantallas/mas.dart	361	Si ingresas como Gestor del Secador, tu usuario y tu contraseña de aplicación, cifrados en el almacén seguro del teléfono, para enviar órdenes y registrar pesajes. 
+teléfono	siscan_app/lib/pantallas/mas.dart	362	Tu elección de tema, notificaciones y huella.
+teléfono	siscan_app/lib/pantallas/mas.dart	363	Huella
+teléfono	siscan_app/lib/pantallas/mas.dart	363	Si la activas, el teléfono verifica tu huella con su propio sensor; la app nunca recibe ni guarda la huella. Solo desbloquea la credencial cifrada.
+teléfono	siscan_app/lib/pantallas/mas.dart	364	Ubicación
+teléfono	siscan_app/lib/pantallas/mas.dart	364	Solo cuando un administrador toca «Usar mi ubicación actual» para fijar el sitio del secador. Se envía al servidor del CISNA como ubicación del secador, no de la persona. No se guarda en el teléfono ni se usa en segundo plano.
+teléfono	siscan_app/lib/pantallas/mas.dart	365	Notificaciones
+teléfono	siscan_app/lib/pantallas/mas.dart	365	Si las activas, la app consulta cada 15 minutos el servidor del CISNA para avisar alertas, hora de pesar y lote listo. Solo lee el estado del secador.
+teléfono	siscan_app/lib/pantallas/mas.dart	366	Reloj inteligente
+teléfono	siscan_app/lib/pantallas/mas.dart	366	Si ingresas con «Recordarme», el teléfono guarda la cabecera de tu sesión cifrada con una llave del Android Keystore para que SISCAN en el reloj pueda pedirle órdenes y pesajes. El reloj no guarda contraseñas. Se borra al cerrar sesión o al borrar los datos del teléfono.
+teléfono	siscan_app/lib/pantallas/mas.dart	367	Inteligencia artificial
+teléfono	siscan_app/lib/pantallas/mas.dart	367	La «segunda opinión» la genera Groq desde el servidor del CISNA con datos del lote y del secador; no recibe datos personales. La predicción de la tesis y la red neuronal corren en el servidor del CISNA.
+teléfono	siscan_app/lib/pantallas/mas.dart	368	Qué no hace
+teléfono	siscan_app/lib/pantallas/mas.dart	368	No usa cámara ni contactos. No tiene publicidad, analítica ni rastreo. Solo habla con cisna.narino.gov.co por HTTPS.
+teléfono	siscan_app/lib/pantallas/mas.dart	369	Cuánto tiempo
+teléfono	siscan_app/lib/pantallas/mas.dart	369	Hasta que cierres sesión (borra la credencial), uses «Borrar los datos de este teléfono» o desinstales la app.
+teléfono	siscan_app/lib/pantallas/mas.dart	370	Tus derechos
+teléfono	siscan_app/lib/pantallas/mas.dart	370	Conocer, actualizar, rectificar y suprimir tus datos y revocar la autorización (Ley 1581 de 2012 y Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015). 
+teléfono	siscan_app/lib/pantallas/mas.dart	371	La contraseña de aplicación también se puede revocar en tu perfil de WordPress.
+teléfono	siscan_app/lib/pantallas/mas.dart	372	Responsable
+teléfono	siscan_app/lib/pantallas/mas.dart	372	Proyecto SISCAN — Secado Inteligente de Café, Gobernación de Nariño (CISNA). Contacto: pendiente de definir por el CISNA.
+teléfono	siscan_app/lib/pantallas/mas.dart	377	Tus datos
+teléfono	siscan_app/lib/pantallas/mas.dart	379	Política de tratamiento de datos
+teléfono	siscan_app/lib/pantallas/mas.dart	380	Versión $version
+teléfono	siscan_app/lib/pantallas/mas.dart	389	Tus derechos en la app
+teléfono	siscan_app/lib/pantallas/mas.dart	390	Revocar la contraseña de aplicación
+teléfono	siscan_app/lib/pantallas/mas.dart	392	Borrar los datos de este teléfono
+teléfono	siscan_app/lib/pantallas/mas.dart	393	Borrar los datos de este teléfono
+teléfono	siscan_app/lib/pantallas/mas.dart	394	Se cierra la sesión y se borran la credencial, la copia del secador y tus preferencias. El servidor del CISNA no cambia.
+teléfono	siscan_app/lib/pantallas/mas.dart	395	Cancelar
+teléfono	siscan_app/lib/pantallas/mas.dart	395	Borrar
+teléfono	siscan_app/lib/pantallas/mas.dart	400	Datos de este teléfono borrados
+teléfono	siscan_app/lib/pantallas/pesaje.dart	23	Pesaje
+teléfono	siscan_app/lib/pantallas/pesaje.dart	27	Sin lote activo
+teléfono	siscan_app/lib/pantallas/pesaje.dart	27	Inicia un lote para empezar a pesar la muestra cada mañana.
+teléfono	siscan_app/lib/pantallas/pesaje.dart	27	Nuevo lote
+teléfono	siscan_app/lib/pantallas/pesaje.dart	34	Cargando los pesajes…
+teléfono	siscan_app/lib/pantallas/pesaje.dart	66	Peso de la muestra
+teléfono	siscan_app/lib/pantallas/pesaje.dart	68	Cancelar
+teléfono	siscan_app/lib/pantallas/pesaje.dart	69	Listo
+teléfono	siscan_app/lib/pantallas/pesaje.dart	85	Corregir pesaje · ${corta(fecha(x[
+teléfono	siscan_app/lib/pantallas/pesaje.dart	87	Peso corregido
+teléfono	siscan_app/lib/pantallas/pesaje.dart	89	Guardar
+teléfono	siscan_app/lib/pantallas/pesaje.dart	91	Eliminar pesaje
+teléfono	siscan_app/lib/pantallas/pesaje.dart	98	Escribe el peso corregido en gramos.
+teléfono	siscan_app/lib/pantallas/pesaje.dart	99	Pesaje corregido
+teléfono	siscan_app/lib/pantallas/pesaje.dart	101	Pesaje eliminado
+teléfono	siscan_app/lib/pantallas/pesaje.dart	109	Todavía le falta secar
+teléfono	siscan_app/lib/pantallas/pesaje.dart	109	Está en el rango comercial: retíralo
+teléfono	siscan_app/lib/pantallas/pesaje.dart	109	Ya pasó el punto: está sobre-secado
+teléfono	siscan_app/lib/pantallas/pesaje.dart	114	Pesaje
+teléfono	siscan_app/lib/pantallas/pesaje.dart	119	Peso de la muestra · ${widget.lote[
+teléfono	siscan_app/lib/pantallas/pesaje.dart	122	Restar 0,1 g
+teléfono	siscan_app/lib/pantallas/pesaje.dart	124	Peso ${cifra(_g)} gramos. Toca para escribirlo.
+teléfono	siscan_app/lib/pantallas/pesaje.dart	129	Sumar 0,1 g
+teléfono	siscan_app/lib/pantallas/pesaje.dart	136	Retira entre 
+teléfono	siscan_app/lib/pantallas/pesaje.dart	137	${cifra(_seca / .90)} y ${cifra(_seca / .88)} g
+teléfono	siscan_app/lib/pantallas/pesaje.dart	141	Registrar pesaje
+teléfono	siscan_app/lib/pantallas/pesaje.dart	144	Pesaje registrado
+teléfono	siscan_app/lib/pantallas/pesaje.dart	144	${cifra(_g)} g · ${cifra(hum)} % de humedad
+teléfono	siscan_app/lib/pantallas/pesaje.dart	147	Para registrar pesajes, ingresa con tu cuenta.
+teléfono	siscan_app/lib/pantallas/pesaje.dart	149	Pesajes de ${widget.lote[
+teléfono	siscan_app/lib/pantallas/pesaje.dart	150	Todavía no hay pesajes de este lote.
+teléfono	siscan_app/lib/pantallas/pesaje.dart	163	Humedad por conservación de materia seca (Cenicafé)${widget.cal[
+teléfono	siscan_app/lib/pantallas/pesaje.dart	163	, ajustada con puntos medidos
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	55	yyyy-MM-dd HH:mm:ss
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	76	${m / 1440} d ${(m % 1440) / 60} h
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	84	} ${a[
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	84	} ${a[
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	139	Equipo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	144	Alerta
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	145	] ?: it[
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	146	Secador 01
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	153	Lote
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	154	Aire libre
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Estado.kt	154	Secador
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	62	Sin lotes
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	63	Sin conexión · ${Estado.dia(e.ultimaLectura)}
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	64	${e.lote} · Secando
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	65	${e.lote} · Terminado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	73	Humedad del grano
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	75	Objetivo ${Estado.cifra(e.objetivo - 1, 0)} – ${Estado.cifra(e.objetivo + 1, 0)} %
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	84	Lecturas
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	86	Interior
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	87	HR interior
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	88	Exterior
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	89	HR exterior
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	98	El secador todavía no envía lecturas.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	99	Último dato ${Estado.dia(e.ultimaLectura)} · ${Estado.hm(e.ultimaLectura)}
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	107	Equipo · 
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	107	Automático
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	107	Manual
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	108	No hay actuadores registrados.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	111	Apagando…
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	111	Encendiendo…
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	112	Encendido · protocolo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	112	Apagado · protocolo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	113	Encendido
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	113	Apagado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	117	Mantén presionado para encender
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	121	El protocolo decide. Cambia a Manual en el teléfono.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	121	Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	133	Listo en
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	135	entre ${Estado.duracion(p.min)} y ${Estado.duracion(p.max)}
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	136	Confianza ${p.confianza ?: 
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	139	Ya está
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	139	Terminó
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	140	Listo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	142	Modelo de la tesis
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	144	Predicción
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	144	Pasado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	144	Bajó del 10 %: sobre-secado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	145	Predicción
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	145	No llega
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	145	Con este aire no alcanza el objetivo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	146	Predicción
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	146	No disponible por ahora
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	147	Predicción
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	147	Pocos pesajes para predecir
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	155	Lotes
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	156	No hay lotes registrados.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	157	Secando
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	167	Pesaje
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	167	Sin lote activo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	167	Inicia un lote en el teléfono para pesar la muestra.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	184	Peso de la muestra
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	186	Restar 0,1 gramos
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	190	Sumar 0,1 gramos
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	192	= ${Estado.cifra(hum)} % · retira ${Estado.cifra(seca / .90)} – ${Estado.cifra(seca / .88)} g
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	193	Enviando…
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	193	Guardar
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	210	Descartar
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	211	Ver detalle
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	246	Listo en ${Estado.duracion(listo)}
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	246	Secando
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	246	Sin lote en curso
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	258	Leyendo el secador…
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	267	Sin conexión
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	268	El reloj no pudo leer el secador. Revisa el Wi-Fi o el teléfono.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Pantallas.kt	269	Reintentar
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Red.kt	26	Accept
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Red.kt	28	HTTP ${c.responseCode} en $ruta
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/RelojActivity.kt	58	America/Bogota
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/RelojActivity.kt	113	No se envió
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/RelojActivity.kt	135	Mantén presionado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/RelojActivity.kt	135	$t una resistencia: es una orden de riesgo.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/RelojActivity.kt	143	Pesaje registrado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Secador.kt	54	Humedad del grano ${Estado.cifra(e.humedad)} %
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	97	Abre la app
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	98	Sin conexión
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	100	Secando
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	101	Terminado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	112	Abrir
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	122	SISCAN: abre la app para leer el secador
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	123	SISCAN, ${e.lote ?: 
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	123	}: humedad del grano ${Estado.cifra(e.humedad)} por ciento, $tiempo
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	150	Humedad del grano sin dato
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	150	Humedad del grano ${Estado.cifra(h)} por ciento
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	167	Temperatura interior sin dato
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	167	Temperatura interior ${Estado.cifra(t)} grados
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	176	Alertas sin dato
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	189	Lote B · listo en 5 h 40
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	191	SISCAN · abre la app
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	193	Sin lotes
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	195	$lote · sin conexión
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	196	$lote · listo en ${Estado.duracion(listo)}
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	197	$lote · secando
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Superficies.kt	198	$lote · terminado
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Telefono.kt	28	El teléfono no está cerca o no tiene SISCAN abierto.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Telefono.kt	30	No se pudo enviar.
+reloj	siscan_reloj/app/src/main/java/co/gov/narino/cisna/siscan/reloj/Telefono.kt	32	No hubo respuesta del teléfono. Revisa la conexión del reloj.
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	3	SISCAN
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	4	SISCAN · Lote
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	5	Humedad del grano
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	6	Temperatura interior
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	7	Alertas del secador
+reloj (strings.xml)	siscan_reloj/app/src/main/res/values/strings.xml	8	Lote y tiempo restante
+esfera (strings.xml)	siscan_reloj/esfera/src/main/res/values/strings.xml	3	SISCAN

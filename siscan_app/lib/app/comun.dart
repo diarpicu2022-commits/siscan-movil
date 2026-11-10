@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../core/theme/siscan_theme.dart';
 import '../core/ui/base.dart';
 import '../core/ui/dominio.dart';
+import '../core/textos.dart';
 import '../data/estado.dart';
+import '../l10n/app_localizations.dart';
 
 /// Pide datos de una ruta y los vuelve a pedir cuando cambia la clave (lote, pesajes, recarga).
 class Pedido<T> extends StatefulWidget {
@@ -47,29 +49,30 @@ double avanceLote(J b) {
 
 String variedad(J b) {
   final p = (b['name'] as String? ?? '').split('·');
-  return p.length > 1 ? p.last.trim() : 'Variedad sin registrar';
+  return p.length > 1 ? p.last.trim() : tr.variedadSinRegistrar;
 }
 
 String protocoloCorto(J b) => (b['protocolLabel'] as String? ?? b['protocol'] as String? ?? '').replaceFirst(RegExp(r'^[A-Z]\s*[—-]\s*'), '');
-String sitioLote(J b) => b['dryingSite'] == 'OPEN_AIR' ? 'Aire libre' : 'Secador';
+String sitioLote(J b) => b['dryingSite'] == 'OPEN_AIR' ? tr.sitioAireLibre : tr.sitioSecador;
 
 /// Texto de la predicción de la tesis para encabezados («Listo en ~5 h 40», «Terminó en el objetivo»…).
 /// Línea de la predicción en Inicio. Un lote en curso que ya llegó se anuncia para retirar; uno cerrado, como terminado.
 String textoPrediccion(J? p, {bool enCurso = false}) {
-  if (p == null) return 'Calculando la predicción…';
+  final t = tr;
+  if (p == null) return t.predCalculando;
   return switch (p['estado']) {
-    'EN_CURSO' => 'Listo en ~${duracion(p['horasRestantes'] as num?)}',
-    'OBJETIVO_ALCANZADO' => enCurso ? 'Listo: retíralo' : 'Terminó en el objetivo',
-    'SOBRESECADO' => 'Pasó el punto: sobre-secado',
-    'NO_ALCANZABLE' => 'Con este aire no llega al objetivo',
-    _ => 'Pocos pesajes para predecir',
+    'EN_CURSO' => t.predListoEn(duracion(p['horasRestantes'] as num?)),
+    'OBJETIVO_ALCANZADO' => enCurso ? t.predRetiralo : t.predTermino,
+    'SOBRESECADO' => t.predSobresecado,
+    'NO_ALCANZABLE' => t.predNoAlcanza,
+    _ => t.predPocosPesajes,
   };
 }
 
 /// Alertas del servidor como ítems del sistema.
 List<ItemAlerta> itemsAlerta(Base b) => b.alertas.map((a) => ItemAlerta(
       severidad: a['level'] == 'CRITICAL' ? 'critical' : a['level'] == 'INFO' ? 'info' : 'warning',
-      titulo: (a['title'] ?? a['message'] ?? 'Alerta') as String,
+      titulo: (a['title'] ?? a['message'] ?? tr.estadoAlerta) as String,
       meta: (a['description'] ?? a['message'] ?? '') as String,
       hora: a['timestamp'] != null ? hace(fecha(a['timestamp'])) : '',
     )).toList();
@@ -83,25 +86,26 @@ List<(String, String, bool)> filasSalud(Base b) {
   final copias = b.actuadores.length - pines.length;
   final red = ((b.diagnostico?['sensores'] as List?) ?? const []).cast<J>();
   final fallas = red.where((s) => s['clase'] != null && s['clase'] != 'ok').toList();
+  final t = tr;
   return [
-    if (red.isNotEmpty) (fallas.isEmpty ? 'La red neuronal no ve fallas' : 'La red neuronal ve fallas',
-        fallas.isEmpty ? '${red.length} sensores con señal normal' : fallas.map((s) => '${magnitud(s['sensorType'] as String).nombre}: ${estadoRed(s['clase'] as String).$2.toLowerCase()}').join(', '), fallas.isEmpty),
-    (fresco ? 'ESP32 conectado' : 'ESP32 sin conexión', b.ultimaT != null ? 'Último reporte ${hace(b.ultimaT).toLowerCase()}' : 'Todavía no reporta', fresco),
-    ('$vivos de ${tipos.length} sensores reportando', tipos.take(4).map((t) => magnitud(t).nombre).join(', '), tipos.isNotEmpty && vivos == tipos.length),
-    (copias > 0 ? 'Actuadores con copias' : 'Actuadores registrados', '${b.actuadores.length} registrados${copias > 0 ? ' · $copias copias por GPIO' : ''}${fresco ? '' : ' · último estado conocido'}', copias == 0 && fresco),
+    if (red.isNotEmpty) (fallas.isEmpty ? t.saludRedSinFallas : t.saludRedConFallas,
+        fallas.isEmpty ? t.saludSensoresNormales(red.length) : fallas.map((s) => '${magnitud(s['sensorType'] as String).nombre}: ${estadoRed(s['clase'] as String).$2.toLowerCase()}').join(', '), fallas.isEmpty),
+    (fresco ? t.saludEspConectado : t.saludEspSinConexion, b.ultimaT != null ? t.saludUltimoReporte(hace(b.ultimaT).toLowerCase()) : t.saludNoReporta, fresco),
+    (t.saludSensoresReportando(vivos, tipos.length), tipos.take(4).map((t) => magnitud(t).nombre).join(', '), tipos.isNotEmpty && vivos == tipos.length),
+    (copias > 0 ? t.saludActCopias : t.saludActRegistrados, '${t.saludActCuenta(b.actuadores.length)}${copias > 0 ? t.saludActCopiasGpio(copias) : ''}${fresco ? '' : t.saludUltimoEstado}', copias == 0 && fresco),
   ];
 }
 
 /// Clases de la red neuronal de la tesis → estado y palabra.
 (Estado, String) estadoRed(String clase) => switch (clase) {
-      'ok' => (Estado.running, 'Normal'),
-      'pegado' => (Estado.alert, 'Pegado'),
-      'saturado' => (Estado.alert, 'Saturado'),
-      'deriva' => (Estado.paused, 'Deriva'),
-      'offset' => (Estado.paused, 'Salto de escalón'),
-      'ruido' => (Estado.paused, 'Ruido'),
-      'pico' => (Estado.paused, 'Picos'),
-      _ => (Estado.offline, 'Sin datos'),
+      'ok' => (Estado.running, tr.redNormal),
+      'pegado' => (Estado.alert, tr.redPegado),
+      'saturado' => (Estado.alert, tr.redSaturado),
+      'deriva' => (Estado.paused, tr.redDeriva),
+      'offset' => (Estado.paused, tr.redSalto),
+      'ruido' => (Estado.paused, tr.redRuido),
+      'pico' => (Estado.paused, tr.redPicos),
+      _ => (Estado.offline, tr.redSinDatos),
     };
 
 /// Pines del mapa esquemático: cada secador sobre su municipio (por el nombre del sitio o el más cercano).
@@ -135,9 +139,9 @@ class SoloLectura extends StatelessWidget {
   final VoidCallback onIngresar;
   @override
   Widget build(BuildContext context) => Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const TituloTarjeta(icono: 'candado', titulo: 'Vista de solo lectura'),
+        TituloTarjeta(icono: 'candado', titulo: AppLocalizations.of(context).soloLecturaTitulo),
         Text(texto, style: TextStyle(fontSize: 14, color: context.c.tintaSuave)),
         const SizedBox(height: 12),
-        Boton('Ingresar', icono: 'usuario', variante: VarianteBoton.primary, onPressed: onIngresar),
+        Boton(AppLocalizations.of(context).masIngresar, icono: 'usuario', variante: VarianteBoton.primary, onPressed: onIngresar),
       ]));
 }

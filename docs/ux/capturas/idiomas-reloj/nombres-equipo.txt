@@ -1,0 +1,33 @@
+en-192-p3-fin      Ventiladores           columna hasta 304 · tinta hasta 150 · 1 línea(s) · entero
+en-192-p3-fin      Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+en-192-p3-fin      Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+en-192-p3          Ventiladores           columna hasta 304 · tinta hasta 301 · 1 línea(s) · entero
+en-192-p3          Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+en-192-p3          Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+en-227-p3-fin      Ventiladores           columna hasta 305 · tinta hasta 150 · 1 línea(s) · entero
+en-227-p3-fin      Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+en-227-p3-fin      Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+en-227-p3          Ventiladores           columna hasta 305 · tinta hasta 301 · 1 línea(s) · entero
+en-227-p3          Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+en-227-p3          Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+es-192-p3-fin      Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+es-192-p3-fin      Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+es-192-p3          Ventiladores           columna hasta 304 · tinta hasta 301 · 1 línea(s) · entero
+es-192-p3          Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+es-192-p3          Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+es-227-p3-fin      Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+es-227-p3-fin      Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+es-227-p3          Ventiladores           columna hasta 305 · tinta hasta 301 · 1 línea(s) · entero
+es-227-p3          Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+es-227-p3          Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+pt-BR-192-p3-fin   Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+pt-BR-192-p3-fin   Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+pt-BR-192-p3       Ventiladores           columna hasta 304 · tinta hasta 301 · 1 línea(s) · entero
+pt-BR-192-p3       Calefactor             columna hasta 304 · tinta hasta 291 · 1 línea(s) · entero
+pt-BR-192-p3       Luces incandescentes   columna hasta 304 · tinta hasta 298 · 2 línea(s) · entero
+pt-BR-227-p3-fin   Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+pt-BR-227-p3-fin   Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+pt-BR-227-p3       Ventiladores           columna hasta 305 · tinta hasta 301 · 1 línea(s) · entero
+pt-BR-227-p3       Calefactor             columna hasta 305 · tinta hasta 291 · 1 línea(s) · entero
+pt-BR-227-p3       Luces incandescentes   columna hasta 305 · tinta hasta 298 · 2 línea(s) · entero
+cortados: 0

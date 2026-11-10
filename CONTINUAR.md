@@ -1,6 +1,6 @@
 # SISCAN — dónde vamos y cómo seguir
 
-Actualizado: 2026-10-15 (noche). Léelo primero al retomar. El detalle de cada pieza está en los anexos que se enlazan.
+Actualizado: 2026-10-17. Léelo primero al retomar. El detalle de cada pieza está en los anexos que se enlazan.
 
 ## Repositorios y carpetas
 
@@ -102,6 +102,55 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 7. Probar en un Android de gama baja real (desenfoque 14) y TalkBack con voz (solo se verificó el árbol de accesibilidad).
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
+
+### 7. Idiomas es/en/pt-BR (C4): paso 6 hecho, esperando visto bueno (2026-11-09)
+- Paso 6 en el emulador `Agenda_Pixel`: 5 pestañas, canales y widget en tres idiomas, 0 fallas. Arreglado: la
+  descripción del widget no se guardaba. **Pendiente:** las imágenes del widget no se dibujan (`'!debugNeedsPaint'`,
+  probar en release desde `C:\dev\siscan-build`), teléfono físico, abogado y revisión nativa. Sección 16 del anexo.
+- «Luces incandescentes» en el reloj: dos líneas y, si no cabe, guion según el silabeo (`NombreActuador`, Ui.kt).
+  Medido: 0 nombres cortados en 12 capturas.
+- 4d aprobado (2026-11-09). **Paso 5 hecho**: política 0.3 en español, inglés y portugués (`docs/legal/`) y dentro de la
+  app por idioma; reloj medido en el emulador, 36/42 páginas sin fallas y las 6 restantes (pie de Equipo) medidas sobre
+  la captura como dentro del círculo. Hallazgo: «Luces incandescentes» se corta en Equipo del reloj (decisión de Diego).
+  Sección 15 del anexo. Siguiente: paso 6.
+- 4c aprobado (2026-11-09). **4d hecho**: el reloj en tres idiomas (97 cadenas, `Textos` + `AppReloj`, formato por
+  idioma), gradlew en verde con 11 pruebas, `verificar_textos.py` 0 fallas. Sección 14 del anexo. Siguiente: paso 5
+  (política en tres idiomas) y paso 6 (verificación en dispositivos).
+- 4b aprobado y opción A para el filtro de Lotes (2026-11-09). **4c hecho**: Equipo, Alertas, Ingreso, errores,
+  notificaciones (idioma guardado o del sistema) y widgets; 83 claves; barrido del paso 4 con 10 pantallas 9/9.
+  Pendiente ver notificaciones y widgets en un teléfono real. Sección 13 del anexo. Siguiente: 4d (reloj).
+- 4a aprobado el 2026-11-09. **4b hecho** (Lotes y Pesaje): 90 claves, barrido del paso 4 9/9 con red de español
+  suelto, goldens `07l-*`. Tres decisiones para Diego en la sección 12 del anexo. Siguiente: 4c.
+- 2026-11-09: visto bueno al paso 3, «Fixada à mão» y píldora «Sin calibrar» debajo del nombre en Calibración.
+  Paso 4 por partes (4a Inicio y compartidos, 4b Lotes y Pesaje, 4c Equipo, ingreso, alertas, notificaciones y
+  widgets, 4d reloj). **4a hecho**: 152 claves, goldens `07i-inicio-*`, barrido de Inicio 9/9, batería en verde,
+  analyze 0. Detalle en la sección 11 del anexo. Siguiente: 4b.
+- Rama `feature/idiomas` desde `feature/invernadero-y-tema-por-hora` (PR #4 contra `feature/reloj-sistema-v2`; esa rama no
+  se toca). **Sin commit.**
+- **Ojo: `C:\dev\siscan` es una unión (junction) que apunta al árbol real `App Mobile`, no una copia**: los dos son la
+  misma carpeta. Flutter funciona desde `cmd` con `cd /d C:\dev\siscan\siscan_app` (el analizador falla con la «ñ» si
+  se llama desde Git Bash, porque resuelve la ruta real).
+- Anexo y contrato (I1–I7): `docs/ux/anexos/2026-10-15-idiomas.md` (sección 10 = paso 3). Inventario:
+  `docs/ux/anexos/2026-10-15-idiomas-inventario.tsv`.
+- **Decisiones de Diego**:
+  - 2026-10-16: D1–D8 en A, `intl` 0.20.3 y excepción de 4 fuentes.
+  - 2026-10-17: visto bueno al paso 2 y «Aparelhos» para «Equipo» en portugués.
+- **Paso 2** (infraestructura): gen_l10n, `IdiomaApp` + `LocaleManager`, formato por idioma, barra y Más › Idioma, reloj
+  `values-en`/`values-pt-rBR`. Aprobado.
+- **Paso 3 hecho**:
+  - Toda la página Más y lo que se abre desde ella, en ARB: 129 claves nuevas con descripción (en/pt, borradores I7).
+    Incluye «Volver», los avisos de los interruptores y `leerCifra()`.
+  - Goldens nuevos: `06m-mas-{es,en,pt}-{claro,oscuro}` y subpáginas en/pt (`06m-mas-tema`, `06m-ubicacion`,
+    `06m-privacidad-borrar`, `06m-historial`).
+  - Barrido medido en 3 idiomas × 360/390/412: 0 desbordes, 0 recortes, contraste AA y toques 0 fallas.
+  - analyze 0; batería 120/120 (dos corridas). Se regeneró `15l-licencias-claro`: la referencia guardada mostraba «Cargando…» (fallo previo del arnés, corregido).
+- **Decisiones abiertas** (sección 10 del anexo):
+  1. Ficha pt «Definida manualmente» parte «Localização» a 360 px. Recomendada: «Fixada à mão».
+  2. Píldora «Sin calibrar» en Calibración › Sensores: FilaSensor ya parte palabras en español; en/pt lo empeoran.
+     Propuesta de disposición para decidir con el paso 4.
+- Siguiente: **paso 4**, pasar el resto de los textos (componentes compartidos, Inicio, Lotes, Pesaje, Equipo, alertas,
+  notificaciones, widgets, reloj). Después: la política en tres idiomas (5) y la verificación final (6). Las traducciones
+  en/pt son borradores: las debe revisar una persona nativa.
 
 ## Hechos de la tesis que no hay que olvidar (para no volver a equivocarse)
 - Lote 3 «juco» = protocolo **A** (aire libre), 12 pesajes, 44,4 → 10,6 %. Lote 2 «El Motilón» = protocolo **B** (secador

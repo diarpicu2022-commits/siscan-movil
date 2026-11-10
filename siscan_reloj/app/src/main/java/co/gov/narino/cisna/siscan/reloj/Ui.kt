@@ -1,5 +1,11 @@
 package co.gov.narino.cisna.siscan.reloj
 
+import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.intl.LocaleList
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.LinearEasing
@@ -255,7 +261,7 @@ fun ChipActuador(nombre: String, resistencia: Boolean, encendido: Boolean, estad
                 if (onLong != null) Modifier.combinedClickableSeguro(habilitado, onClick, onLong) else Modifier.clickable(enabled = habilitado, role = Role.Switch, onClick = onClick),
             )
             .alpha(if (habilitado) 1f else .6f)
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 10.dp, vertical = 4.dp)
             .semantics(mergeDescendants = true) { contentDescription = "$nombre, $estado" },
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -267,10 +273,10 @@ fun ChipActuador(nombre: String, resistencia: Boolean, encendido: Boolean, estad
             )
         }
         Column(Modifier.weight(1f)) {
-            // Los nombres del servidor («Ventiladores», «Calefactor 3») son más largos que los del sistema: una línea, y si no
-            // caben a 13,5 se reducen hasta 11,5 antes que cortarse.
-            BasicText(nombre, maxLines = 1, softWrap = false, autoSize = TextAutoSize.StepBased(minFontSize = 11.5.sp, maxFontSize = 13.5.sp, stepSize = .5.sp),
-                style = TextStyle(fontFamily = Jakarta, fontSize = 13.5.sp, fontWeight = FontWeight(700), color = Color.White))
+            // Los nombres del servidor («Ventiladores», «Calefactor 3») son más largos que los del sistema: si no caben a 13,5
+            // se reducen hasta 11,5 y, si aun así no caben, bajan a una segunda línea en vez de cortarse contra el interruptor
+            // (decisión de Diego del 2026-11-09: «Luces incandescentes» se cortaba sin «…»).
+            NombreActuador(nombre)
             Text(estado, maxLines = 1, overflow = TextOverflow.Ellipsis, style = TextStyle(fontFamily = Jakarta, fontSize = 11.sp, color = Sc.tintaSuave))
         }
         Box(Modifier.size(30.dp, 18.dp).clip(RoundedCornerShape(9.dp)).background(if (encendido) Sc.broteVivo else Color.White.copy(alpha = .2f))) {
@@ -356,3 +362,29 @@ fun CheckDibujado() {
 fun Fila(espacio: Dp, contenido: @Composable RowScope.() -> Unit) = Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(espacio), content = contenido)
 
 val estiloHora = TextStyle(fontFamily = Jakarta, fontSize = 12.sp, fontWeight = FontWeight(700), color = Sc.tintaSuave, letterSpacing = .02.em)
+
+/**
+ * Nombre de un actuador en hasta dos líneas sin perder letras (decisión de Diego del 2026-11-09). Primero, el mayor
+ * tamaño entre 13,5 y 11,5 sp en el que cada palabra cabe entera y el nombre entra en dos líneas. Si una palabra no cabe ni
+ * así («incandescentes» a 227 dp), se parte con guion según el silabeo del español, porque los nombres los manda el
+ * servidor en español (I4). Solo si tampoco alcanza queda «…». TextAutoSize no sirve aquí: con salto de línea, una
+ * palabra que se pasa del ancho no cuenta como desborde y se corta contra el interruptor.
+ */
+@Composable
+private fun NombreActuador(nombre: String) {
+    val medidor = rememberTextMeasurer()
+    BoxWithConstraints {
+        val ancho = constraints.maxWidth
+        val base = TextStyle(fontFamily = Jakarta, fontWeight = FontWeight(700), color = Color.White, localeList = LocaleList("es"))
+        val palabras = nombre.split(' ').filter { it.isNotEmpty() }
+        val tamanos = generateSequence(13.5f) { it - .5f }.takeWhile { it >= 11.5f }.toList()
+        fun estilo(sp: Float, guion: Boolean) = base.copy(fontSize = sp.sp, lineHeight = (sp + 3).sp,
+            hyphens = if (guion) Hyphens.Auto else Hyphens.None, lineBreak = if (guion) LineBreak.Paragraph else LineBreak.Simple)
+        fun cabe(st: TextStyle) = medidor.measure(nombre, st, constraints = Constraints(maxWidth = ancho)).lineCount <= 2
+        val st = tamanos.firstOrNull { sp -> estilo(sp, false).let { e -> palabras.all { medidor.measure(it, e, softWrap = false).size.width <= ancho } && cabe(e) } }
+            ?.let { estilo(it, false) }
+            ?: tamanos.firstOrNull { cabe(estilo(it, true)) }?.let { estilo(it, true) }
+            ?: estilo(11.5f, true)
+        Text(nombre, maxLines = 2, overflow = TextOverflow.Ellipsis, style = st)
+    }
+}

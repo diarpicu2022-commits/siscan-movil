@@ -5,6 +5,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../theme/siscan_theme.dart';
 import '../theme/siscan_tokens.dart';
 import 'base.dart';
@@ -39,7 +40,7 @@ class BarraApp extends StatelessWidget {
     final c = context.c;
     final arriba = MediaQuery.of(context).padding.top;
     final fila = Row(children: [
-      if (atras) BotonIcono(icono: 'atras', etiqueta: 'Volver', oscuro: oscura, onPressed: () => Navigator.of(context).maybePop()),
+      if (atras) BotonIcono(icono: 'atras', etiqueta: AppLocalizations.of(context).volver, oscuro: oscura, onPressed: () => Navigator.of(context).maybePop()),
       if (logo) Padding(padding: const EdgeInsets.only(left: 6), child: Logo(claro: oscura, alto: 30))
       else Expanded(child: Padding(padding: const EdgeInsets.only(left: 6), child: Semantics(container: true, header: true, child: Text(titulo ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
           style: TextStyle(fontFamily: SiscanType.display, fontSize: 22, fontWeight: FontWeight.w700, color: oscura ? c.sobreBosque : c.tinta))))),
@@ -77,30 +78,31 @@ class BarraInferior extends StatelessWidget {
   final Pestana activa;
   final ValueChanged<Pestana> onCambio;
   final int alertas;
-  static const _tabs = [(Pestana.inicio, 'Inicio', 'inicio'), (Pestana.lotes, 'Lotes', 'lotes'), (Pestana.pesaje, 'Pesaje', 'balanza'), (Pestana.equipo, 'Equipo', 'ventilador'), (Pestana.mas, 'Más', 'menu')];
   @override
   Widget build(BuildContext context) {
-    final c = context.c;
+    final c = context.c, t = AppLocalizations.of(context);
+    // Etiquetas desde los ARB (anexo de idiomas, paso 2): «Equipamento» en portugués es la más larga y se mide a 360 px.
+    final tabs = [(Pestana.inicio, t.navInicio, 'inicio'), (Pestana.lotes, t.navLotes, 'lotes'), (Pestana.pesaje, t.navPesaje, 'balanza'), (Pestana.equipo, t.navEquipo, 'ventilador'), (Pestana.mas, t.navMas, 'menu')];
     return Container(
       decoration: BoxDecoration(color: c.superficie, border: Border(top: BorderSide(color: c.linea))),
       padding: EdgeInsets.fromLTRB(4, 10, 4, 6 + MediaQuery.of(context).padding.bottom),
-      child: Row(children: [for (final t in _tabs) Expanded(child: Semantics(container: true, 
-        selected: t.$1 == activa, button: true, label: t.$2 + (t.$1 == Pestana.inicio && alertas > 0 ? ', $alertas alertas' : ''),
+      child: Row(children: [for (final p in tabs) Expanded(child: Semantics(container: true, 
+        selected: p.$1 == activa, button: true, label: p.$1 == Pestana.inicio && alertas > 0 ? t.navInicioConAlertas(alertas) : p.$2,
         child: InkWell(
-          onTap: () => onCambio(t.$1),
+          onTap: () => onCambio(p.$1),
           borderRadius: BorderRadius.circular(16),
           child: ConstrainedBox(constraints: const BoxConstraints(minHeight: SiscanSize.toque), child: ExcludeSemantics(child: Column(mainAxisSize: MainAxisSize.min, children: [
             AnimatedContainer(
               duration: SiscanMotion.rapida, width: 58, height: 32,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(999),
-                  gradient: t.$1 == activa ? LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [c.salviaClara, c.salvia]) : null),
+                  gradient: p.$1 == activa ? LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [c.salviaClara, c.salvia]) : null),
               child: Stack(clipBehavior: Clip.none, alignment: Alignment.center, children: [
-                Icono(t.$3, size: 22, color: t.$1 == activa ? Colors.white : c.tintaSuave),
-                if (t.$1 == Pestana.inicio && alertas > 0) Positioned(top: -3, right: 6, child: Cuenta(alertas)),
+                Icono(p.$3, size: 22, color: p.$1 == activa ? Colors.white : c.tintaSuave),
+                if (p.$1 == Pestana.inicio && alertas > 0) Positioned(top: -3, right: 6, child: Cuenta(alertas)),
               ]),
             ),
             const SizedBox(height: 3),
-            Text(t.$2, style: TextStyle(fontSize: 11.5, fontWeight: t.$1 == activa ? FontWeight.w800 : FontWeight.w600, color: t.$1 == activa ? c.tinta : c.tintaSuave)),
+            Text(p.$2, style: TextStyle(fontSize: 11.5, fontWeight: p.$1 == activa ? FontWeight.w800 : FontWeight.w600, color: p.$1 == activa ? c.tinta : c.tintaSuave)),
           ]))),
         ),
       ))]),

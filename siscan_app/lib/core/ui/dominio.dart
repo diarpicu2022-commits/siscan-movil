@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../momento.dart';
 import '../theme/siscan_theme.dart';
 import '../theme/siscan_tokens.dart';
@@ -43,10 +44,10 @@ class FilaActuador extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.c;
-    final st = bloqueado != null ? 'blocked' : pendiente ? 'pending' : encendido ? 'on' : 'off';
-    final etiqueta = {'on': 'Encendido', 'off': 'Apagado', 'blocked': 'Bloqueado', 'pending': encendido ? 'Apagando…' : 'Encendiendo…'}[st]!;
+    final st = bloqueado != null ? 'blocked' : pendiente ? 'pending' : encendido ? 'on' : 'off', t = AppLocalizations.of(context);
+    final etiqueta = {'on': t.actEncendido, 'off': t.actApagado, 'blocked': t.actBloqueado, 'pending': encendido ? t.actApagandoSolo : t.actEncendiendoSolo}[st]!;
     final colEstado = {'on': c.operando, 'blocked': c.alerta, 'pending': c.pausa}[st] ?? c.tintaSuave;
-    final meta = bloqueado != null ? 'Bloqueado por seguridad · $bloqueado' : auto ? 'Controlado por el protocolo' : 'Nominal ${cifra(vatios, 0)} W${desde != null ? ' · $desde' : ''}';
+    final meta = bloqueado != null ? t.actBloqueadoSeguridad(bloqueado!) : auto ? t.actPorProtocolo : '${t.actNominal(cifra(vatios, 0))}${desde != null ? ' · $desde' : ''}';
     return Container(
       constraints: const BoxConstraints(minHeight: 60),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -75,8 +76,9 @@ class FilaActuador extends StatelessWidget {
 
 /// HoldButton: hay que mantener presionado (el relleno avanza) para encender una resistencia.
 class BotonMantener extends StatefulWidget {
-  const BotonMantener({super.key, required this.texto, required this.onCompleto, this.hecho = 'Orden enviada', this.activo = true});
-  final String texto, hecho;
+  const BotonMantener({super.key, required this.texto, required this.onCompleto, this.hecho, this.activo = true});
+  final String texto;
+  final String? hecho;
   final VoidCallback onCompleto;
   final bool activo;
   @override
@@ -102,7 +104,7 @@ class _BotonMantenerState extends State<BotonMantener> {
   Widget build(BuildContext context) {
     final c = context.c;
     return Semantics(container: true, 
-      button: true, enabled: widget.activo, label: widget.texto, hint: 'Mantén presionado. Con lector de pantalla, toca dos veces y mantén.',
+      button: true, enabled: widget.activo, label: widget.texto, hint: AppLocalizations.of(context).mantenerHint,
       onLongPress: widget.activo ? widget.onCompleto : null,
       child: GestureDetector(
         onTapDown: (_) => _inicio(), onTapUp: (_) => _fin(), onTapCancel: _fin,
@@ -116,7 +118,7 @@ class _BotonMantenerState extends State<BotonMantener> {
               Center(child: Row(mainAxisSize: MainAxisSize.min, children: [
                 Icono(_hecho ? 'check' : 'encendido', size: 18, color: _hecho ? Colors.white : c.hoja),
                 const SizedBox(width: 8),
-                Flexible(child: Text(_hecho ? widget.hecho : widget.texto, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: _hecho ? Colors.white : c.hoja))),
+                Flexible(child: Text(_hecho ? widget.hecho ?? AppLocalizations.of(context).ordenEnviada : widget.texto, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: _hecho ? Colors.white : c.hoja))),
               ])),
             ]),
           ),
@@ -138,12 +140,15 @@ class Cuadro extends StatelessWidget {
 
 /// SensorRow: magnitud, metadatos, valor y frescura (en vivo, desactualizado o sin conexión).
 class FilaSensor extends StatelessWidget {
-  const FilaSensor({super.key, required this.nombre, required this.meta, required this.valor, required this.icono, required this.color, required this.estado, this.estadoTexto, this.ultima = false});
+  const FilaSensor({super.key, required this.nombre, required this.meta, required this.valor, required this.icono, required this.color, required this.estado, this.estadoTexto, this.ultima = false, this.pildoraAbajo = false});
   final String nombre, meta, valor, icono;
   final Color color;
   final Estado estado;
   final String? estadoTexto;
   final bool ultima;
+  /// La píldora va debajo del nombre y no al lado del valor: su texto largo («Sin calibrar», «Not calibrated»,
+  /// «Não calibrado») ya no compite por el ancho con el nombre. Decisión de Diego del 2026-11-09 (idiomas, paso 4).
+  final bool pildoraAbajo;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
@@ -157,10 +162,10 @@ class FilaSensor extends StatelessWidget {
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(nombre, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: c.tinta)),
           Text(meta, style: TextStyle(fontSize: 12, color: c.tintaSuave)),
+          if (pildoraAbajo) Padding(padding: const EdgeInsets.only(top: 4), child: Pildora(estado: estado, chica: true, texto: estadoTexto)),
         ])),
         Text(valor, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: c.tinta, fontFeatures: const [FontFeature.tabularFigures()])),
-        const SizedBox(width: 8),
-        Pildora(estado: estado, chica: true, texto: estadoTexto),
+        if (!pildoraAbajo) ...[const SizedBox(width: 8), Pildora(estado: estado, chica: true, texto: estadoTexto)],
       ]),
     );
   }
@@ -174,23 +179,23 @@ class ItemAlerta {
 }
 
 class ListaAlertas extends StatelessWidget {
-  const ListaAlertas({super.key, required this.items, this.titulo = 'Alertas recientes', this.onVerTodas});
+  const ListaAlertas({super.key, required this.items, this.titulo, this.onVerTodas});
   final List<ItemAlerta> items;
-  final String titulo;
+  final String? titulo;
   final VoidCallback? onVerTodas;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
     return Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      TituloTarjeta(icono: 'alertas', titulo: titulo, derecha: onVerTodas == null ? null : TextButton(onPressed: onVerTodas,
+      TituloTarjeta(icono: 'alertas', titulo: titulo ?? AppLocalizations.of(context).alertasRecientes, derecha: onVerTodas == null ? null : TextButton(onPressed: onVerTodas,
           style: TextButton.styleFrom(minimumSize: const Size(SiscanSize.toque, SiscanSize.toque)),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [Text('Ver todas', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.hoja)), Icono('chevron', size: 14, color: c.hoja)]))),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [Text(AppLocalizations.of(context).verTodas, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.hoja)), Icono('chevron', size: 14, color: c.hoja)]))),
       if (items.isEmpty) Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(color: c.operandoSuave, borderRadius: BorderRadius.circular(14)),
         child: Row(children: [Icono('checkCirculo', size: 22, color: c.operando), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Sin alertas activas', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.operando)),
-          Text('Todo en orden.', style: TextStyle(fontSize: 13, color: c.operando)),
+          Text(AppLocalizations.of(context).sinAlertas, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.operando)),
+          Text(AppLocalizations.of(context).todoEnOrden, style: TextStyle(fontSize: 13, color: c.operando)),
         ]))]),
       )
       else for (final (i, a) in items.indexed) Padding(
@@ -218,9 +223,9 @@ class Salud extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.c, ok = filas.every((f) => f.$3);
     return Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const TituloTarjeta(icono: 'secador', titulo: '¿Está funcionando el equipo?'),
+      TituloTarjeta(icono: 'secador', titulo: AppLocalizations.of(context).saludTitulo),
       Row(children: [Icono(ok ? 'checkCirculo' : 'aviso', size: 22, color: ok ? c.operando : c.pausa), const SizedBox(width: 8),
-        Text(ok ? 'Sí, todo en orden' : 'Revisa el equipo', style: TextStyle(fontFamily: SiscanType.display, fontSize: 20, fontWeight: FontWeight.w700, color: ok ? c.operando : c.pausa))]),
+        Text(ok ? AppLocalizations.of(context).saludSi : AppLocalizations.of(context).saludRevisa, style: TextStyle(fontFamily: SiscanType.display, fontSize: 20, fontWeight: FontWeight.w700, color: ok ? c.operando : c.pausa))]),
       const SizedBox(height: SiscanSpace.s3),
       for (final f in filas) Padding(padding: const EdgeInsets.only(bottom: 10), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(padding: const EdgeInsets.only(top: 2), child: Icono(f.$3 ? 'check' : 'x', size: 15, color: f.$3 ? c.operando : c.alerta)),
@@ -268,7 +273,7 @@ class MapaSecadores extends StatelessWidget {
     }
     svg.write('</svg>');
     return Semantics(container: true, 
-      label: 'Mapa esquemático de Nariño con ${pines.length} ${pines.length == 1 ? 'secador' : 'secadores'}',
+      label: AppLocalizations.of(context).mapaLector(pines.length),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: SizedBox(height: alto, width: double.infinity, child: Stack(children: [
@@ -290,13 +295,13 @@ class LeyendaEstados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.c;
-    const nombres = {Estado.running: 'En operación', Estado.paused: 'En pausa', Estado.alert: 'Alerta', Estado.offline: 'Sin conexión'};
+    final t = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(color: c.fondo, borderRadius: BorderRadius.circular(14)),
       child: Wrap(spacing: 14, runSpacing: 8, children: [for (final e in Estado.values) Row(mainAxisSize: MainAxisSize.min, children: [
         PuntoVivo(color: colorEstado(c, e).$1, vivo: false, hueco: e == Estado.offline), const SizedBox(width: 8),
-        Text(nombres[e]!, style: TextStyle(fontSize: 13, color: c.tinta)), const SizedBox(width: 6),
+        Text(nombreEstado(t, e), style: TextStyle(fontSize: 13, color: c.tinta)), const SizedBox(width: 6),
         Text('${cuenta[e] ?? 0}', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: c.tinta)),
       ])]),
     );
@@ -344,8 +349,8 @@ class ElementoLista extends StatelessWidget {
 class ListaOpcionUnica<T> extends StatelessWidget {
   const ListaOpcionUnica({super.key, required this.valor, required this.opciones, required this.onChanged});
   final T valor;
-  /// (valor, ícono, título, explicación)
-  final List<(T, String, String, String)> opciones;
+  /// (valor, ícono o null, título, explicación). Sin ícono cuando ninguno dice algo cierto (los idiomas: sin banderas).
+  final List<(T, String?, String, String)> opciones;
   final ValueChanged<T> onChanged;
   @override
   Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
@@ -356,7 +361,8 @@ class ListaOpcionUnica<T> extends StatelessWidget {
 
 class _FilaOpcion extends StatefulWidget {
   const _FilaOpcion({required this.icono, required this.titulo, required this.sub, required this.elegida, required this.ultima, required this.onTap});
-  final String icono, titulo, sub;
+  final String? icono;
+  final String titulo, sub;
   final bool elegida, ultima;
   final VoidCallback onTap;
   @override
@@ -384,8 +390,7 @@ class _FilaOpcionState extends State<_FilaOpcion> {
           padding: const EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(border: w.ultima ? null : Border(bottom: BorderSide(color: c.linea))),
           child: Row(children: [
-            Cuadro(icono: w.icono, color: c.hoja),
-            const SizedBox(width: 14),
+            if (w.icono != null) ...[Cuadro(icono: w.icono!, color: c.hoja), const SizedBox(width: 14)],
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(w.titulo, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.tinta)),
               Text(w.sub, style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),
@@ -435,7 +440,7 @@ class RegistroOrdenes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.c;
-    if (items.isEmpty) return Text('Sin órdenes registradas todavía.', style: TextStyle(fontSize: 14, color: c.tintaSuave));
+    if (items.isEmpty) return Text(AppLocalizations.of(context).sinOrdenes, style: TextStyle(fontSize: 14, color: c.tintaSuave));
     return Column(children: [for (final (i, o) in items.indexed) IntrinsicHeight(child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       SizedBox(width: 56, child: Text(o.$1, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: c.tintaSuave, fontFeatures: const [FontFeature.tabularFigures()]))),
       const SizedBox(width: 10),

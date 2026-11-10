@@ -51,7 +51,7 @@ fun ElSecador(e: Estado) {
         // ve entero.
         Box(
             Modifier.align(Alignment.Center)
-                .clearAndSetSemantics { contentDescription = "Humedad del grano ${Estado.cifra(e.humedad)} %" }
+                .clearAndSetSemantics { contentDescription = Textos.s(R.string.r_humedad_lector, Estado.cifra(e.humedad)) }
                 .clip(RoundedCornerShape(999.dp)).background(Sc.bosque).padding(horizontal = 14.dp, vertical = 2.dp),
         ) {
             Fila(6.dp) {

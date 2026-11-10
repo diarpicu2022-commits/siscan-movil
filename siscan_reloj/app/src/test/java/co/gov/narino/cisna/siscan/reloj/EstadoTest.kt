@@ -4,10 +4,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
 
 class EstadoTest {
+    @Before fun textos() = TextosDePrueba.cargar()
+
     private val ahora = LocalDateTime.of(2026, 10, 8, 8, 0)
     private val lotes = listOf(
         mapOf("id" to 3, "name" to "Lote juco", "status" to "COMPLETED", "startedAt" to "2026-08-11 11:56:38", "dryingSite" to "OPEN_AIR", "lastMoisturePct" to 10.59),

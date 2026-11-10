@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../core/textos.dart';
 import 'reloj.dart';
 
 /// Sesión con la cuenta de WordPress del CISNA mediante una **contraseña de aplicación** (incluida en WordPress,
@@ -65,14 +66,14 @@ class AuthController extends ChangeNotifier {
   /// Verifica las credenciales con WordPress. Devuelve `null` si entra, o el motivo en palabras de la persona.
   Future<String?> signIn(String user, String appPassword, {bool remember = false}) async {
     final u = user.trim(), p = appPassword.replaceAll(' ', '').trim();
-    if (u.isEmpty || p.isEmpty) return 'Escribe tu usuario y tu contraseña de aplicación.';
+    if (u.isEmpty || p.isEmpty) return tr.authFaltan;
     busy = true;
     notifyListeners();
     try {
       final header = 'Basic ${base64Encode(utf8.encode('$u:$p'))}';
       final r = await _client.get(Uri.parse('$site/wp-json/wp/v2/users/me?context=edit'), headers: {'Authorization': header}).timeout(const Duration(seconds: 15));
-      if (r.statusCode == 401 || r.statusCode == 403) return 'El usuario o la contraseña de aplicación no son correctos.';
-      if (r.statusCode != 200) return 'No pudimos verificar tu cuenta. Intenta nuevamente.';
+      if (r.statusCode == 401 || r.statusCode == 403) return tr.authIncorrecto;
+      if (r.statusCode != 200) return tr.authNoVerifica;
       final me = jsonDecode(utf8.decode(r.bodyBytes)) as Map<String, dynamic>;
       final caps = (me['capabilities'] as Map?)?.cast<String, dynamic>() ?? const {};
       final can = caps['manage_secador'] == true || caps['manage_options'] == true;
@@ -80,9 +81,9 @@ class AuthController extends ChangeNotifier {
       if (remember) await store.write(u, p);
       // El reloj manda órdenes por el teléfono con esta sesión (solo si la persona pidió que se recordara).
       if (remember && can) await SesionReloj.guardar(header);
-      return can ? null : 'Tu cuenta no tiene permiso de «Gestor del Secador». Pídelo al CISNA.';
+      return can ? null : tr.authSinPermiso;
     } catch (_) {
-      return 'No pudimos conectarnos. Verifica la conexión e intenta nuevamente.';
+      return tr.authSinConexion;
     } finally {
       busy = false;
       notifyListeners();

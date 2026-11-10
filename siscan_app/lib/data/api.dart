@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../core/textos.dart';
+
 /// Cliente del servidor de SISCAN (WordPress REST `secador/v1` en cisna.narino.gov.co): las mismas rutas que el panel
 /// web. Lectura pública; las escrituras llevan la cabecera de la contraseña de aplicación de quien inició sesión.
 class SiscanApi {
@@ -15,9 +17,9 @@ class SiscanApi {
     try {
       r = await _c.get(Uri.parse('$base$ruta'), headers: {'Accept': 'application/json'}).timeout(const Duration(seconds: 20));
     } catch (_) {
-      throw ApiError('No pudimos conectarnos con el secador. Verifica la conexión e intenta nuevamente.');
+      throw ApiError(tr.apiSinConexion);
     }
-    if (r.statusCode != 200) throw ApiError('No fue posible cargar estos datos (código ${r.statusCode}).', estado: r.statusCode);
+    if (r.statusCode != 200) throw ApiError(tr.apiCargaCodigo('${r.statusCode}'), estado: r.statusCode);
     return jsonDecode(utf8.decode(r.bodyBytes));
   }
 
@@ -29,12 +31,12 @@ class SiscanApi {
     try {
       r = await http.Response.fromStream(await _c.send(req).timeout(const Duration(seconds: 25)));
     } catch (_) {
-      throw ApiError('No fue posible guardar. Verifica la conexión.');
+      throw ApiError(tr.apiNoGuardo);
     }
     final d = r.bodyBytes.isEmpty ? null : jsonDecode(utf8.decode(r.bodyBytes));
-    if (r.statusCode == 401 || r.statusCode == 403) throw ApiError('Tu sesión venció o ya no tiene permiso. Ingresa de nuevo.', estado: r.statusCode);
-    if (r.statusCode == 409) throw ApiError((d is Map ? d['message'] as String? : null) ?? 'El secador está en modo automático.', estado: 409);
-    if (r.statusCode < 200 || r.statusCode >= 300) throw ApiError((d is Map ? d['message'] as String? : null) ?? 'No fue posible guardar (código ${r.statusCode}).', estado: r.statusCode);
+    if (r.statusCode == 401 || r.statusCode == 403) throw ApiError(tr.apiSesionVencio, estado: r.statusCode);
+    if (r.statusCode == 409) throw ApiError((d is Map ? d['message'] as String? : null) ?? tr.apiModoAuto, estado: 409);
+    if (r.statusCode < 200 || r.statusCode >= 300) throw ApiError((d is Map ? d['message'] as String? : null) ?? tr.apiNoGuardoCodigo('${r.statusCode}'), estado: r.statusCode);
     return d;
   }
 

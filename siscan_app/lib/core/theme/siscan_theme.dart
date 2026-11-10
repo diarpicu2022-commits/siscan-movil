@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../formato.dart';
 import 'siscan_tokens.dart';
 
 /// Tema de la app con el sistema de diseño SISCAN v2 (claro y oscuro). Los widgets propios leen [SiscanColors]
@@ -58,7 +59,8 @@ enum Estado { running, paused, alert, offline }
       Estado.offline => (c.fuera, c.fueraSuave),
     };
 
-/// Cifras como en campo: coma decimal y punto de miles («42,6», «1.500»). `null` → «—».
+/// Cifras como en campo, según el idioma (I5): coma decimal y punto de miles en español y portugués («42,6»,
+/// «1.500»), punto decimal y coma de miles en inglés («42.6», «1,500»). `null` → «—».
 /// Reloj de pared de Colombia para mostrar: el secador está en Nariño, así que la hora se lee igual en cualquier
 /// teléfono (un emulador en UTC o alguien de viaje ve la misma hora que el panel web). Los cálculos usan el instante.
 DateTime co(DateTime d) => d.toUtc().subtract(const Duration(hours: 5));
@@ -67,8 +69,9 @@ String cifra(num? v, [int d = 1]) {
   if (v == null || (v is double && v.isNaN)) return '—';
   final s = v.abs().toStringAsFixed(d);
   final p = s.split('.');
-  final ent = p[0].replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => '.');
-  return (v < 0 ? '−' : '') + ent + (p.length > 1 ? ',${p[1]}' : '');
+  final (dec, mil) = separadores;
+  final ent = p[0].replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => mil);
+  return (v < 0 ? '−' : '') + ent + (p.length > 1 ? '$dec${p[1]}' : '');
 }
 
 String dinero(num? v) => v == null ? r'$ —' : '\$ ${cifra(v, 0)}';

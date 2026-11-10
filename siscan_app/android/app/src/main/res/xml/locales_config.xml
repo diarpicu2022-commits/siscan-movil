@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Idiomas de SISCAN para Ajustes › Idiomas de apps (Android 13+). Anexo de idiomas 2026-10-15, I2. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="es-CO" />
+    <locale android:name="en" />
+    <locale android:name="pt-BR" />
+</locale-config>

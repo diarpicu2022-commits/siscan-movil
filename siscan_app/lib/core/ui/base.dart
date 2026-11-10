@@ -5,6 +5,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../theme/siscan_theme.dart';
 import '../theme/siscan_tokens.dart';
 
@@ -87,13 +88,16 @@ class TituloTarjeta extends StatelessWidget {
   }
 }
 
+/// Palabra de cada estado del secador (píldora y leyenda del mapa).
+String nombreEstado(AppLocalizations t, Estado e) => switch (e) {
+      Estado.running => t.estadoEnOperacion, Estado.paused => t.estadoEnPausa, Estado.alert => t.estadoAlerta, Estado.offline => t.estadoSinConexion };
+
 /// sc-pill (StatusPill): estado con ícono o punto y palabra; nunca solo color.
 class Pildora extends StatelessWidget {
   const Pildora({super.key, required this.estado, this.texto, this.vivo = false, this.chica = false});
   final Estado estado;
   final String? texto;
   final bool vivo, chica;
-  static const _etiqueta = {Estado.running: 'En operación', Estado.paused: 'En pausa', Estado.alert: 'Alerta', Estado.offline: 'Sin conexión'};
   static const _icono = {Estado.paused: 'pausa', Estado.alert: 'aviso', Estado.offline: 'wifiNo'};
   @override
   Widget build(BuildContext context) {
@@ -105,7 +109,7 @@ class Pildora extends StatelessWidget {
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         ic != null ? Icono(ic, size: 13, color: st) : PuntoVivo(color: st, vivo: vivo),
         const SizedBox(width: 6),
-        Text(texto ?? _etiqueta[estado]!, style: TextStyle(fontSize: chica ? 11.5 : 12, height: 16 / 12, fontWeight: FontWeight.w700, color: st)),
+        Text(texto ?? nombreEstado(AppLocalizations.of(context), estado), style: TextStyle(fontSize: chica ? 11.5 : 12, height: 16 / 12, fontWeight: FontWeight.w700, color: st)),
       ]),
     );
   }
@@ -315,7 +319,7 @@ class _CampoState extends State<Campo> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 12)),
           )),
           if (widget.sufijo != null) Text(widget.sufijo!, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: c.tintaSuave)),
-          if (widget.clave) BotonIcono(icono: _ver ? 'ojoNo' : 'ojo', etiqueta: _ver ? 'Ocultar contraseña' : 'Mostrar contraseña', onPressed: () => setState(() => _ver = !_ver)),
+          if (widget.clave) BotonIcono(icono: _ver ? 'ojoNo' : 'ojo', etiqueta: _ver ? AppLocalizations.of(context).claveOcultar : AppLocalizations.of(context).claveMostrar, onPressed: () => setState(() => _ver = !_ver)),
         ]),
       ),
       if (widget.error != null || widget.pista != null) Padding(padding: const EdgeInsets.only(top: 6), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -328,12 +332,15 @@ class _CampoState extends State<Campo> {
 
 /// sc-seg: opciones en píldora sobre superficie-fuerte; la elegida en superficie con texto hoja.
 class Segmentado<T> extends StatelessWidget {
-  const Segmentado({super.key, required this.opciones, required this.valor, required this.onChanged, this.bloque = false, required this.etiqueta});
+  const Segmentado({super.key, required this.opciones, required this.valor, required this.onChanged, this.bloque = false, required this.etiqueta, this.iconosDesde = 0});
   final List<(T, String, String?)> opciones;
   final T valor;
   final ValueChanged<T>? onChanged;
   final bool bloque;
   final String etiqueta;
+  /// Ancho de pantalla desde el que se muestran los íconos de los segmentos. En una pantalla más angosta solo queda la
+  /// palabra (decisión de Diego del 2026-11-09, opción A del paso 4b de idiomas: el filtro de Lotes a 360 px).
+  final double iconosDesde;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
@@ -350,7 +357,7 @@ class Segmentado<T> extends StatelessWidget {
             decoration: BoxDecoration(color: on ? c.superficie : Colors.transparent, borderRadius: BorderRadius.circular(999),
                 boxShadow: on ? [BoxShadow(color: const Color(0xFF183024).withValues(alpha: .14), blurRadius: 3, offset: const Offset(0, 1))] : null),
             child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (o.$3 != null) ...[Icono(o.$3!, size: 16, color: on ? c.hoja : c.tintaSuave), const SizedBox(width: 6)],
+              if (o.$3 != null && MediaQuery.sizeOf(context).width >= iconosDesde) ...[Icono(o.$3!, size: 16, color: on ? c.hoja : c.tintaSuave), const SizedBox(width: 6)],
               Flexible(child: Text(o.$2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: on ? c.hoja : c.tintaSuave))),
             ]),
           ),

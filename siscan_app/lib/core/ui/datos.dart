@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 
 import '../theme/siscan_theme.dart';
 import '../theme/siscan_tokens.dart';
+import '../../l10n/app_localizations.dart';
+import '../textos.dart';
 import 'base.dart';
 
 Path _suave(List<Offset> p) {
@@ -148,19 +150,19 @@ class CurvaHumedad extends StatelessWidget {
   final String? resumen;
   @override
   Widget build(BuildContext context) {
-    final c = context.c;
+    final c = context.c, t = AppLocalizations.of(context);
     if (datos.length < 2) {
-      return Padding(padding: const EdgeInsets.symmetric(vertical: 24), child: Text(datos.isEmpty ? 'Sin pesajes todavía: la curva aparece con la primera muestra gravimétrica.' : 'Un solo pesaje: la curva aparece con el segundo.',
+      return Padding(padding: const EdgeInsets.symmetric(vertical: 24), child: Text(datos.isEmpty ? t.curvaSinPesajes : t.curvaUnPesaje,
           style: TextStyle(fontSize: 14, color: c.tintaSuave)));
     }
-    final texto = resumen ?? 'La humedad del grano bajó de ${cifra(datos.first)} % a ${cifra(datos.last)} %; objetivo 10 – 12 %.';
+    final texto = resumen ?? t.curvaResumen(cifra(datos.first), cifra(datos.last));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, label: texto, child: SizedBox(height: alto, width: double.infinity, child: CustomPaint(painter: _Curva(datos, prediccion, etiquetas, c)))),
       const SizedBox(height: 12),
       Wrap(spacing: 16, runSpacing: 6, children: [
-        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoGrano, borderRadius: BorderRadius.circular(2))), texto: 'Humedad del grano (gravimétrico)'),
-        if (prediccion.isNotEmpty) _Leyenda(muestra: SizedBox(width: 12, child: Divider(color: c.prediccion, thickness: 2)), texto: 'Predicción IA'),
-        _Leyenda(muestra: SizedBox(width: 12, child: Divider(color: c.objetivo, thickness: 2)), texto: 'Objetivo'),
+        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoGrano, borderRadius: BorderRadius.circular(2))), texto: t.leyendaGravimetrico),
+        if (prediccion.isNotEmpty) _Leyenda(muestra: SizedBox(width: 12, child: Divider(color: c.prediccion, thickness: 2)), texto: t.leyendaPrediccionIa),
+        _Leyenda(muestra: SizedBox(width: 12, child: Divider(color: c.objetivo, thickness: 2)), texto: t.leyendaObjetivo),
       ]),
     ]);
   }
@@ -196,7 +198,7 @@ class _Curva extends CustomPainter {
     canvas.drawRect(Rect.fromLTRB(l, y(12), s.width - r, y(10)), Paint()..color = c.objetivo.withValues(alpha: .14));
     final dash = Paint()..color = c.objetivo..strokeWidth = 1.6;
     for (var xx = l; xx < s.width - r; xx += 11) { canvas.drawLine(Offset(xx, y(12)), Offset(math.min(xx + 6, s.width - r), y(12)), dash); }
-    final obj = _t('Objetivo 10 – 12 %', TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: c.objetivo, fontFamily: SiscanType.ui));
+    final obj = _t(tr.objetivoRango, TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: c.objetivo, fontFamily: SiscanType.ui));
     obj.paint(canvas, Offset(l + 6, y(12) - obj.height - 3));
     final q = [for (var i = 0; i < d.length; i++) Offset(x(i), y(d[i]))];
     final linea = _suave(q);
@@ -236,15 +238,15 @@ class _Curva extends CustomPainter {
 
 /// EnergyCard: solar, red y costo; barras por hora (solar abajo en degradado, red arriba).
 class TarjetaEnergia extends StatelessWidget {
-  const TarjetaEnergia({super.key, this.titulo = 'Consumo energético y costo', this.solar, this.red, this.costo, this.tarifa, this.barras = const [], this.derecha, this.nota});
-  final String titulo;
+  const TarjetaEnergia({super.key, this.titulo, this.solar, this.red, this.costo, this.tarifa, this.barras = const [], this.derecha, this.nota});
+  final String? titulo;
   final double? solar, red, costo, tarifa;
   final List<(String, double, double)> barras;
   final Widget? derecha;
   final String? nota;
   @override
   Widget build(BuildContext context) {
-    final c = context.c;
+    final c = context.c, t = AppLocalizations.of(context);
     final mx = barras.isEmpty ? 1.0 : math.max(1e-9, barras.map((b) => b.$2 + b.$3).reduce(math.max));
     Widget stat(String k, String ic, Color col, String v, String u, Color fondo) => (Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -259,12 +261,12 @@ class TarjetaEnergia extends StatelessWidget {
           ]),
         ));
     final stats = [
-      stat('Solar', 'sol', c.datoSolar, cifra(solar), 'kWh', c.superficieHoja),
-      stat('Red eléctrica', 'enchufe', c.datoExterior, cifra(red, 2), 'kWh', c.fondo),
-      stat('Costo', 'moneda', c.tintaSuave, dinero(costo), 'COP', c.fondo),
+      stat(t.energiaSolar, 'sol', c.datoSolar, cifra(solar), 'kWh', c.superficieHoja),
+      stat(t.energiaRed, 'enchufe', c.datoExterior, cifra(red, 2), 'kWh', c.fondo),
+      stat(t.energiaCosto, 'moneda', c.tintaSuave, dinero(costo), 'COP', c.fondo),
     ];
     return Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      TituloTarjeta(icono: 'rayo', titulo: titulo, derecha: derecha),
+      TituloTarjeta(icono: 'rayo', titulo: titulo ?? t.energiaTitulo, derecha: derecha),
       // .sc-energy-stats: grid auto-fit minmax(110px, 1fr), gap 12 → tantas columnas como quepan de 110 px.
       LayoutBuilder(builder: (context, k) {
         const gap = SiscanSpace.s3, minimo = 110.0;
@@ -274,7 +276,7 @@ class TarjetaEnergia extends StatelessWidget {
       }),
       const SizedBox(height: 16),
       if (barras.isNotEmpty) Semantics(container: true, 
-        label: 'Energía por periodo: solar abajo, red eléctrica arriba',
+        label: t.energiaGraficoLector,
         child: SizedBox(height: 110, child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           for (final (i, b) in barras.indexed) Expanded(child: Column(children: [
             Expanded(child: Align(alignment: Alignment.bottomCenter, child: SizedBox(width: 9, child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -290,9 +292,9 @@ class TarjetaEnergia extends StatelessWidget {
       ),
       const SizedBox(height: 12),
       Wrap(spacing: 16, runSpacing: 6, crossAxisAlignment: WrapCrossAlignment.center, children: [
-        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoSolarRelleno, borderRadius: BorderRadius.circular(2))), texto: 'Solar'),
-        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoElectrica, borderRadius: BorderRadius.circular(2))), texto: 'Red eléctrica'),
-        if (tarifa != null) Text('Tarifa ${dinero(tarifa)}/kWh', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: c.tintaSuave)),
+        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoSolarRelleno, borderRadius: BorderRadius.circular(2))), texto: t.energiaSolar),
+        _Leyenda(muestra: Container(width: 12, height: 8, decoration: BoxDecoration(color: c.datoElectrica, borderRadius: BorderRadius.circular(2))), texto: t.energiaRed),
+        if (tarifa != null) Text(t.energiaTarifa(dinero(tarifa)), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: c.tintaSuave)),
       ]),
       if (nota != null) Pie(nota!),
     ]));
@@ -301,38 +303,38 @@ class TarjetaEnergia extends StatelessWidget {
 
 /// PredictionCard: tiempo restante en Outfit, rango, confianza y datos considerados.
 class TarjetaPrediccion extends StatelessWidget {
-  const TarjetaPrediccion({super.key, required this.valor, this.rango, this.confianza, this.ficha = 'Modelo de la tesis', this.entradas = const [], this.compacta = false, this.pie});
+  const TarjetaPrediccion({super.key, required this.valor, this.rango, this.confianza, this.ficha, this.entradas = const [], this.compacta = false, this.pie});
   final String valor;
   final Widget? rango;
   final int? confianza;
-  final String ficha;
+  final String? ficha;
   final List<(String, String)> entradas;
   final bool compacta;
   final String? pie;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
-    final conf = confianza == null ? null : confianza! >= 75 ? 'alta' : confianza! >= 50 ? 'media' : 'baja';
+    final t = AppLocalizations.of(context), conf = confianza == null ? null : confianza! >= 75 ? t.confianzaAlta : confianza! >= 50 ? t.confianzaMedia : t.confianzaBaja;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(border: Border.all(color: c.linea), borderRadius: BorderRadius.circular(SiscanRadius.lg), boxShadow: context.sombraTarjeta,
           gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, stops: const [0, .6], colors: [mezcla(c.prediccion, .07, c.superficie), c.superficie])),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TituloTarjeta(icono: 'ia', titulo: 'Predicción de IA', derecha: Ficha(conf != null ? 'Confianza $conf' : ficha, tono: 'pred')),
-        Text('Tiempo restante estimado', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.tintaSuave)),
+        TituloTarjeta(icono: 'ia', titulo: t.predTitulo, derecha: Ficha(conf ?? ficha ?? t.predModeloTesis, tono: 'pred')),
+        Text(t.predTiempoRestante, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.tintaSuave)),
         const SizedBox(height: 2),
         Text(valor, style: TextStyle(fontFamily: SiscanType.display, fontSize: 34, height: 40 / 34, fontWeight: FontWeight.w700, color: c.tinta)),
         const SizedBox(height: 2),
         if (rango != null) DefaultTextStyle(style: TextStyle(fontSize: 13, color: c.tintaSuave, fontFamily: SiscanType.ui), child: rango!),
         if (confianza != null) ...[
           const SizedBox(height: 16),
-          Row(children: [Expanded(child: Text('Confianza de la predicción', style: TextStyle(fontSize: 12.5, color: c.tintaSuave))), Text('$confianza %', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: c.prediccion))]),
+          Row(children: [Expanded(child: Text(t.predConfianzaRotulo, style: TextStyle(fontSize: 12.5, color: c.tintaSuave))), Text('$confianza %', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: c.prediccion))]),
           const SizedBox(height: 6),
-          Progreso(valor: confianza!.toDouble(), prediccion: true, etiqueta: 'Confianza de la predicción'),
+          Progreso(valor: confianza!.toDouble(), prediccion: true, etiqueta: t.predConfianzaRotulo),
         ],
         if (!compacta && entradas.isNotEmpty) ...[
           const SizedBox(height: 16),
-          Text('Datos considerados', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.tintaSuave)),
+          Text(t.predDatosConsiderados, style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: c.tintaSuave)),
           const SizedBox(height: 8),
           Wrap(spacing: 6, runSpacing: 6, children: [for (final e in entradas) Ficha(e.$1, tono: 'neutral', icono: e.$2)]),
         ],
@@ -352,7 +354,7 @@ class Fases extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.c;
     return Semantics(container: true, 
-      label: 'Proceso del lote',
+      label: AppLocalizations.of(context).procesoLote,
       child: Column(children: [
         for (final (i, f) in fases.indexed) IntrinsicHeight(child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           SizedBox(width: 24, child: Stack(alignment: Alignment.topCenter, children: [
@@ -383,9 +385,10 @@ class EscalaHumedad extends StatelessWidget {
     final c = context.c;
     const lo = 6.0, hi = 56.0;
     double pos(double x) => (1 - (x - lo) / (hi - lo)).clamp(0, 1).toDouble();
-    final zona = valor > 30 ? 'Húmedo' : valor > 20 ? 'Oreado' : valor > 12 ? 'Secando' : valor >= 10 ? 'Objetivo alcanzado' : 'Sobresecado';
+    final t = AppLocalizations.of(context);
+    final zona = valor > 30 ? t.zonaHumedo : valor > 20 ? t.zonaOreado : valor > 12 ? t.loteSecando : valor >= 10 ? t.zonaObjetivo : t.zonaSobresecado;
     return Semantics(container: true, 
-      label: 'Escala de humedad: ${cifra(valor)} %, zona $zona',
+      label: t.escalaLector(cifra(valor), zona),
       child: ExcludeSemantics(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(height: 38),
         LayoutBuilder(builder: (_, k) => SizedBox(height: 14, child: Stack(clipBehavior: Clip.none, children: [
@@ -400,11 +403,11 @@ class EscalaHumedad extends StatelessWidget {
         ]))),
         const SizedBox(height: 10),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          for (final t in ['Húmedo 53 %', 'Oreado', 'Secando']) Text(t, style: TextStyle(fontSize: 12, color: c.tintaSuave)),
+          for (final z in [t.zonaHumedo53, t.zonaOreado, t.loteSecando]) Text(z, style: TextStyle(fontSize: 12, color: c.tintaSuave)),
           Text('10 – 12 %', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: c.operando)),
         ]),
         const SizedBox(height: 8),
-        Text.rich(TextSpan(text: 'Zona actual: ', style: TextStyle(fontSize: 14, color: c.tinta), children: [TextSpan(text: zona, style: const TextStyle(fontWeight: FontWeight.w700))])),
+        Text.rich(TextSpan(text: t.zonaActual, style: TextStyle(fontSize: 14, color: c.tinta), children: [TextSpan(text: zona, style: const TextStyle(fontWeight: FontWeight.w700))])),
       ])),
     );
   }

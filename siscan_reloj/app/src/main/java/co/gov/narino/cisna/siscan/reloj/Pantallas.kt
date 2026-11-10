@@ -59,10 +59,10 @@ private fun Desplazable(activa: Boolean, contenido: @Composable () -> Unit) {
 
 /** Estado del lote para el chip: «Lote juco · Secando», o «Sin conexión · 19 ago» si el secador no reporta. */
 private fun chipLote(e: Estado, ahora: LocalDateTime): Pair<String, Boolean> = when {
-    e.lote == null -> "Sin lotes" to false
-    !e.reportando(ahora) -> "Sin conexión · ${Estado.dia(e.ultimaLectura)}" to false
-    e.enCurso -> "${e.lote} · Secando" to true
-    else -> "${e.lote} · Terminado" to false
+    e.lote == null -> Textos.s(R.string.r_sin_lotes) to false
+    !e.reportando(ahora) -> Textos.s(R.string.r_sin_conexion_dia, Estado.dia(e.ultimaLectura)) to false
+    e.enCurso -> Textos.s(R.string.r_lote_secando, e.lote ?: "") to true
+    else -> Textos.s(R.string.r_lote_terminado, e.lote ?: "") to false
 }
 
 /** WatchMonitor: arco de avance, humedad del grano, objetivo y estado del lote. */
@@ -70,9 +70,9 @@ private fun chipLote(e: Estado, ahora: LocalDateTime): Pair<String, Boolean> = w
 fun Monitoreo(e: Estado, ahora: LocalDateTime) = Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
     ArcoReloj(e.avance ?: 0f)
     Pila(Modifier.semantics(mergeDescendants = true) {}) {
-        Rotulo("grano", "Humedad del grano")
+        Rotulo("grano", Textos.s(R.string.r_humedad_grano))
         Cifra(Estado.cifra(e.humedad), "%")
-        Sub("Objetivo ${Estado.cifra(e.objetivo - 1, 0)} – ${Estado.cifra(e.objetivo + 1, 0)} %")
+        Sub(Textos.s(R.string.r_objetivo, Estado.cifra(e.objetivo - 1, 0), Estado.cifra(e.objetivo + 1, 0)))
         val (t, vivo) = chipLote(e, ahora)
         Chip(t, vivo = vivo)
     }
@@ -81,12 +81,12 @@ fun Monitoreo(e: Estado, ahora: LocalDateTime) = Box(Modifier.fillMaxSize(), con
 /** WatchReadings: interior, humedad relativa y exterior, cada una con el color de su magnitud. */
 @Composable
 fun Lecturas(e: Estado, activa: Boolean) = Desplazable(activa) {
-    Lista("Lecturas") {
+    Lista(Textos.s(R.string.r_lecturas)) {
         val filas = listOf(
-            Triple("TEMPERATURE_TOPE", "Interior", "temperatura") to "termometro",
-            Triple("HUMIDITY_TOPE", "HR interior", "humedad") to "gotas",
-            Triple("TEMPERATURE_EXTERIOR", "Exterior", "exterior") to "nubeSol",
-            Triple("HUMIDITY_EXTERIOR", "HR exterior", "exterior") to "nube",
+            Triple("TEMPERATURE_TOPE", Textos.s(R.string.r_interior), "temperatura") to "termometro",
+            Triple("HUMIDITY_TOPE", Textos.s(R.string.r_hr_interior), "humedad") to "gotas",
+            Triple("TEMPERATURE_EXTERIOR", Textos.s(R.string.r_exterior), "exterior") to "nubeSol",
+            Triple("HUMIDITY_EXTERIOR", Textos.s(R.string.r_hr_exterior), "exterior") to "nube",
         )
         var alguna = false
         for ((f, ic) in filas) {
@@ -95,8 +95,8 @@ fun Lecturas(e: Estado, activa: Boolean) = Desplazable(activa) {
             val v = if (f.first.startsWith("TEMP")) "${Estado.cifra(l.valor)}°" else "${Estado.cifra(l.valor, 0)} %"
             FilaLectura(ic, tono(f.third), f.second, v)
         }
-        if (!alguna) Sub("El secador todavía no envía lecturas.")
-        else Sub("Último dato ${Estado.dia(e.ultimaLectura)} · ${Estado.hm(e.ultimaLectura)}")
+        if (!alguna) Sub(Textos.s(R.string.r_sin_lecturas))
+        else Sub(Textos.s(R.string.r_ultimo_dato, Estado.dia(e.ultimaLectura), Estado.hm(e.ultimaLectura)))
     }
 }
 
@@ -104,21 +104,21 @@ fun Lecturas(e: Estado, activa: Boolean) = Desplazable(activa) {
 @Composable
 fun Equipo(e: Estado, activa: Boolean, pendiente: Int?, onOrden: (Estado.Equipo, Boolean) -> Unit, aviso: (String) -> Unit) = Desplazable(activa) {
     val auto = e.modo == "AUTO"
-    Lista("Equipo · ", when (e.modo) { "AUTO" -> "Automático"; "MANUAL" -> "Manual"; else -> "—" }) {
-        if (e.equipo.isEmpty()) Sub("No hay actuadores registrados.")
+    Lista(Textos.s(R.string.r_equipo_titulo), when (e.modo) { "AUTO" -> Textos.s(R.string.r_automatico); "MANUAL" -> Textos.s(R.string.r_manual); else -> "—" }) {
+        if (e.equipo.isEmpty()) Sub(Textos.s(R.string.r_sin_actuadores))
         for (a in e.equipo) {
             val estado = when {
-                pendiente == a.id -> if (a.encendido) "Apagando…" else "Encendiendo…"
-                auto -> if (a.encendido) "Encendido · protocolo" else "Apagado · protocolo"
-                else -> if (a.encendido) "Encendido" else "Apagado"
+                pendiente == a.id -> if (a.encendido) Textos.s(R.string.r_apagando) else Textos.s(R.string.r_encendiendo)
+                auto -> if (a.encendido) Textos.s(R.string.r_encendido_protocolo) else Textos.s(R.string.r_apagado_protocolo)
+                else -> if (a.encendido) Textos.s(R.string.r_encendido) else Textos.s(R.string.r_apagado)
             }
             ChipActuador(
                 a.nombre, a.resistencia, a.encendido, estado, habilitado = !auto && pendiente == null,
-                onClick = { if (a.resistencia && !a.encendido) aviso("Mantén presionado para encender") else onOrden(a, !a.encendido) },
+                onClick = { if (a.resistencia && !a.encendido) aviso(Textos.s(R.string.r_mantener_encender)) else onOrden(a, !a.encendido) },
                 onLong = if (a.resistencia && !a.encendido) ({ onOrden(a, true) }) else null,
             )
         }
-        Sub(if (auto) "El protocolo decide. Cambia a Manual en el teléfono." else "Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.")
+        Sub(if (auto) Textos.s(R.string.r_pie_auto) else Textos.s(R.string.r_pie_manual))
     }
 }
 
@@ -130,21 +130,21 @@ fun Prediccion(e: Estado) = Box(Modifier.fillMaxSize(), contentAlignment = Align
     Pila(Modifier.semantics(mergeDescendants = true) {}) {
         when (p?.estado) {
             "EN_CURSO" -> {
-                Rotulo("ia", "Listo en", Sc.prediccion)
+                Rotulo("ia", Textos.s(R.string.r_listo_en), Sc.prediccion)
                 Cifra(Estado.duracion(p.horas), chica = true)
-                Sub("entre ${Estado.duracion(p.min)} y ${Estado.duracion(p.max)}")
-                Chip("Confianza ${p.confianza ?: "—"} %", pred = true)
+                Sub(Textos.s(R.string.r_entre, Estado.duracion(p.min), Estado.duracion(p.max)))
+                Chip(Textos.s(R.string.r_confianza, (p.confianza ?: "—").toString()), pred = true)
             }
             "OBJETIVO_ALCANZADO" -> {
-                Rotulo("ia", if (e.enCurso) "Ya está" else "Terminó", Sc.prediccion)
-                Cifra("Listo", chica = true)
-                Sub("${Estado.cifra(e.humedad)} %: ${if (e.enCurso) "retíralo" else "en el objetivo"}")
-                Chip("Modelo de la tesis", pred = true)
+                Rotulo("ia", if (e.enCurso) Textos.s(R.string.r_ya_esta) else Textos.s(R.string.r_termino), Sc.prediccion)
+                Cifra(Textos.s(R.string.r_listo), chica = true)
+                Sub(if (e.enCurso) Textos.s(R.string.r_hum_retiralo, Estado.cifra(e.humedad)) else Textos.s(R.string.r_hum_en_objetivo, Estado.cifra(e.humedad)))
+                Chip(Textos.s(R.string.r_modelo_tesis), pred = true)
             }
-            "SOBRESECADO" -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("Pasado", chica = true); Sub("Bajó del 10 %: sobre-secado") }
-            "NO_ALCANZABLE" -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("No llega", chica = true); Sub("Con este aire no alcanza el objetivo") }
-            null -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("—", chica = true); Sub("No disponible por ahora") }
-            else -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("—", chica = true); Sub("Pocos pesajes para predecir") }
+            "SOBRESECADO" -> { Rotulo("ia", Textos.s(R.string.r_prediccion), Sc.prediccion); Cifra(Textos.s(R.string.r_pasado), chica = true); Sub(Textos.s(R.string.r_sobresecado)) }
+            "NO_ALCANZABLE" -> { Rotulo("ia", Textos.s(R.string.r_prediccion), Sc.prediccion); Cifra(Textos.s(R.string.r_no_llega), chica = true); Sub(Textos.s(R.string.r_no_alcanza)) }
+            null -> { Rotulo("ia", Textos.s(R.string.r_prediccion), Sc.prediccion); Cifra("—", chica = true); Sub(Textos.s(R.string.r_no_disponible)) }
+            else -> { Rotulo("ia", Textos.s(R.string.r_prediccion), Sc.prediccion); Cifra("—", chica = true); Sub(Textos.s(R.string.r_pocos_pesajes)) }
         }
     }
 }
@@ -152,9 +152,9 @@ fun Prediccion(e: Estado) = Box(Modifier.fillMaxSize(), contentAlignment = Align
 /** WatchBatches: lotes con su humedad; el activo resaltado. */
 @Composable
 fun Lotes(e: Estado, activa: Boolean) = Desplazable(activa) {
-    Lista("Lotes") {
-        if (e.lotes.isEmpty()) Sub("No hay lotes registrados.")
-        for (l in e.lotes) FilaLote(l.nombre, if (l.enCurso) "Secando" else l.sitio, l.humedad?.let { "${Estado.cifra(it)} %" } ?: "—", l.enCurso)
+    Lista(Textos.s(R.string.r_lotes)) {
+        if (e.lotes.isEmpty()) Sub(Textos.s(R.string.r_sin_lotes_reg))
+        for (l in e.lotes) FilaLote(l.nombre, if (l.enCurso) Textos.s(R.string.r_secando) else l.sitio, l.humedad?.let { "${Estado.cifra(it)} %" } ?: "—", l.enCurso)
     }
 }
 
@@ -164,7 +164,7 @@ fun Pesaje(e: Estado, activa: Boolean, enviando: Boolean, onGuardar: (Double) ->
     val seca = e.materiaSeca
     if (!e.enCurso || e.loteId == null || seca == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Pila { Rotulo("balanza", "Pesaje"); Titulo2("Sin lote activo"); Sub("Inicia un lote en el teléfono para pesar la muestra.") }
+            Pila { Rotulo("balanza", Textos.s(R.string.r_pesaje)); Titulo2(Textos.s(R.string.r_sin_lote_activo)); Sub(Textos.s(R.string.r_inicia_lote)) }
         }
         return
     }
@@ -181,16 +181,16 @@ fun Pesaje(e: Estado, activa: Boolean, enviando: Boolean, onGuardar: (Double) ->
         val hum = (1 - seca / g) * 100
         // .sc-wweigh: la fila − cifra + necesita más que los 168 de la pila (botones con 48 de toque): se le da su ancho.
         Column(Modifier.padding(top = 16.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(3.dp)) {
-            Rotulo("balanza", "Peso de la muestra")
+            Rotulo("balanza", Textos.s(R.string.r_peso_muestra))
             Fila(0.dp) {
-                BotonRedondo("menos", "Restar 0,1 gramos") { paso(-.1f) }
-                Box(Modifier.semantics(mergeDescendants = true) { contentDescription = "${Estado.cifra(g.toDouble())} gramos"; liveRegion = LiveRegionMode.Polite }) {
+                BotonRedondo("menos", Textos.s(R.string.r_restar)) { paso(-.1f) }
+                Box(Modifier.semantics(mergeDescendants = true) { contentDescription = Textos.s(R.string.r_gramos, Estado.cifra(g.toDouble())); liveRegion = LiveRegionMode.Polite }) {
                     Cifra(Estado.cifra(g.toDouble()), "g", chica = true)
                 }
-                BotonRedondo("mas", "Sumar 0,1 gramos") { paso(.1f) }
+                BotonRedondo("mas", Textos.s(R.string.r_sumar)) { paso(.1f) }
             }
-            Box(Modifier.widthIn(max = 180.dp)) { Sub("= ${Estado.cifra(hum)} % · retira ${Estado.cifra(seca / .90)} – ${Estado.cifra(seca / .88)} g") }
-            BotonAccion(if (enviando) "Enviando…" else "Guardar", habilitado = !enviando) { onGuardar(g.toDouble()) }
+            Box(Modifier.widthIn(max = 180.dp)) { Sub(Textos.s(R.string.r_retira, Estado.cifra(hum), Estado.cifra(seca / .90), Estado.cifra(seca / .88))) }
+            BotonAccion(if (enviando) Textos.s(R.string.r_enviando) else Textos.s(R.string.r_guardar), habilitado = !enviando) { onGuardar(g.toDouble()) }
         }
     }
     LaunchedEffect(activa) { if (activa) runCatching { foco.requestFocus() } }
@@ -207,8 +207,8 @@ fun Alerta(a: Estado.Alerta, onDescartar: () -> Unit, onVer: () -> Unit) = Esfer
         Titulo2(a.titulo)
         Sub(a.texto)
         Fila(14.dp) {
-            BotonCirculo("x", "Descartar", fantasma = true, onClick = onDescartar)
-            BotonCirculo("check", "Ver detalle", onClick = onVer)
+            BotonCirculo("x", Textos.s(R.string.r_descartar), fantasma = true, onClick = onDescartar)
+            BotonCirculo("check", Textos.s(R.string.r_ver_detalle), onClick = onVer)
         }
     }
 }
@@ -243,7 +243,7 @@ fun Ambiente(e: Estado?, @Suppress("UNUSED_PARAMETER") ahoraColombia: LocalDateT
                 Text("${Estado.cifra(e.humedad)} % · ${e.lote ?: "SISCAN"}", style = TextStyle(fontFamily = Jakarta, fontSize = 13.sp, color = Color(0xFF8A9A90)))
             }
             val listo = e.prediccion.listoEn()
-            Text(if (listo != null) "Listo en ${Estado.duracion(listo)}" else if (e.enCurso) "Secando" else "Sin lote en curso",
+            Text(if (listo != null) Textos.s(R.string.r_listo_en_tiempo, Estado.duracion(listo)) else if (e.enCurso) Textos.s(R.string.r_secando) else Textos.s(R.string.r_sin_lote_curso),
                 style = TextStyle(fontFamily = Jakarta, fontSize = 13.sp, color = Color(0xFF8A9A90)))
         }
     }
@@ -255,7 +255,7 @@ fun Cargando() = Esfera {
     Pila(Modifier.semantics { liveRegion = LiveRegionMode.Polite }) {
         androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.siscan_simbolo_claro), null, Modifier.size(46.dp))
         Spacer(Modifier.height(6.dp))
-        Sub("Leyendo el secador…")
+        Sub(Textos.s(R.string.r_leyendo))
     }
 }
 
@@ -264,9 +264,9 @@ fun Cargando() = Esfera {
 fun SinDatos(onReintentar: () -> Unit) = Esfera(Tinte.Advertencia) {
     Pila {
         Box(Modifier.padding(bottom = 4.dp).size(46.dp).clip(CircleShape).background(Sc.pausa), contentAlignment = Alignment.Center) { Icono("wifi_no", 24.dp, Color(0xFF1A1205)) }
-        Titulo2("Sin conexión")
-        Sub("El reloj no pudo leer el secador. Revisa el Wi-Fi o el teléfono.")
-        BotonAccion("Reintentar", chico = true, onClick = onReintentar)
+        Titulo2(Textos.s(R.string.r_sin_conexion))
+        Sub(Textos.s(R.string.r_no_pudo_leer))
+        BotonAccion(Textos.s(R.string.r_reintentar), chico = true, onClick = onReintentar)
     }
 }
 

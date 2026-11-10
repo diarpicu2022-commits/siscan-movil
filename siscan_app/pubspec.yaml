@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  # Fechas y números por idioma (es-CO, en, pt-BR). La versión la fija flutter_localizations del SDK; licencia BSD-3-Clause.
+  intl: ^0.20.3
   flutter_local_notifications: ^22.3.1
   flutter_secure_storage: ^11.2.0
   flutter_svg: ^2.0.10
@@ -29,6 +31,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # Textos en ARB (lib/l10n, l10n.yaml) → AppLocalizations generado por gen_l10n.
+  generate: true
   # Sistema de diseño SISCAN v2: iconos y paisaje exportados del paquete (tools/exportar_svg_sistema.mjs) y la marca.
   assets:
     - assets/sistema/iconos/
