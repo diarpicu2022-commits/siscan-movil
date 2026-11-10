@@ -103,7 +103,10 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
 
-### 7. Idiomas es/en/pt-BR (C4): paso 5 aprobado (2026-11-09); sigue el paso 6
+### 7. Idiomas es/en/pt-BR (C4): paso 6 hecho, esperando visto bueno (2026-11-09)
+- Paso 6 en el emulador `Agenda_Pixel`: 5 pestañas, canales y widget en tres idiomas, 0 fallas. Arreglado: la
+  descripción del widget no se guardaba. **Pendiente:** las imágenes del widget no se dibujan (`'!debugNeedsPaint'`,
+  probar en release desde `C:\dev\siscan-build`), teléfono físico, abogado y revisión nativa. Sección 16 del anexo.
 - «Luces incandescentes» en el reloj: dos líneas y, si no cabe, guion según el silabeo (`NombreActuador`, Ui.kt).
   Medido: 0 nombres cortados en 12 capturas.
 - 4d aprobado (2026-11-09). **Paso 5 hecho**: política 0.3 en español, inglés y portugués (`docs/legal/`) y dentro de la

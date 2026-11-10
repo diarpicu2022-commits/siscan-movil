@@ -1,0 +1,25 @@
+idioma	qué	resultado	detalle
+es	pestaña 0 (16 textos)	ok	
+es	pestaña 1 (14 textos)	ok	
+es	pestaña 2 (8 textos)	ok	
+es	pestaña 3 (21 textos)	ok	
+es	pestaña 4 (20 textos)	ok	
+es	canales	ok	mName=Alertas del secador|mName=Lote en curso|mName=Pesaje y lote listo|
+es	notificaciones publicadas	ok	ninguna (sin alertas nuevas ni lote en curso)
+es	widget	ok	SISCAN, Lote juco: humedad del grano 10,6 por ciento. Sin conexión · último dato 5 nov · 11:32.
+en	pestaña 0 (16 textos)	ok	
+en	pestaña 1 (14 textos)	ok	
+en	pestaña 2 (8 textos)	ok	
+en	pestaña 3 (21 textos)	ok	
+en	pestaña 4 (20 textos)	ok	
+en	canales	ok	mName=Batch in progress|mName=Dryer alerts|mName=Weighing and batch ready|
+en	notificaciones publicadas	ok	ninguna (sin alertas nuevas ni lote en curso)
+en	widget	ok	SISCAN, Lote juco: bean moisture 10.6 percent. Offline · last reading Nov 5 · 11:32 AM.
+pt-BR	pestaña 0 (16 textos)	ok	
+pt-BR	pestaña 1 (14 textos)	ok	
+pt-BR	pestaña 2 (8 textos)	ok	
+pt-BR	pestaña 3 (21 textos)	ok	
+pt-BR	pestaña 4 (20 textos)	ok	
+pt-BR	canales	ok	mName=Alertas do secador|mName=Lote em andamento|mName=Pesagem e lote pronto|
+pt-BR	notificaciones publicadas	ok	ninguna (sin alertas nuevas ni lote en curso)
+pt-BR	widget	ok	SISCAN, Lote juco: umidade do grão 10,6 por cento. Sem conexão · último dado 5 de nov. · 11:32.

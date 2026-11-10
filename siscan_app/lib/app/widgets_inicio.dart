@@ -30,12 +30,16 @@ abstract final class WidgetsInicio {
   static Future<void> publicar(Base b) async {
     if (!_android) return;
     try {
+      // La descripción va primero: si el dibujo falla, el lector de pantalla no se queda con un texto viejo.
+      await HomeWidget.saveWidgetData('descripcion', _descripcion(b));
       final w = WidgetHome(base: b, chico: true), m = WidgetHome(base: b, chico: false);
       await HomeWidget.renderFlutterWidget(_Tema(child: w), key: 'img_s', logicalSize: const Size(156, 156), pixelRatio: 3);
       await HomeWidget.renderFlutterWidget(_Tema(child: m), key: 'img_m', logicalSize: const Size(330, 156), pixelRatio: 3);
-      await HomeWidget.saveWidgetData('descripcion', _descripcion(b));
       for (final p in ['MoistureWidgetProvider', 'BatchWidgetProvider']) { await HomeWidget.updateWidget(androidName: p); }
-    } catch (_) {/* el widget conserva la última imagen */}
+    } catch (e, st) {
+      // El widget conserva la última imagen, pero el fallo queda en el registro (antes se callaba).
+      debugPrint('WidgetsInicio.publicar: $e \n$st');
+    }
   }
 
   static String _descripcion(Base b) {
