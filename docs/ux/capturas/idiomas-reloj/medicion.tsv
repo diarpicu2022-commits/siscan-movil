@@ -2,42 +2,42 @@ idioma	dp	pagina	textos	resultado	detalle
 es	227	0	5	ok	
 es	227	1	0	ok	
 es	227	2	12	ok	
-es	227	3	14	FALLA	FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,443]-[402,454] fuera del círculo FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,250]-[402,381] fuera del círculo 
+es	227	3	13	FALLA	FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,451]-[402,454] fuera del círculo FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,250]-[402,381] fuera del círculo 
 es	227	4	4	ok	
 es	227	5	14	ok	
 es	227	6	3	ok	
 es	192	0	5	ok	
 es	192	1	0	ok	
 es	192	2	12	ok	
-es	192	3	14	FALLA	FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,443]-[401,454] fuera del círculo FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,250]-[401,381] fuera del círculo 
+es	192	3	13	FALLA	FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,451]-[401,454] fuera del círculo FALLO 'Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.' [53,250]-[401,381] fuera del círculo 
 es	192	4	4	ok	
 es	192	5	14	ok	
 es	192	6	3	ok	
 en	227	0	5	ok	
 en	227	1	0	ok	
 en	227	2	12	ok	
-en	227	3	15	FALLA	FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,443]-[402,454] fuera del círculo FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,283]-[402,381] fuera del círculo 
+en	227	3	15	FALLA	FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,451]-[402,454] fuera del círculo FALLO 'Off'                          [150,5]-[186,33] fuera del círculo FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,283]-[402,381] fuera del círculo 
 en	227	4	4	ok	
 en	227	5	14	ok	
 en	227	6	3	ok	
 en	192	0	5	ok	
 en	192	1	0	ok	
 en	192	2	12	ok	
-en	192	3	15	FALLA	FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,443]-[401,454] fuera del círculo FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,283]-[401,381] fuera del círculo 
+en	192	3	15	FALLA	FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,451]-[401,454] fuera del círculo FALLO 'Off'                          [150,5]-[186,33] fuera del círculo FALLO 'To turn on a heater, press and hold its chip. Commands go through the phone.' [53,283]-[401,381] fuera del círculo 
 en	192	4	4	ok	
 en	192	5	14	ok	
 en	192	6	3	ok	
 pt-BR	227	0	5	ok	
 pt-BR	227	1	0	ok	
 pt-BR	227	2	12	ok	
-pt-BR	227	3	14	FALLA	FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,443]-[402,454] fuera del círculo FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,250]-[402,381] fuera del círculo 
+pt-BR	227	3	13	FALLA	FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,451]-[402,454] fuera del círculo FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,250]-[402,381] fuera del círculo 
 pt-BR	227	4	4	ok	
 pt-BR	227	5	14	ok	
 pt-BR	227	6	3	ok	
 pt-BR	192	0	5	ok	
 pt-BR	192	1	0	ok	
 pt-BR	192	2	12	ok	
-pt-BR	192	3	14	FALLA	FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,443]-[401,454] fuera del círculo FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,250]-[401,381] fuera del círculo 
+pt-BR	192	3	13	FALLA	FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,451]-[401,454] fuera del círculo FALLO 'Para ligar uma resistência, mantenha pressionado o chip dela. Os comandos vão pelo celular.' [53,250]-[401,381] fuera del círculo 
 pt-BR	192	4	4	ok	
 pt-BR	192	5	14	ok	
 pt-BR	192	6	3	ok	
