@@ -1,265 +1,272 @@
 package co.gov.narino.cisna.siscan.reloj
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material3.Text
-import java.time.Duration
 import java.time.LocalDateTime
-import java.time.format.TextStyle
-import java.util.Locale
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
-val ES = Locale.forLanguageTag("es-CO")
-fun hm(t: LocalDateTime) = "%02d:%02d".format(t.hour, t.minute)
-fun fechaCorta(t: LocalDateTime) = "${t.dayOfMonth} ${t.month.getDisplayName(TextStyle.SHORT, ES).trimEnd('.')}"
-fun hace(t: LocalDateTime, ahora: LocalDateTime): String {
-    val m = Duration.between(t, ahora).toMinutes()
-    return when {
-        m < 1 -> "hace instantes"
-        m < 60 -> "hace $m min"
-        m < 48 * 60 -> "hace ${m / 60} h"
-        else -> "desde el ${fechaCorta(t)}"
-    }
-}
-private fun num(v: Double, d: Int = 1) = "%.${d}f".format(Locale.US, v)
+private fun Estado.Prediccion?.listoEn() = this?.takeIf { it.estado == "EN_CURSO" }?.horas
 
-/**
- * Anillo de lecho (dirección A): el lecho de café del MoistureMeter enrollado alrededor de la esfera. El riel es el
- * agua por retirar; el tramo lleno, la que ya se retiró (`agua`, o `cafeto` al llegar al objetivo); una muesca marca
- * el objetivo al final. Granos punteados sobre el riel, como el lecho del sistema.
- */
+/** Lista que se desplaza con la corona cuando no cabe en la esfera (Equipo con cuatro actuadores, por ejemplo). */
 @Composable
-fun AnilloLecho(avance: Float?, enObjetivo: Boolean, modifier: Modifier = Modifier) {
-    val p = LocalPaleta.current
-    Canvas(modifier) {
-        val g = 10.dp.toPx()
-        val m = g / 2 + 4.dp.toPx()
-        val tam = Size(size.width - m * 2, size.height - m * 2)
-        val o = Offset(m, m)
-        val inicio = 135f
-        val barrido = 270f
-        drawArc(p.superficieFuerte, inicio, barrido, false, o, tam, style = Stroke(g, cap = StrokeCap.Round))
-        // Granos del lecho: puntos sobre el riel.
-        drawArc(p.linea, inicio, barrido, false, o, tam, style = Stroke(3.dp.toPx(), cap = StrokeCap.Round,
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(0.1f, 9.dp.toPx()))))
-        if (avance != null && avance > 0f) {
-            drawArc(if (enObjetivo) p.cafeto else p.agua, inicio, barrido * avance, false, o, tam, style = Stroke(g, cap = StrokeCap.Round))
-        }
-        // Muesca del objetivo (fin del riel).
-        val ang = Math.toRadians((inicio + barrido).toDouble())
-        val r = tam.width / 2
-        val c = Offset(size.width / 2 + (r * cos(ang)).toFloat(), size.height / 2 + (r * sin(ang)).toFloat())
-        drawCircle(p.fondo, g * 0.62f, c)
-        drawCircle(p.cafeto, g * 0.42f, c)
-    }
-}
-
-/** Glifos de estado del sistema: ✓ círculo (objetivo), ● (secando / en curso), ○ (en espera), ▲ (revisar). */
-@Composable
-fun Glifo(tipo: String, color: Color, modifier: Modifier = Modifier.size(14.dp)) {
-    val fondo = LocalPaleta.current.fondo
-    Canvas(modifier) {
-        val w = size.width
-        when (tipo) {
-            "ok" -> {
-                drawCircle(color, w / 2)
-                val q = Path().apply { moveTo(w * 0.28f, w * 0.52f); lineTo(w * 0.44f, w * 0.68f); lineTo(w * 0.74f, w * 0.34f) }
-                drawPath(q, fondo, style = Stroke(w * 0.13f, cap = StrokeCap.Round))
-            }
-            "punto" -> { drawCircle(color, w / 2, style = Stroke(w * 0.14f)); drawCircle(color, w * 0.22f) }
-            "anillo" -> drawCircle(color, w / 2 - w * 0.08f, style = Stroke(w * 0.16f))
-            "alerta" -> drawPath(Path().apply { moveTo(w / 2, w * 0.06f); lineTo(w * 0.96f, w * 0.92f); lineTo(w * 0.04f, w * 0.92f); close() }, color)
-        }
-    }
-}
-
-/** Línea de estado común a la app, la Tarjeta y la lectura de pantalla. */
-fun lineaEstado(e: Estado): String {
-    val obj = num(e.objetivo, 0) + " %"
-    return when {
-        e.humedad == null -> "Sin muestras"
-        e.enObjetivo -> "$obj alcanzado"
-        e.enCurso -> "Secando · meta $obj"
-        else -> "Terminado · meta $obj"
-    }
-}
-
-/** «Actualizado 08:43» solo si el secador reporta; si no, desde cuándo calla. */
-fun lineaFrescura(e: Estado, ahora: LocalDateTime): String =
-    if (e.reportando(ahora)) "Actualizado ${hm(e.consultado)}"
-    else "Sin reportes · ${e.ultimaLectura?.let { if (Duration.between(it, ahora).toHours() < 48) hace(it, ahora) else fechaCorta(it) } ?: "nunca"}"
-
-/** 1 · Humedad: la cifra es lo más grande; debajo el lote, el estado con su glifo y cuándo se actualizó. */
-@Composable
-fun PantallaHumedad(e: Estado, ahora: LocalDateTime) {
-    val p = LocalPaleta.current
-    val reporta = e.reportando(ahora)
-    // Una sola línea de estado con el objetivo: la esfera muestra como máximo tres datos.
-    val estado = when {
-        e.humedad == null -> Triple("anillo", lineaEstado(e), p.tintaSuave)
-        e.enObjetivo -> Triple("ok", lineaEstado(e), p.cafeto)
-        e.enCurso -> Triple("punto", lineaEstado(e), p.agua)
-        else -> Triple("anillo", lineaEstado(e), p.tintaSuave)
-    }
-    val frase = "Humedad ${e.humedad?.let { num(it) } ?: "sin dato"} por ciento, objetivo ${num(e.objetivo, 0)}. ${e.lote ?: ""}. ${estado.second}."
-    Box(Modifier.fillMaxSize().background(p.fondo), contentAlignment = Alignment.Center) {
-        AnilloLecho(e.avance, e.enObjetivo, Modifier.fillMaxSize())
-        Column(Modifier.padding(horizontal = 40.dp, vertical = 30.dp).semantics(mergeDescendants = true) { contentDescription = frase }, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(if (e.enCurso) "HUMEDAD DEL CAFÉ" else "HUMEDAD FINAL", style = Tipo.rotulo, color = p.tintaSuave)
-            Row(verticalAlignment = Alignment.Bottom) {
-                Text(e.humedad?.let { num(it) } ?: "—", style = Tipo.lectura, color = p.tinta, maxLines = 1)
-                Text(" %", style = Tipo.unidad, color = p.tintaSuave, modifier = Modifier.padding(bottom = 6.dp))
-            }
-            Spacer(Modifier.height(2.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Glifo(estado.first, estado.third)
-                Spacer(Modifier.width(6.dp))
-                Text(estado.second, style = Tipo.apoyo.copy(fontWeight = Tipo.rotulo.fontWeight), color = estado.third)
-            }
-            Text(e.lote ?: "Sin lotes", style = Tipo.nombre, color = p.tinta, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(lineaFrescura(e, ahora),
-                style = Tipo.apoyo.copy(fontSize = Tipo.rotulo.fontSize), color = if (reporta) p.tintaSuave else p.panela, maxLines = 1, overflow = TextOverflow.Ellipsis)
-        }
-    }
-}
-
-/**
- * 2 · Equipo: solo estado (el reloj no manda órdenes; las resistencias exigen mantener presionado en el teléfono).
- * El resumen en palabras va arriba; cada fila lleva el nombre completo y el glifo del sistema (● encendido, ○ apagado),
- * que se distinguen por forma y no solo por color.
- */
-@Composable
-fun PantallaEquipo(e: Estado, ahora: LocalDateTime) {
-    val p = LocalPaleta.current
-    val reporta = e.reportando(ahora)
-    val encendidos = e.equipo.count { it.encendido }
-    val resumen = when {
-        e.equipo.isEmpty() -> "Sin equipo registrado"
-        encendidos == 0 -> "Todo apagado"
-        encendidos == e.equipo.size -> "Todo encendido"
-        else -> "$encendidos de ${e.equipo.size} encendidos"
-    }
+private fun Desplazable(activa: Boolean, contenido: @Composable () -> Unit) {
+    val s = rememberScrollState()
+    val foco = remember { FocusRequester() }
     Column(
-        Modifier.fillMaxSize().background(p.fondo).padding(horizontal = 46.dp, vertical = 36.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically),
+        Modifier.fillMaxSize().verticalScroll(s).rotaryScrollable(RotaryScrollableDefaults.behavior(s), foco).padding(bottom = 36.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        // Sin reportes recientes, la fecha del último estado va en el rótulo (la parte ancha de la esfera), en panela.
-        Text(
-            if (reporta) "EQUIPO" else "EQUIPO · AL ${e.ultimaLectura?.let { fechaCorta(it).uppercase(ES) } ?: "—"}",
-            style = Tipo.rotulo, color = if (reporta) p.tintaSuave else p.panela, modifier = Modifier.semantics { heading() },
+    ) { contenido() }
+    LaunchedEffect(activa) { if (activa) runCatching { foco.requestFocus() } }
+}
+
+/** Estado del lote para el chip: «Lote juco · Secando», o «Sin conexión · 19 ago» si el secador no reporta. */
+private fun chipLote(e: Estado, ahora: LocalDateTime): Pair<String, Boolean> = when {
+    e.lote == null -> "Sin lotes" to false
+    !e.reportando(ahora) -> "Sin conexión · ${Estado.dia(e.ultimaLectura)}" to false
+    e.enCurso -> "${e.lote} · Secando" to true
+    else -> "${e.lote} · Terminado" to false
+}
+
+/** WatchMonitor: arco de avance, humedad del grano, objetivo y estado del lote. */
+@Composable
+fun Monitoreo(e: Estado, ahora: LocalDateTime) = Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    ArcoReloj(e.avance ?: 0f)
+    Pila(Modifier.semantics(mergeDescendants = true) {}) {
+        Rotulo("grano", "Humedad del grano")
+        Cifra(Estado.cifra(e.humedad), "%")
+        Sub("Objetivo ${Estado.cifra(e.objetivo - 1, 0)} – ${Estado.cifra(e.objetivo + 1, 0)} %")
+        val (t, vivo) = chipLote(e, ahora)
+        Chip(t, vivo = vivo)
+    }
+}
+
+/** WatchReadings: interior, humedad relativa y exterior, cada una con el color de su magnitud. */
+@Composable
+fun Lecturas(e: Estado, activa: Boolean) = Desplazable(activa) {
+    Lista("Lecturas") {
+        val filas = listOf(
+            Triple("TEMPERATURE_TOPE", "Interior", "temperatura") to "termometro",
+            Triple("HUMIDITY_TOPE", "HR interior", "humedad") to "gotas",
+            Triple("TEMPERATURE_EXTERIOR", "Exterior", "exterior") to "nubeSol",
+            Triple("HUMIDITY_EXTERIOR", "HR exterior", "exterior") to "nube",
         )
-        Text(resumen, style = Tipo.nombre, color = p.tinta)
-        Spacer(Modifier.height(4.dp))
-        e.equipo.take(4).forEach { q ->
-            Row(
-                Modifier.fillMaxWidth().heightIn(min = 26.dp)
-                    .semantics(mergeDescendants = true) { contentDescription = "${q.nombre}, ${if (q.encendido) "encendido" else "apagado"}" },
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Glifo(if (q.encendido) "punto" else "anillo", if (q.encendido) p.cafeto else p.tintaSuave, Modifier.size(12.dp))
-                Spacer(Modifier.width(8.dp))
-                Text(q.nombre, style = Tipo.apoyo.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Start), color = if (q.encendido) p.tinta else p.tintaSuave, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        var alguna = false
+        for ((f, ic) in filas) {
+            val l = e.lectura(f.first) ?: continue
+            alguna = true
+            val v = if (f.first.startsWith("TEMP")) "${Estado.cifra(l.valor)}°" else "${Estado.cifra(l.valor, 0)} %"
+            FilaLectura(ic, tono(f.third), f.second, v)
+        }
+        if (!alguna) Sub("El secador todavía no envía lecturas.")
+        else Sub("Último dato ${Estado.dia(e.ultimaLectura)} · ${Estado.hm(e.ultimaLectura)}")
+    }
+}
+
+/** WatchActuators: chips que encienden y apagan por el teléfono. Encender una resistencia exige mantener presionado. */
+@Composable
+fun Equipo(e: Estado, activa: Boolean, pendiente: Int?, onOrden: (Estado.Equipo, Boolean) -> Unit, aviso: (String) -> Unit) = Desplazable(activa) {
+    val auto = e.modo == "AUTO"
+    Lista("Equipo · ", when (e.modo) { "AUTO" -> "Automático"; "MANUAL" -> "Manual"; else -> "—" }) {
+        if (e.equipo.isEmpty()) Sub("No hay actuadores registrados.")
+        for (a in e.equipo) {
+            val estado = when {
+                pendiente == a.id -> if (a.encendido) "Apagando…" else "Encendiendo…"
+                auto -> if (a.encendido) "Encendido · protocolo" else "Apagado · protocolo"
+                else -> if (a.encendido) "Encendido" else "Apagado"
             }
+            ChipActuador(
+                a.nombre, a.resistencia, a.encendido, estado, habilitado = !auto && pendiente == null,
+                onClick = { if (a.resistencia && !a.encendido) aviso("Mantén presionado para encender") else onOrden(a, !a.encendido) },
+                onLong = if (a.resistencia && !a.encendido) ({ onOrden(a, true) }) else null,
+            )
+        }
+        Sub(if (auto) "El protocolo decide. Cambia a Manual en el teléfono." else "Para encender una resistencia, mantén presionado su chip. Las órdenes van por el teléfono.")
+    }
+}
+
+/** WatchPrediction: «Listo en», rango y confianza en el color de la predicción (modelo de la tesis). */
+@Composable
+fun Prediccion(e: Estado) = Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    val p = e.prediccion
+    ArcoReloj((p?.confianza ?: 0).toFloat(), Sc.prediccion)
+    Pila(Modifier.semantics(mergeDescendants = true) {}) {
+        when (p?.estado) {
+            "EN_CURSO" -> {
+                Rotulo("ia", "Listo en", Sc.prediccion)
+                Cifra(Estado.duracion(p.horas), chica = true)
+                Sub("entre ${Estado.duracion(p.min)} y ${Estado.duracion(p.max)}")
+                Chip("Confianza ${p.confianza ?: "—"} %", pred = true)
+            }
+            "OBJETIVO_ALCANZADO" -> {
+                Rotulo("ia", if (e.enCurso) "Ya está" else "Terminó", Sc.prediccion)
+                Cifra("Listo", chica = true)
+                Sub("${Estado.cifra(e.humedad)} %: ${if (e.enCurso) "retíralo" else "en el objetivo"}")
+                Chip("Modelo de la tesis", pred = true)
+            }
+            "SOBRESECADO" -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("Pasado", chica = true); Sub("Bajó del 10 %: sobre-secado") }
+            "NO_ALCANZABLE" -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("No llega", chica = true); Sub("Con este aire no alcanza el objetivo") }
+            null -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("—", chica = true); Sub("No disponible por ahora") }
+            else -> { Rotulo("ia", "Predicción", Sc.prediccion); Cifra("—", chica = true); Sub("Pocos pesajes para predecir") }
         }
     }
 }
 
-/** 3 · Alerta: la más grave, o «Sin alertas activas» con cuántas quedan por revisar. */
+/** WatchBatches: lotes con su humedad; el activo resaltado. */
 @Composable
-fun PantallaAlerta(e: Estado) {
-    val p = LocalPaleta.current
-    Column(
-        Modifier.fillMaxSize().background(p.fondo).padding(horizontal = 30.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+fun Lotes(e: Estado, activa: Boolean) = Desplazable(activa) {
+    Lista("Lotes") {
+        if (e.lotes.isEmpty()) Sub("No hay lotes registrados.")
+        for (l in e.lotes) FilaLote(l.nombre, if (l.enCurso) "Secando" else l.sitio, l.humedad?.let { "${Estado.cifra(it)} %" } ?: "—", l.enCurso)
+    }
+}
+
+/** WatchWeigh: − y + de 0,1 g (o la corona), humedad resultante y rango de retiro; «Guardar» va por el teléfono. */
+@Composable
+fun Pesaje(e: Estado, activa: Boolean, enviando: Boolean, onGuardar: (Double) -> Unit) {
+    val seca = e.materiaSeca
+    if (!e.enCurso || e.loteId == null || seca == null) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Pila { Rotulo("balanza", "Pesaje"); Titulo2("Sin lote activo"); Sub("Inicia un lote en el teléfono para pesar la muestra.") }
+        }
+        return
+    }
+    var g by remember(e.loteId) { mutableFloatStateOf(((e.ultimoPeso ?: (seca / .88)) * 10).roundToInt() / 10f) }
+    var giro by remember { mutableFloatStateOf(0f) }
+    val foco = remember { FocusRequester() }
+    fun paso(d: Float) { g = ((g + d) * 10).roundToInt() / 10f }
+    Box(
+        Modifier.fillMaxSize()
+            .onRotaryScrollEvent { ev -> giro += ev.verticalScrollPixels; while (abs(giro) >= 24f) { paso(if (giro > 0) .1f else -.1f); giro -= if (giro > 0) 24f else -24f }; true }
+            .focusRequester(foco).focusable(),
+        contentAlignment = Alignment.Center,
     ) {
-        if (e.alerta != null) {
-            Glifo("alerta", p.oxido, Modifier.size(26.dp))
-            Spacer(Modifier.height(6.dp))
-            Text("REVISA", style = Tipo.rotulo, color = p.oxido)
-            Text(e.alerta, style = Tipo.nombre, color = p.tinta, maxLines = 3, overflow = TextOverflow.Ellipsis)
-        } else {
-            Glifo("ok", p.cafeto, Modifier.size(26.dp))
-            Spacer(Modifier.height(6.dp))
-            Text("Sin alertas activas", style = Tipo.nombre, color = p.tinta)
+        val hum = (1 - seca / g) * 100
+        // .sc-wweigh: la fila − cifra + necesita más que los 168 de la pila (botones con 48 de toque): se le da su ancho.
+        Column(Modifier.padding(top = 16.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(3.dp)) {
+            Rotulo("balanza", "Peso de la muestra")
+            Fila(0.dp) {
+                BotonRedondo("menos", "Restar 0,1 gramos") { paso(-.1f) }
+                Box(Modifier.semantics(mergeDescendants = true) { contentDescription = "${Estado.cifra(g.toDouble())} gramos"; liveRegion = LiveRegionMode.Polite }) {
+                    Cifra(Estado.cifra(g.toDouble()), "g", chica = true)
+                }
+                BotonRedondo("mas", "Sumar 0,1 gramos") { paso(.1f) }
+            }
+            Box(Modifier.widthIn(max = 180.dp)) { Sub("= ${Estado.cifra(hum)} % · retira ${Estado.cifra(seca / .90)} – ${Estado.cifra(seca / .88)} g") }
+            BotonAccion(if (enviando) "Enviando…" else "Guardar", habilitado = !enviando) { onGuardar(g.toDouble()) }
         }
-        if (e.alertasSinRevisar > 0) Text("${e.alertasSinRevisar} avisos anteriores en el panel", style = Tipo.apoyo, color = p.tintaSuave)
     }
+    LaunchedEffect(activa) { if (activa) runCatching { foco.requestFocus() } }
 }
 
-/** 4 · Tema: claro, oscuro o como el reloj (pedido del profesor: poder cambiar de modo). */
+/** WatchAlert: pantalla completa tintada, icono, dato y dos botones (descartar, ver). */
 @Composable
-fun PantallaTema(actual: String, onTema: (String) -> Unit) {
-    val p = LocalPaleta.current
-    Column(
-        Modifier.fillMaxSize().background(p.fondo).padding(horizontal = 30.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text("TEMA", style = Tipo.rotulo, color = p.tintaSuave, modifier = Modifier.semantics { heading() })
-        listOf("claro" to "Claro", "oscuro" to "Oscuro", "sistema" to "Como el reloj").forEach { (k, t) ->
-            val on = actual == k
-            Box(
-                Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(50))
-                    .background(if (on) p.cafeto else p.superficie)
-                    .border(1.dp, if (on) p.cafeto else p.linea, RoundedCornerShape(50))
-                    .selectable(selected = on, role = Role.RadioButton) { onTema(k) },
-                contentAlignment = Alignment.Center,
-            ) { Text(t, style = Tipo.apoyo.copy(fontWeight = Tipo.rotulo.fontWeight), color = if (on) p.fondo else p.tinta) }
+fun Alerta(a: Estado.Alerta, onDescartar: () -> Unit, onVer: () -> Unit) = Esfera(if (a.critica) Tinte.Alerta else Tinte.Advertencia) {
+    Pila(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) {
+        Box(
+            Modifier.padding(bottom = 4.dp).size(46.dp).clip(CircleShape).background(if (a.critica) Sc.alerta else Sc.pausa),
+            contentAlignment = Alignment.Center,
+        ) { Icono(a.icono, 24.dp, if (a.critica) Color.White else Color(0xFF1A1205)) }
+        Titulo2(a.titulo)
+        Sub(a.texto)
+        Fila(14.dp) {
+            BotonCirculo("x", "Descartar", fantasma = true, onClick = onDescartar)
+            BotonCirculo("check", "Ver detalle", onClick = onVer)
         }
     }
 }
 
+/** WatchConfirm: el círculo y el check se dibujan; se cierra sola a los 2 s. */
 @Composable
-fun PantallaCargando() {
-    val p = LocalPaleta.current
-    Box(Modifier.fillMaxSize().background(p.fondo), contentAlignment = Alignment.Center) {
-        Text("Consultando el secador…", style = Tipo.apoyo, color = p.tintaSuave)
+fun Confirmacion(titulo: String, texto: String, error: Boolean, onFin: () -> Unit) = Esfera(if (error) Tinte.Advertencia else Tinte.Normal) {
+    Pila(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) {
+        if (error) Box(Modifier.padding(bottom = 4.dp).size(46.dp).clip(CircleShape).background(Sc.pausa), contentAlignment = Alignment.Center) { Icono("aviso", 24.dp, Color(0xFF1A1205)) }
+        else CheckDibujado()
+        Titulo2(titulo)
+        Sub(texto)
+    }
+    LaunchedEffect(Unit) { kotlinx.coroutines.delay(if (error) 3500 else 2000); onFin() }
+}
+
+/** WatchAmbient: solo contornos, sin color de estado ni animación. */
+@Composable
+fun Ambiente(e: Estado?, @Suppress("UNUSED_PARAMETER") ahoraColombia: LocalDateTime) = Esfera(Tinte.Ambiente) {
+    // La hora es la del reloj (su zona); solo los datos del secador van en hora de Colombia.
+    val ahora = LocalDateTime.now()
+    Pila {
+        Text(
+            // Formato de hora del reloj (12 o 24 h), como la esfera.
+            if (android.text.format.DateFormat.is24HourFormat(androidx.compose.ui.platform.LocalContext.current)) Estado.hm(ahora)
+            else String.format(java.util.Locale.US, "%d:%02d", (ahora.hour + 11) % 12 + 1, ahora.minute),
+            style = TextStyle(fontFamily = Outfit, fontSize = 58.sp, lineHeight = 60.sp, fontWeight = FontWeight(300), color = Color(0xFFA9BDAE), drawStyle = Stroke(1.4f)),
+        )
+        if (e != null) {
+            Fila(5.dp) {
+                Icono("grano", 14.dp, Color(0xFF8A9A90))
+                Text("${Estado.cifra(e.humedad)} % · ${e.lote ?: "SISCAN"}", style = TextStyle(fontFamily = Jakarta, fontSize = 13.sp, color = Color(0xFF8A9A90)))
+            }
+            val listo = e.prediccion.listoEn()
+            Text(if (listo != null) "Listo en ${Estado.duracion(listo)}" else if (e.enCurso) "Secando" else "Sin lote en curso",
+                style = TextStyle(fontFamily = Jakarta, fontSize = 13.sp, color = Color(0xFF8A9A90)))
+        }
     }
 }
 
+/** Cargando la primera vez (no hay copia guardada). */
 @Composable
-fun PantallaSinDatos(error: String?) {
-    val p = LocalPaleta.current
-    Column(Modifier.fillMaxSize().background(p.fondo).padding(horizontal = 30.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Glifo("anillo", p.panela, Modifier.size(22.dp).clip(CircleShape))
+fun Cargando() = Esfera {
+    Pila(Modifier.semantics { liveRegion = LiveRegionMode.Polite }) {
+        androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.siscan_simbolo_claro), null, Modifier.size(46.dp))
         Spacer(Modifier.height(6.dp))
-        Text("Sin conexión", style = Tipo.nombre, color = p.tinta)
-        Text(error?.let { "No se pudo consultar el secador. Se reintenta solo." } ?: "Se reintenta solo.", style = Tipo.apoyo, color = p.tintaSuave)
+        Sub("Leyendo el secador…")
     }
 }
+
+/** Sin señal y sin copia: qué pasó y cómo seguir. */
+@Composable
+fun SinDatos(onReintentar: () -> Unit) = Esfera(Tinte.Advertencia) {
+    Pila {
+        Box(Modifier.padding(bottom = 4.dp).size(46.dp).clip(CircleShape).background(Sc.pausa), contentAlignment = Alignment.Center) { Icono("wifi_no", 24.dp, Color(0xFF1A1205)) }
+        Titulo2("Sin conexión")
+        Sub("El reloj no pudo leer el secador. Revisa el Wi-Fi o el teléfono.")
+        BotonAccion("Reintentar", chico = true, onClick = onReintentar)
+    }
+}
+

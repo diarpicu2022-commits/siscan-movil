@@ -60,7 +60,7 @@ class SiscanApi {
   Future<Map<String, dynamic>> comparar() async => (await get('/drying-batches/compare?secadorId=$secador') as Map).cast<String, dynamic>();
 
   /* Escrituras (administración o «Gestor del Secador») */
-  Future<void> actuador(int id, bool on, String auth) => enviar('PUT', '/api/actuators/$id', cuerpo: {'status': on ? 'ON' : 'OFF', 'secadorId': secador}, auth: auth);
+  Future<void> actuador(int id, bool on, String auth) => enviar('PUT', '/api/actuators/$id', cuerpo: {'status': on ? 'ON' : 'OFF', 'secadorId': secador, 'source': 'APP'}, auth: auth);
   Future<void> modo(bool auto, String auth) => enviar('PUT', '/secadores/$secador/control', cuerpo: {'mode': auto ? 'AUTO' : 'MANUAL'}, auth: auth);
   Future<void> pesaje(int lote, double gramos, String auth) => enviar('POST', '/drying-batches/$lote/samples', cuerpo: {'sampleWeightGrams': gramos}, auth: auth);
   Future<void> corregirPesaje(int lote, int id, double gramos, String auth) => enviar('PUT', '/drying-batches/$lote/samples/$id', cuerpo: {'sampleWeightGrams': gramos}, auth: auth);

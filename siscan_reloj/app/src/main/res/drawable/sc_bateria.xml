@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERADO por tools/generar_reloj.py desde el icono «bateria» del sistema SISCAN v2. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:pathData="M4.0,7.0h12.0a2.0,2.0 0 0,1 2.0,2.0v6.0a2.0,2.0 0 0,1 -2.0,2.0h-12.0a2.0,2.0 0 0,1 -2.0,-2.0v-6.0a2.0,2.0 0 0,1 2.0,-2.0Z" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M22 11v2" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M6 11v2" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:pathData="M10 11v2" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.75" android:strokeLineCap="round" android:strokeLineJoin="round" />
+</vector>

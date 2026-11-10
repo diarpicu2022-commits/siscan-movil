@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Esfera SISCAN: humedad del grano en anillo, temperatura interior, alertas y el lote (07-smartwatch.md · Fuera de la app). -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.type.watch" />
+    <application android:label="@string/nombre" android:icon="@drawable/preview" android:hasCode="false">
+        <property android:name="com.google.wear.watchface.format.version" android:value="2" />
+        <property android:name="com.google.wear.watchface.format.publisher" android:value="CISNA · Gobernación de Nariño" />
+    </application>
+</manifest>

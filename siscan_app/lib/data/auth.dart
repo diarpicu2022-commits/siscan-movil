@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
+import 'reloj.dart';
+
 /// Sesión con la cuenta de WordPress del CISNA mediante una **contraseña de aplicación** (incluida en WordPress,
 /// revocable desde el perfil, distinta de la contraseña normal). Solo sirve para dar órdenes al secador.
 class AuthSession {
@@ -76,6 +78,8 @@ class AuthController extends ChangeNotifier {
       final can = caps['manage_secador'] == true || caps['manage_options'] == true;
       session = AuthSession(user: u, displayName: (me['name'] as String?) ?? u, header: header, canControl: can);
       if (remember) await store.write(u, p);
+      // El reloj manda órdenes por el teléfono con esta sesión (solo si la persona pidió que se recordara).
+      if (remember && can) await SesionReloj.guardar(header);
       return can ? null : 'Tu cuenta no tiene permiso de «Gestor del Secador». Pídelo al CISNA.';
     } catch (_) {
       return 'No pudimos conectarnos. Verifica la conexión e intenta nuevamente.';
@@ -87,12 +91,13 @@ class AuthController extends ChangeNotifier {
 
   Future<void> restore() async {
     final saved = await store.read();
-    if (saved != null) await signIn(saved.$1, saved.$2);
+    if (saved != null) await signIn(saved.$1, saved.$2, remember: true);
   }
 
   Future<void> signOut() async {
     session = null;
     await store.clear();
+    await SesionReloj.borrar();
     notifyListeners();
   }
 }

@@ -13,3 +13,7 @@ siscan_reloj/build/
 siscan_reloj/app/build/
 siscan_reloj/local.properties
 .kotlin/
+
+# Compilados del módulo de la esfera
+siscan_reloj/esfera/build/
+siscan_reloj/.kotlin/

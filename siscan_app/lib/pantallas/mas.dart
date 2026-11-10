@@ -306,7 +306,7 @@ class PantallaReloj extends StatelessWidget {
         Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const TituloTarjeta(icono: 'reloj2', titulo: 'SISCAN en Wear OS'),
           Text('El reloj muestra el monitoreo del lote, las lecturas, el equipo, la predicción y las alertas. Con la sesión iniciada en este teléfono, '
-              'también puede encender o apagar actuadores y registrar pesajes: el reloj le pide la orden al teléfono y el teléfono la envía con tu cuenta.',
+              'también puede encender o apagar actuadores y registrar pesajes: el reloj le pide la orden al teléfono y el teléfono la envía con tu cuenta (ingresa con «Recordarme»).',
               style: TextStyle(fontSize: 14, height: 22 / 14, color: context.c.tinta)),
           const Pie('Instala SISCAN en el reloj desde el mismo paquete de la app. Sin sesión en el teléfono, el reloj solo lee.'),
         ])),
@@ -324,6 +324,7 @@ class PantallaPrivacidad extends StatelessWidget {
     ('Huella', 'Si la activas, el teléfono verifica tu huella con su propio sensor; la app nunca recibe ni guarda la huella. Solo desbloquea la credencial cifrada.'),
     ('Ubicación', 'Solo cuando un administrador toca «Usar mi ubicación actual» para fijar el sitio del secador. Se envía al servidor del CISNA como ubicación del secador, no de la persona. No se guarda en el teléfono ni se usa en segundo plano.'),
     ('Notificaciones', 'Si las activas, la app consulta cada 15 minutos el servidor del CISNA para avisar alertas, hora de pesar y lote listo. Solo lee el estado del secador.'),
+    ('Reloj inteligente', 'Si ingresas con «Recordarme», el teléfono guarda la cabecera de tu sesión cifrada con una llave del Android Keystore para que SISCAN en el reloj pueda pedirle órdenes y pesajes. El reloj no guarda contraseñas. Se borra al cerrar sesión o al borrar los datos del teléfono.'),
     ('Inteligencia artificial', 'La «segunda opinión» la genera Groq desde el servidor del CISNA con datos del lote y del secador; no recibe datos personales. La predicción de la tesis y la red neuronal corren en el servidor del CISNA.'),
     ('Qué no hace', 'No usa cámara ni contactos. No tiene publicidad, analítica ni rastreo. Solo habla con cisna.narino.gov.co por HTTPS.'),
     ('Cuánto tiempo', 'Hasta que cierres sesión (borra la credencial), uses «Borrar los datos de este teléfono» o desinstales la app.'),

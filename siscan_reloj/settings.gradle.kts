@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SiscanReloj"
 include(":app")
+include(":esfera")

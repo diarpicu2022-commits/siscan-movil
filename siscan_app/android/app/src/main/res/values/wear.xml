@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@array/android_wear_capabilities">
+    <!-- El reloj busca esta capacidad para pedirle órdenes y pesajes al teléfono (PuenteReloj). -->
+    <string-array name="android_wear_capabilities">
+        <item>siscan_puente</item>
+    </string-array>
+</resources>

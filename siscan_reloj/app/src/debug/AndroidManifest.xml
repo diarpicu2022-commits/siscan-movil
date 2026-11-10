@@ -1,0 +1,4 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Solo en depuración: permite el servidor de prueba local (pruebas/proxy-app.php) por HTTP. -->
+    <application android:usesCleartextTraffic="true" />
+</manifest>

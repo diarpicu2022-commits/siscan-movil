@@ -14,8 +14,7 @@ oscuro, componentes `components/*` y composiciones `AndroidInicio`, `AndroidPesa
 
 1. Web (panel en WordPress, plugin 3.5.0) — hecho; anexo en el repo de la tesis.
 2. **APK** (`siscan_app`) — hecho en `feature/apk-sistema-v2`; anexo `docs/ux/anexos/2026-10-08-apk-siscan-sistema-v2.md`.
-3. Reloj Wear OS (`siscan_reloj`) con el sistema v2; sus acciones van por el teléfono con la sesión. Al migrarlo se
-   borran el anexo y las capturas del reloj anterior.
+3. **Reloj** (`siscan_reloj` + esfera) — hecho en `feature/reloj-sistema-v2`; anexo `docs/ux/anexos/2026-10-09-reloj-siscan-sistema-v2.md`.
 
 ## Backend
 
