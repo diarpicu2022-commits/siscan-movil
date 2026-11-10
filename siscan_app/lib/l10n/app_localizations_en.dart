@@ -1329,4 +1329,314 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ajustadaPuntos => ', adjusted with measured points';
+
+  @override
+  String get modoSinInfo => 'The server doesn\'t report the dryer mode yet';
+
+  @override
+  String modoConfirmado(String cuando) {
+    return 'Confirmed by the ESP32 · $cuando';
+  }
+
+  @override
+  String modoEsperando(String modo) {
+    return 'The ESP32 is in $modo mode; waiting for it to apply the change';
+  }
+
+  @override
+  String get modoAutomaticoMin => 'automatic';
+
+  @override
+  String get modoManualMin => 'manual';
+
+  @override
+  String get modoNoReportado => 'The ESP32 hasn\'t reported its mode yet';
+
+  @override
+  String get modoPedido => 'Requested · the ESP32 hasn\'t confirmed it yet';
+
+  @override
+  String get modoOperacion => 'Operating mode';
+
+  @override
+  String get modoAutoPedido => 'Automatic mode requested';
+
+  @override
+  String get modoManualPedido => 'Manual mode requested';
+
+  @override
+  String get modoSeAplica => 'It applies when the ESP32 confirms it.';
+
+  @override
+  String get modoAutomatico => 'Automatic';
+
+  @override
+  String get modoManual => 'Manual';
+
+  @override
+  String get enviando => 'Sending…';
+
+  @override
+  String get actuadores => 'Actuators';
+
+  @override
+  String copiaDe(String nombre, String gpio) {
+    return 'copy of “$nombre” (GPIO $gpio)';
+  }
+
+  @override
+  String get pieAuto =>
+      'The protocol decides when to turn things on. Switch to Manual to send commands.';
+
+  @override
+  String get pieAdmin =>
+      'Commands take effect when the ESP32 reads them. If the dryer isn\'t reporting, they apply when it reconnects.';
+
+  @override
+  String encenderNombre(String nombre) {
+    return 'Turn on $nombre';
+  }
+
+  @override
+  String get mantenerEncender => 'Press and hold to turn on';
+
+  @override
+  String get pieResistencia =>
+      'To turn on a heater, tap its switch and then press and hold the button that appears.';
+
+  @override
+  String get soloLecturaEquipo =>
+      'You can see the equipment status. Turning things on or off requires the “Dryer manager” account.';
+
+  @override
+  String get sinLecturasSecador => 'The dryer isn\'t sending readings yet.';
+
+  @override
+  String redSufijo(String clase) {
+    return ' · network: $clase';
+  }
+
+  @override
+  String get desactualizado => 'Out of date';
+
+  @override
+  String get alertasActivas => 'Active';
+
+  @override
+  String get avisosAnteriores => 'Earlier notices';
+
+  @override
+  String sinRevisar(int cantidad) {
+    return '$cantidad unread';
+  }
+
+  @override
+  String avisosHay(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other:
+          'There are $cantidad unread notices from earlier days on the dashboard.',
+      one: 'There is 1 unread notice from earlier days on the dashboard.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get avisosNinguno => 'No earlier notices pending.';
+
+  @override
+  String get marcarTodo => 'Mark all as read';
+
+  @override
+  String get marcarTitulo => 'Mark notices as read';
+
+  @override
+  String marcarPregunta(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Mark the $cantidad earlier notices as read?',
+      one: 'Mark the earlier notice as read?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get marcar => 'Mark';
+
+  @override
+  String get avisosMarcados => 'Notices marked as read';
+
+  @override
+  String get huellaMotivo => 'Sign in to SISCAN with your fingerprint';
+
+  @override
+  String get credencialError =>
+      'We couldn\'t use the saved credential. Sign in with your password.';
+
+  @override
+  String get holaDeNuevo => 'Welcome back';
+
+  @override
+  String get ingresaSiscan => 'Sign in to SISCAN';
+
+  @override
+  String get usaHuella => 'Use your fingerprint to get in fast.';
+
+  @override
+  String get conCuentaCisna =>
+      'With your CISNA portal account and an application password.';
+
+  @override
+  String get tocaSensor => 'Touch the fingerprint sensor';
+
+  @override
+  String get usuarioCorreo => 'Username or email';
+
+  @override
+  String get claveApp => 'Application password';
+
+  @override
+  String get claveAppPista =>
+      'It\'s not your usual password: you create it in your WordPress profile and can revoke it any time.';
+
+  @override
+  String get recordarme => 'Remember me';
+
+  @override
+  String get crearClave => 'Create password';
+
+  @override
+  String get usarCorreo => 'Use email and password';
+
+  @override
+  String get ingresarHuella => 'Sign in with fingerprint';
+
+  @override
+  String get verSinCuenta => 'View the dryer (read-only)';
+
+  @override
+  String get notifCanalAlertas => 'Dryer alerts';
+
+  @override
+  String get notifCanalAlertasDesc =>
+      'Temperature, humidity and equipment out of range.';
+
+  @override
+  String get notifCanalRecord => 'Weighing and batch ready';
+
+  @override
+  String get notifCanalRecordDesc =>
+      'Time to weigh the sample, and the thesis prediction.';
+
+  @override
+  String get notifCanalActividad => 'Batch in progress';
+
+  @override
+  String get notifCanalActividadDesc => 'Batch progress on the lock screen.';
+
+  @override
+  String get notifAlertaCritica => 'Critical alert';
+
+  @override
+  String get notifAdvertencia => 'Warning';
+
+  @override
+  String get notifVerEquipo => 'See equipment';
+
+  @override
+  String get notifHoraPesar => 'Time to weigh the sample';
+
+  @override
+  String get notifSinPesajes => 'no weighings yet';
+
+  @override
+  String notifUltimoPesajeHace(int horas) {
+    return 'last weighing $horas h ago';
+  }
+
+  @override
+  String notifSecandoListo(String tiempo) {
+    return 'Drying · ready in ~$tiempo';
+  }
+
+  @override
+  String notifEnObjetivo(String lote) {
+    return '$lote is on target';
+  }
+
+  @override
+  String notifEnObjetivoTexto(String valor) {
+    return 'The sample is at $valor %: take it out (thesis prediction).';
+  }
+
+  @override
+  String get widgetSinLotes => 'SISCAN: no batches recorded.';
+
+  @override
+  String widgetDescripcion(String lote, String humedad, String estado) {
+    return 'SISCAN, $lote: bean moisture $humedad percent. $estado.';
+  }
+
+  @override
+  String get widgetHumedad => 'bean moisture';
+
+  @override
+  String widgetSinConexionMin(String dia) {
+    return 'offline · $dia';
+  }
+
+  @override
+  String widgetSinConexion(String dia) {
+    return 'Offline · $dia';
+  }
+
+  @override
+  String get hrAbrev => 'RH';
+
+  @override
+  String get loteTerminadoLargo => 'Batch finished';
+
+  @override
+  String get apiSinConexion =>
+      'We couldn\'t connect to the dryer. Check the connection and try again.';
+
+  @override
+  String apiCargaCodigo(String codigo) {
+    return 'These data couldn\'t be loaded (code $codigo).';
+  }
+
+  @override
+  String get apiNoGuardo => 'Couldn\'t save. Check the connection.';
+
+  @override
+  String get apiSesionVencio =>
+      'Your session expired or no longer has permission. Sign in again.';
+
+  @override
+  String get apiModoAuto => 'The dryer is in automatic mode.';
+
+  @override
+  String apiNoGuardoCodigo(String codigo) {
+    return 'Couldn\'t save (code $codigo).';
+  }
+
+  @override
+  String get authFaltan => 'Write your username and your application password.';
+
+  @override
+  String get authIncorrecto =>
+      'The username or the application password is incorrect.';
+
+  @override
+  String get authNoVerifica => 'We couldn\'t verify your account. Try again.';
+
+  @override
+  String get authSinPermiso =>
+      'Your account doesn\'t have the “Dryer manager” permission. Ask CISNA for it.';
+
+  @override
+  String get authSinConexion =>
+      'We couldn\'t connect. Check the connection and try again.';
 }

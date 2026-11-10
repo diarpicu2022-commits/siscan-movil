@@ -1327,6 +1327,317 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get ajustadaPuntos => ', ajustada com pontos medidos';
+
+  @override
+  String get modoSinInfo => 'O servidor ainda não informa o modo do secador';
+
+  @override
+  String modoConfirmado(String cuando) {
+    return 'Confirmado pelo ESP32 · $cuando';
+  }
+
+  @override
+  String modoEsperando(String modo) {
+    return 'O ESP32 está em modo $modo; aguardando que aplique a mudança';
+  }
+
+  @override
+  String get modoAutomaticoMin => 'automático';
+
+  @override
+  String get modoManualMin => 'manual';
+
+  @override
+  String get modoNoReportado => 'O ESP32 ainda não informou seu modo';
+
+  @override
+  String get modoPedido => 'Solicitado · o ESP32 ainda não confirmou';
+
+  @override
+  String get modoOperacion => 'Modo de operação';
+
+  @override
+  String get modoAutoPedido => 'Modo automático solicitado';
+
+  @override
+  String get modoManualPedido => 'Modo manual solicitado';
+
+  @override
+  String get modoSeAplica => 'Vale quando o ESP32 confirmar.';
+
+  @override
+  String get modoAutomatico => 'Automático';
+
+  @override
+  String get modoManual => 'Manual';
+
+  @override
+  String get enviando => 'Enviando…';
+
+  @override
+  String get actuadores => 'Atuadores';
+
+  @override
+  String copiaDe(String nombre, String gpio) {
+    return 'cópia de “$nombre” (GPIO $gpio)';
+  }
+
+  @override
+  String get pieAuto =>
+      'O protocolo decide quando ligar. Mude para Manual para enviar comandos.';
+
+  @override
+  String get pieAdmin =>
+      'Os comandos valem quando o ESP32 os lê. Se o secador não enviar dados, valem ao reconectar.';
+
+  @override
+  String encenderNombre(String nombre) {
+    return 'Ligar $nombre';
+  }
+
+  @override
+  String get mantenerEncender => 'Mantenha pressionado para ligar';
+
+  @override
+  String get pieResistencia =>
+      'Para ligar uma resistência, toque no interruptor e depois mantenha pressionado o botão que aparece.';
+
+  @override
+  String get soloLecturaEquipo =>
+      'Você pode ver o estado dos aparelhos. Ligar ou desligar exige a conta de “Gestor do secador”.';
+
+  @override
+  String get sinLecturasSecador => 'O secador ainda não envia leituras.';
+
+  @override
+  String redSufijo(String clase) {
+    return ' · rede: $clase';
+  }
+
+  @override
+  String get desactualizado => 'Desatualizado';
+
+  @override
+  String get alertasActivas => 'Ativos';
+
+  @override
+  String get avisosAnteriores => 'Avisos anteriores';
+
+  @override
+  String sinRevisar(int cantidad) {
+    return '$cantidad não lidos';
+  }
+
+  @override
+  String avisosHay(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Há $cantidad avisos de dias anteriores não lidos no painel.',
+      one: 'Há 1 aviso de dias anteriores não lido no painel.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get avisosNinguno => 'Nenhum aviso anterior pendente.';
+
+  @override
+  String get marcarTodo => 'Marcar tudo como lido';
+
+  @override
+  String get marcarTitulo => 'Marcar avisos como lidos';
+
+  @override
+  String marcarPregunta(int cantidad) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cantidad,
+      locale: localeName,
+      other: 'Marcar como lidos os $cantidad avisos anteriores?',
+      one: 'Marcar como lido o aviso anterior?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get marcar => 'Marcar';
+
+  @override
+  String get avisosMarcados => 'Avisos marcados como lidos';
+
+  @override
+  String get huellaMotivo => 'Entre no SISCAN com sua digital';
+
+  @override
+  String get credencialError =>
+      'Não conseguimos usar a credencial salva. Entre com sua senha.';
+
+  @override
+  String get holaDeNuevo => 'Olá de novo';
+
+  @override
+  String get ingresaSiscan => 'Entrar no SISCAN';
+
+  @override
+  String get usaHuella => 'Use sua digital para entrar rápido.';
+
+  @override
+  String get conCuentaCisna =>
+      'Com sua conta do portal CISNA e uma senha de aplicativo.';
+
+  @override
+  String get tocaSensor => 'Toque no sensor de digital';
+
+  @override
+  String get usuarioCorreo => 'Usuário ou e-mail';
+
+  @override
+  String get claveApp => 'Senha de aplicativo';
+
+  @override
+  String get claveAppPista =>
+      'Não é sua senha normal: você a cria no seu perfil do WordPress e pode revogá-la quando quiser.';
+
+  @override
+  String get recordarme => 'Lembrar de mim';
+
+  @override
+  String get crearClave => 'Criar senha';
+
+  @override
+  String get usarCorreo => 'Usar e-mail e senha';
+
+  @override
+  String get ingresarHuella => 'Entrar com digital';
+
+  @override
+  String get verSinCuenta => 'Ver o secador sem conta (somente leitura)';
+
+  @override
+  String get notifCanalAlertas => 'Alertas do secador';
+
+  @override
+  String get notifCanalAlertasDesc =>
+      'Temperatura, umidade e aparelhos fora da faixa.';
+
+  @override
+  String get notifCanalRecord => 'Pesagem e lote pronto';
+
+  @override
+  String get notifCanalRecordDesc =>
+      'Hora de pesar a amostra e previsão da tese.';
+
+  @override
+  String get notifCanalActividad => 'Lote em andamento';
+
+  @override
+  String get notifCanalActividadDesc =>
+      'Progresso do lote na tela de bloqueio.';
+
+  @override
+  String get notifAlertaCritica => 'Alerta crítico';
+
+  @override
+  String get notifAdvertencia => 'Advertência';
+
+  @override
+  String get notifVerEquipo => 'Ver aparelhos';
+
+  @override
+  String get notifHoraPesar => 'Hora de pesar a amostra';
+
+  @override
+  String get notifSinPesajes => 'ainda sem pesagens';
+
+  @override
+  String notifUltimoPesajeHace(int horas) {
+    return 'última pesagem há $horas h';
+  }
+
+  @override
+  String notifSecandoListo(String tiempo) {
+    return 'Secando · pronto em ~$tiempo';
+  }
+
+  @override
+  String notifEnObjetivo(String lote) {
+    return '$lote está no objetivo';
+  }
+
+  @override
+  String notifEnObjetivoTexto(String valor) {
+    return 'A amostra está em $valor %: pode retirar (previsão da tese).';
+  }
+
+  @override
+  String get widgetSinLotes => 'SISCAN: nenhum lote registrado.';
+
+  @override
+  String widgetDescripcion(String lote, String humedad, String estado) {
+    return 'SISCAN, $lote: umidade do grão $humedad por cento. $estado.';
+  }
+
+  @override
+  String get widgetHumedad => 'umidade do grão';
+
+  @override
+  String widgetSinConexionMin(String dia) {
+    return 'sem conexão · $dia';
+  }
+
+  @override
+  String widgetSinConexion(String dia) {
+    return 'Sem conexão · $dia';
+  }
+
+  @override
+  String get hrAbrev => 'UR';
+
+  @override
+  String get loteTerminadoLargo => 'Lote terminado';
+
+  @override
+  String get apiSinConexion =>
+      'Não conseguimos conectar ao secador. Verifique a conexão e tente de novo.';
+
+  @override
+  String apiCargaCodigo(String codigo) {
+    return 'Não foi possível carregar estes dados (código $codigo).';
+  }
+
+  @override
+  String get apiNoGuardo => 'Não foi possível salvar. Verifique a conexão.';
+
+  @override
+  String get apiSesionVencio =>
+      'Sua sessão expirou ou não tem mais permissão. Entre de novo.';
+
+  @override
+  String get apiModoAuto => 'O secador está em modo automático.';
+
+  @override
+  String apiNoGuardoCodigo(String codigo) {
+    return 'Não foi possível salvar (código $codigo).';
+  }
+
+  @override
+  String get authFaltan => 'Escreva seu usuário e sua senha de aplicativo.';
+
+  @override
+  String get authIncorrecto =>
+      'O usuário ou a senha de aplicativo não estão corretos.';
+
+  @override
+  String get authNoVerifica =>
+      'Não conseguimos verificar sua conta. Tente de novo.';
+
+  @override
+  String get authSinPermiso =>
+      'Sua conta não tem a permissão de “Gestor do secador”. Peça ao CISNA.';
+
+  @override
+  String get authSinConexion =>
+      'Não conseguimos conectar. Verifique a conexão e tente de novo.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).

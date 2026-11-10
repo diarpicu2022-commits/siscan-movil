@@ -292,7 +292,8 @@ List<(String, Widget Function(), Pestana?, bool, _Accion?)> _pantallasMas(AppLoc
 /// trae el servidor (I4), que se reconocen por la lista de abajo.
 final _rasgosEs = RegExp(r'[ñ¿¡]|ción\b|\b(el|la|los|las|del|con|sin|para|por|una|está|todavía|aún|hace|hoy|ayer)\b', caseSensitive: false);
 const _permitidosEs = ['Nariño', 'Cenicafé', 'Chachagüí', 'Sandoná', 'Secado Inteligente de Café', 'juco', 'Motilón', 'Castillo', 'Caturra', 'Tabi',
-    'Secador', 'Lote', 'Protocolo', 'Aire libre', 'secador solar', 'sin actuadores', 'El Motilón', 'El Motilon'];
+    'Secador', 'Lote', 'Protocolo', 'Aire libre', 'secador solar', 'sin actuadores', 'El Motilón', 'El Motilon',
+    'Subsecretaría de Innovación', 'Gobernación de Nariño'];
 List<String> _espanolSuelto(WidgetTester t) {
   final vistos = <String>{};
   for (final e in find.byType(RichText).evaluate()) {
@@ -300,7 +301,8 @@ List<String> _espanolSuelto(WidgetTester t) {
     if (x.isEmpty || !_rasgosEs.hasMatch(x)) continue;
     var limpio = x;
     // Sin distinguir mayúsculas: algunos nombres del servidor llegan en mayúsculas («LOTE EL MOTILON»).
-    for (final p in _permitidosEs) { limpio = limpio.replaceAll(RegExp(RegExp.escape(p), caseSensitive: false), ''); }
+    // De la más larga a la más corta: si «Nariño» saliera primero, «Gobernación de Nariño» ya no coincidiría.
+    for (final p in [..._permitidosEs]..sort((a, b) => b.length.compareTo(a.length))) { limpio = limpio.replaceAll(RegExp(RegExp.escape(p), caseSensitive: false), ''); }
     if (_rasgosEs.hasMatch(limpio)) vistos.add(x);
   }
   return vistos.toList();
@@ -711,6 +713,11 @@ void main() {
     ('nuevo-lote', () => const PantallaNuevoLote(), null, Escenario.real, true),
     ('pesaje-vacio', () => PantallaPesaje(onIngresar: () {}), Pestana.pesaje, Escenario.real, false),
     ('pesaje', () => PantallaPesaje(onIngresar: () {}), Pestana.pesaje, Escenario.vivo, true),
+    // Paso 4c: Equipo (sin sesión y con sesión en modo manual), Alertas e Ingreso.
+    ('equipo', () => PantallaEquipo(onIngresar: () {}), Pestana.equipo, Escenario.real, false),
+    ('equipo-sesion', () => PantallaEquipo(onIngresar: () {}), Pestana.equipo, Escenario.vivo, true),
+    ('alertas', () => const PantallaAlertas(), null, Escenario.real, false),
+    ('ingreso', () => PantallaIngreso(onListo: () {}), null, Escenario.real, false),
   ];
 
   // Red para textos que quedaron en español: en inglés, ningún texto dibujado puede tener rasgos del español, salvo
@@ -736,13 +743,7 @@ void main() {
             h.dispose();
           }
         }
-        // Defecto previo, no de la traducción: en español a 360 px «Aire libre» necesita 58,3 px y el segmento del filtro de
-        // Lotes deja 57,3. Se registra para la decisión de Diego (anexo, sección 12) y no hace fallar el barrido.
-        final previas = fallas.where((f) => cod == 'es' && ancho == 360 && f.startsWith('lotes: ') && f.contains('«Aire libre»')).toSet();
-        if (previas.isNotEmpty) {
-          File('test/capturas/idiomas-lotes-previas.tsv').writeAsStringSync('idioma\tancho\tfalla\n${previas.map((f) => '$cod\t${ancho.toInt()}\t$f').join('\n')}\n');
-        }
-        fallas.removeWhere(previas.contains);
+        // «Aire libre» a 360 px se resolvió con la opción A de Diego (2026-11-09): el filtro de Lotes sin íconos bajo 380 px.
         expect(fallas, isEmpty, reason: fallas.join('\n'));
       });
     }
@@ -750,7 +751,7 @@ void main() {
 
   // Goldens del 4b en inglés y portugués a 360 px: la ficha del lote (la más densa) y Pesaje con lote activo.
   for (final (idioma, cod) in idiomas.skip(1)) {
-    for (final (nombre, pantalla, pestana, escenario, sesion) in pantallas4.where((p) => p.$1 == 'lote' || p.$1 == 'pesaje')) {
+    for (final (nombre, pantalla, pestana, escenario, sesion) in pantallas4.where((p) => const {'lote', 'pesaje', 'equipo-sesion', 'ingreso'}.contains(p.$1))) {
       testWidgets('$nombre en $cod (claro), 360 px', (t) async {
         await _montar(t, pantalla(), tema: Brightness.light, pestana: pestana, escenario: escenario, sesion: sesion, idioma: idioma, ancho: 360);
         await expectLater(find.byType(MaterialApp), matchesGoldenFile('capturas/07l-$nombre-$cod-claro.png'));

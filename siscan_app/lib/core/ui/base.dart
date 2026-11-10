@@ -332,12 +332,15 @@ class _CampoState extends State<Campo> {
 
 /// sc-seg: opciones en píldora sobre superficie-fuerte; la elegida en superficie con texto hoja.
 class Segmentado<T> extends StatelessWidget {
-  const Segmentado({super.key, required this.opciones, required this.valor, required this.onChanged, this.bloque = false, required this.etiqueta});
+  const Segmentado({super.key, required this.opciones, required this.valor, required this.onChanged, this.bloque = false, required this.etiqueta, this.iconosDesde = 0});
   final List<(T, String, String?)> opciones;
   final T valor;
   final ValueChanged<T>? onChanged;
   final bool bloque;
   final String etiqueta;
+  /// Ancho de pantalla desde el que se muestran los íconos de los segmentos. En una pantalla más angosta solo queda la
+  /// palabra (decisión de Diego del 2026-11-09, opción A del paso 4b de idiomas: el filtro de Lotes a 360 px).
+  final double iconosDesde;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
@@ -354,7 +357,7 @@ class Segmentado<T> extends StatelessWidget {
             decoration: BoxDecoration(color: on ? c.superficie : Colors.transparent, borderRadius: BorderRadius.circular(999),
                 boxShadow: on ? [BoxShadow(color: const Color(0xFF183024).withValues(alpha: .14), blurRadius: 3, offset: const Offset(0, 1))] : null),
             child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (o.$3 != null) ...[Icono(o.$3!, size: 16, color: on ? c.hoja : c.tintaSuave), const SizedBox(width: 6)],
+              if (o.$3 != null && MediaQuery.sizeOf(context).width >= iconosDesde) ...[Icono(o.$3!, size: 16, color: on ? c.hoja : c.tintaSuave), const SizedBox(width: 6)],
               Flexible(child: Text(o.$2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: on ? c.hoja : c.tintaSuave))),
             ]),
           ),

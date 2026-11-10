@@ -2392,6 +2392,504 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **', ajustada con puntos medidos'**
   String get ajustadaPuntos;
+
+  /// Estado del modo de operación.
+  ///
+  /// In es, this message translates to:
+  /// **'El servidor todavía no informa el modo del secador'**
+  String get modoSinInfo;
+
+  /// El ESP32 confirmó el modo; cuando es «Hoy · 07:40».
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmado por el ESP32 · {cuando}'**
+  String modoConfirmado(String cuando);
+
+  /// Modo reportado distinto del pedido; modo en minúscula.
+  ///
+  /// In es, this message translates to:
+  /// **'El ESP32 está en {modo}; esperando que aplique el cambio'**
+  String modoEsperando(String modo);
+
+  /// Modo en minúscula dentro de una frase.
+  ///
+  /// In es, this message translates to:
+  /// **'automático'**
+  String get modoAutomaticoMin;
+
+  /// Modo en minúscula dentro de una frase.
+  ///
+  /// In es, this message translates to:
+  /// **'manual'**
+  String get modoManualMin;
+
+  /// Estado del modo de operación.
+  ///
+  /// In es, this message translates to:
+  /// **'El ESP32 todavía no ha reportado su modo'**
+  String get modoNoReportado;
+
+  /// Estado del modo de operación.
+  ///
+  /// In es, this message translates to:
+  /// **'Pedido · el ESP32 todavía no lo confirma'**
+  String get modoPedido;
+
+  /// Etiqueta del selector de modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo de operación'**
+  String get modoOperacion;
+
+  /// Aviso al pedir el modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo automático pedido'**
+  String get modoAutoPedido;
+
+  /// Aviso al pedir el modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo manual pedido'**
+  String get modoManualPedido;
+
+  /// Detalle del aviso de modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Se aplica cuando el ESP32 lo confirme.'**
+  String get modoSeAplica;
+
+  /// Segmento del selector de modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Automático'**
+  String get modoAutomatico;
+
+  /// Segmento del selector de modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Manual'**
+  String get modoManual;
+
+  /// Mientras se manda el modo.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviando…'**
+  String get enviando;
+
+  /// Título de la tarjeta.
+  ///
+  /// In es, this message translates to:
+  /// **'Actuadores'**
+  String get actuadores;
+
+  /// Actuador repetido en el mismo pin.
+  ///
+  /// In es, this message translates to:
+  /// **'copia de «{nombre}» (GPIO {gpio})'**
+  String copiaDe(String nombre, String gpio);
+
+  /// Pie de Actuadores en modo automático.
+  ///
+  /// In es, this message translates to:
+  /// **'El protocolo decide cuándo encender. Cambia a Manual para mandar órdenes.'**
+  String get pieAuto;
+
+  /// Pie de Actuadores en modo manual con sesión.
+  ///
+  /// In es, this message translates to:
+  /// **'Las órdenes se cumplen cuando el ESP32 las lee. Si el secador no reporta, se aplican al reconectar.'**
+  String get pieAdmin;
+
+  /// Lector de pantalla del botón de mantener.
+  ///
+  /// In es, this message translates to:
+  /// **'Encender {nombre}'**
+  String encenderNombre(String nombre);
+
+  /// Botón de mantener de una resistencia.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantén presionado para encender'**
+  String get mantenerEncender;
+
+  /// Pie de seguridad de las resistencias.
+  ///
+  /// In es, this message translates to:
+  /// **'Para encender una resistencia, toca su interruptor y luego mantén presionado el botón que aparece.'**
+  String get pieResistencia;
+
+  /// Bloque de solo lectura de Equipo.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes ver el estado del equipo. Encender o apagar exige la cuenta de «Gestor del Secador».'**
+  String get soloLecturaEquipo;
+
+  /// Tarjeta Sensores vacía.
+  ///
+  /// In es, this message translates to:
+  /// **'El secador todavía no envía lecturas.'**
+  String get sinLecturasSecador;
+
+  /// Se agrega a la ubicación del sensor; clase en minúscula.
+  ///
+  /// In es, this message translates to:
+  /// **' · red: {clase}'**
+  String redSufijo(String clase);
+
+  /// Píldora de un sensor con dato viejo.
+  ///
+  /// In es, this message translates to:
+  /// **'Desactualizado'**
+  String get desactualizado;
+
+  /// Título de la tarjeta de alertas activas.
+  ///
+  /// In es, this message translates to:
+  /// **'Activas'**
+  String get alertasActivas;
+
+  /// Título de la tarjeta.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos anteriores'**
+  String get avisosAnteriores;
+
+  /// Ficha con la cantidad de avisos sin leer.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad} sin revisar'**
+  String sinRevisar(int cantidad);
+
+  /// Texto de la tarjeta.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad, plural, =1{Hay 1 aviso de días anteriores sin revisar en el panel.} other{Hay {cantidad} avisos de días anteriores sin revisar en el panel.}}'**
+  String avisosHay(int cantidad);
+
+  /// Texto de la tarjeta.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay avisos anteriores pendientes.'**
+  String get avisosNinguno;
+
+  /// Botón.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar todo como leído'**
+  String get marcarTodo;
+
+  /// Título del diálogo.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar avisos como leídos'**
+  String get marcarTitulo;
+
+  /// Pregunta del diálogo.
+  ///
+  /// In es, this message translates to:
+  /// **'{cantidad, plural, =1{¿Marcar como leído el aviso anterior?} other{¿Marcar como leídos los {cantidad} avisos anteriores?}}'**
+  String marcarPregunta(int cantidad);
+
+  /// Botón del diálogo.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar'**
+  String get marcar;
+
+  /// Aviso.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos marcados como leídos'**
+  String get avisosMarcados;
+
+  /// Motivo de la ventana de huella del sistema.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa a SISCAN con tu huella'**
+  String get huellaMotivo;
+
+  /// Error del ingreso con huella.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos usar la credencial guardada. Ingresa con tu contraseña.'**
+  String get credencialError;
+
+  /// Título del ingreso con huella.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola de nuevo'**
+  String get holaDeNuevo;
+
+  /// Título del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa a SISCAN'**
+  String get ingresaSiscan;
+
+  /// Subtítulo del ingreso con huella.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa tu huella para entrar rápido.'**
+  String get usaHuella;
+
+  /// Subtítulo del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Con tu cuenta del portal CISNA y una contraseña de aplicación.'**
+  String get conCuentaCisna;
+
+  /// Indicación del ingreso con huella.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca el sensor de huella'**
+  String get tocaSensor;
+
+  /// Campo del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario o correo'**
+  String get usuarioCorreo;
+
+  /// Campo del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Contraseña de aplicación'**
+  String get claveApp;
+
+  /// Pista del campo.
+  ///
+  /// In es, this message translates to:
+  /// **'No es tu contraseña normal: la creas en tu perfil de WordPress y puedes revocarla cuando quieras.'**
+  String get claveAppPista;
+
+  /// Casilla del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Recordarme'**
+  String get recordarme;
+
+  /// Enlace al perfil de WordPress.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear contraseña'**
+  String get crearClave;
+
+  /// Botón del ingreso con huella.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar correo y contraseña'**
+  String get usarCorreo;
+
+  /// Botón del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresar con huella'**
+  String get ingresarHuella;
+
+  /// Enlace del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver el secador sin cuenta (solo lectura)'**
+  String get verSinCuenta;
+
+  /// Nombre del canal de notificaciones en Ajustes de Android.
+  ///
+  /// In es, this message translates to:
+  /// **'Alertas del secador'**
+  String get notifCanalAlertas;
+
+  /// Descripción del canal.
+  ///
+  /// In es, this message translates to:
+  /// **'Temperatura, humedad y equipo fuera de rango.'**
+  String get notifCanalAlertasDesc;
+
+  /// Nombre del canal.
+  ///
+  /// In es, this message translates to:
+  /// **'Pesaje y lote listo'**
+  String get notifCanalRecord;
+
+  /// Descripción del canal.
+  ///
+  /// In es, this message translates to:
+  /// **'Hora de pesar la muestra y predicción de la tesis.'**
+  String get notifCanalRecordDesc;
+
+  /// Nombre del canal.
+  ///
+  /// In es, this message translates to:
+  /// **'Lote en curso'**
+  String get notifCanalActividad;
+
+  /// Descripción del canal.
+  ///
+  /// In es, this message translates to:
+  /// **'Avance del lote en la pantalla de bloqueo.'**
+  String get notifCanalActividadDesc;
+
+  /// Subtexto de la notificación.
+  ///
+  /// In es, this message translates to:
+  /// **'Alerta crítica'**
+  String get notifAlertaCritica;
+
+  /// Subtexto de la notificación.
+  ///
+  /// In es, this message translates to:
+  /// **'Advertencia'**
+  String get notifAdvertencia;
+
+  /// Acción de la notificación.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver equipo'**
+  String get notifVerEquipo;
+
+  /// Título de la notificación.
+  ///
+  /// In es, this message translates to:
+  /// **'Hora de pesar la muestra'**
+  String get notifHoraPesar;
+
+  /// Cuerpo, después del nombre del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'aún sin pesajes'**
+  String get notifSinPesajes;
+
+  /// Cuerpo, después del nombre del lote.
+  ///
+  /// In es, this message translates to:
+  /// **'último pesaje hace {horas} h'**
+  String notifUltimoPesajeHace(int horas);
+
+  /// Actividad del lote en la pantalla de bloqueo.
+  ///
+  /// In es, this message translates to:
+  /// **'Secando · listo en ~{tiempo}'**
+  String notifSecandoListo(String tiempo);
+
+  /// Título de la notificación de lote listo.
+  ///
+  /// In es, this message translates to:
+  /// **'{lote} está en el objetivo'**
+  String notifEnObjetivo(String lote);
+
+  /// Cuerpo de la notificación de lote listo.
+  ///
+  /// In es, this message translates to:
+  /// **'La muestra está en {valor} %: retíralo (predicción de la tesis).'**
+  String notifEnObjetivoTexto(String valor);
+
+  /// Descripción del widget para el lector de pantalla.
+  ///
+  /// In es, this message translates to:
+  /// **'SISCAN: sin lotes registrados.'**
+  String get widgetSinLotes;
+
+  /// Descripción del widget para el lector de pantalla.
+  ///
+  /// In es, this message translates to:
+  /// **'SISCAN, {lote}: humedad del grano {humedad} por ciento. {estado}.'**
+  String widgetDescripcion(String lote, String humedad, String estado);
+
+  /// Bajo la cifra del widget, en minúscula.
+  ///
+  /// In es, this message translates to:
+  /// **'humedad del grano'**
+  String get widgetHumedad;
+
+  /// Bajo la cifra del widget.
+  ///
+  /// In es, this message translates to:
+  /// **'sin conexión · {dia}'**
+  String widgetSinConexionMin(String dia);
+
+  /// Dato del widget.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión · {dia}'**
+  String widgetSinConexion(String dia);
+
+  /// Abreviatura de humedad relativa («59 % HR»).
+  ///
+  /// In es, this message translates to:
+  /// **'HR'**
+  String get hrAbrev;
+
+  /// Dato del widget.
+  ///
+  /// In es, this message translates to:
+  /// **'Lote terminado'**
+  String get loteTerminadoLargo;
+
+  /// Error de red al leer.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos conectarnos con el secador. Verifica la conexión e intenta nuevamente.'**
+  String get apiSinConexion;
+
+  /// Error HTTP al leer.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible cargar estos datos (código {codigo}).'**
+  String apiCargaCodigo(String codigo);
+
+  /// Error de red al guardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible guardar. Verifica la conexión.'**
+  String get apiNoGuardo;
+
+  /// Error 401/403.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión venció o ya no tiene permiso. Ingresa de nuevo.'**
+  String get apiSesionVencio;
+
+  /// Error 409 sin mensaje del servidor.
+  ///
+  /// In es, this message translates to:
+  /// **'El secador está en modo automático.'**
+  String get apiModoAuto;
+
+  /// Error HTTP al guardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No fue posible guardar (código {codigo}).'**
+  String apiNoGuardoCodigo(String codigo);
+
+  /// Error del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe tu usuario y tu contraseña de aplicación.'**
+  String get authFaltan;
+
+  /// Error del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'El usuario o la contraseña de aplicación no son correctos.'**
+  String get authIncorrecto;
+
+  /// Error del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos verificar tu cuenta. Intenta nuevamente.'**
+  String get authNoVerifica;
+
+  /// Error del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta no tiene permiso de «Gestor del Secador». Pídelo al CISNA.'**
+  String get authSinPermiso;
+
+  /// Error del ingreso.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos conectarnos. Verifica la conexión e intenta nuevamente.'**
+  String get authSinConexion;
 }
 
 class _AppLocalizationsDelegate

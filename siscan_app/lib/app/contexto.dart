@@ -218,7 +218,7 @@ class ErrorCarga extends StatelessWidget {
   final bool automatico;
   @override
   Widget build(BuildContext context) {
-    final codigo = RegExp(r'código (\d+)').firstMatch(detalle ?? '')?.group(1);
+    final codigo = RegExp(r'(?:código|code) (\d+)').firstMatch(detalle ?? '')?.group(1);
     final t = AppLocalizations.of(context);
     final que = codigo != null ? t.errorServidorCodigo(codigo)
         : (detalle != null && !detalle!.startsWith('No fue posible cargar')) ? detalle! : t.errorSinRespuesta;

@@ -30,7 +30,7 @@ class _PantallaLotesState extends State<PantallaLotes> {
         if (b == null) return CuerpoPantalla(barra: barra, hijos: const [Cargando()]);
         final lotes = b.lotes.where((l) => _filtro == 't' || (_filtro == 's' ? l['dryingSite'] != 'OPEN_AIR' : l['dryingSite'] == 'OPEN_AIR')).toList();
         return CuerpoPantalla(barra: barra, abajo: 96, onRefrescar: s.estado.cargar, hijos: [
-          Segmentado<String>(bloque: true, etiqueta: context.tx.filtro, valor: _filtro, onChanged: (v) => setState(() => _filtro = v),
+          Segmentado<String>(bloque: true, iconosDesde: 380, etiqueta: context.tx.filtro, valor: _filtro, onChanged: (v) => setState(() => _filtro = v),
               opciones: [('t', context.tx.filtroTodos, null), ('s', context.tx.sitioSecador, 'secador'), ('a', context.tx.sitioAireLibre, 'sol')]),
           if (lotes.isEmpty) EstadoVacio(titulo: context.tx.inicioSinLotes, texto: _filtro == 't' ? context.tx.inicioSinLotesTexto : context.tx.lotesSinFiltro)
           else Tarjeta(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4), child: Column(children: [

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
 
+import '../core/textos.dart';
 import '../core/theme/siscan_theme.dart';
 import '../core/theme/siscan_tokens.dart';
 import '../core/ui/base.dart';
@@ -39,8 +40,8 @@ abstract final class WidgetsInicio {
 
   static String _descripcion(Base b) {
     final l = b.lote;
-    if (l == null) return 'SISCAN: sin lotes registrados.';
-    return 'SISCAN, ${l['name']}: humedad del grano ${cifra(l['lastMoisturePct'] as num?)} por ciento. ${b.estado.$2}.';
+    if (l == null) return tr.widgetSinLotes;
+    return tr.widgetDescripcion('${l['name']}', cifra(l['lastMoisturePct'] as num?), b.estado.$2);
   }
 }
 
@@ -80,16 +81,16 @@ class WidgetHome extends StatelessWidget {
           if (chico) ...[
             const Spacer(),
             Text(hum == null ? '—' : '${cifra(hum)} %', style: const TextStyle(fontFamily: SiscanType.display, fontSize: 34, height: 38 / 34, fontWeight: FontWeight.w700, color: Colors.white)),
-            Text(vivo ? 'humedad del grano' : 'sin conexión · ${dia(base.ultimaT)}', style: const TextStyle(fontSize: 12, color: Color(0xFFC8D6CD))),
+            Text(vivo ? tr.widgetHumedad : tr.widgetSinConexionMin(dia(base.ultimaT)), style: const TextStyle(fontSize: 12, color: Color(0xFFC8D6CD))),
           ] else Expanded(child: Row(children: [
             Anillo(valor: l == null ? 0 : avanceLote(l), texto: hum == null ? '—' : '${cifra(hum)} %', size: 84, grosor: 8, pista: Colors.white.withValues(alpha: .14), colorTexto: Colors.white),
             const SizedBox(width: 16),
             Expanded(child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
               dato('termometro', temp == null ? '— °C' : '${cifra(temp.$2)} °C'),
               const SizedBox(height: 6),
-              dato('gotas', hr == null ? '— % HR' : '${cifra(hr.$2, 0)} % HR'),
+              dato('gotas', hr == null ? '— % ${tr.hrAbrev}' : '${cifra(hr.$2, 0)} % ${tr.hrAbrev}'),
               const SizedBox(height: 6),
-              dato('reloj', !vivo ? 'Sin conexión · ${dia(base.ultimaT)}' : l?['status'] == 'RUNNING' ? 'Secando' : 'Lote terminado'),
+              dato('reloj', !vivo ? tr.widgetSinConexion(dia(base.ultimaT)) : l?['status'] == 'RUNNING' ? tr.loteSecando : tr.loteTerminadoLargo),
             ])),
           ])),
         ]),
