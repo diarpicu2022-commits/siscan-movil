@@ -25,11 +25,11 @@ object Telefono {
         withTimeout(25_000) {
             val nodos = Wearable.getCapabilityClient(c).getCapability(CAPACIDAD, CapabilityClient.FILTER_REACHABLE).await().nodes
             val nodo = nodos.firstOrNull { it.isNearby } ?: nodos.firstOrNull()
-                ?: return@withTimeout Resultado.Fallo("El teléfono no está cerca o no tiene SISCAN abierto.")
+                ?: return@withTimeout Resultado.Fallo(Textos.s(R.string.r_tel_lejos))
             val r = JSONObject(String(Wearable.getMessageClient(c).sendRequest(nodo.id, RUTA, cuerpo.toString().toByteArray()).await()))
-            if (r.optBoolean("ok")) Resultado.Hecho(r.optString("texto")) else Resultado.Fallo(r.optString("texto", "No se pudo enviar."))
+            if (r.optBoolean("ok")) Resultado.Hecho(r.optString("texto")) else Resultado.Fallo(r.optString("texto", Textos.s(R.string.r_no_se_pudo_enviar)))
         }
-    }.getOrElse { Resultado.Fallo("No hubo respuesta del teléfono. Revisa la conexión del reloj.") }
+    }.getOrElse { Resultado.Fallo(Textos.s(R.string.r_sin_respuesta)) }
 
     suspend fun actuador(c: Context, id: Int, encender: Boolean): Resultado =
         pedir(c, JSONObject().put("tipo", "actuador").put("id", id).put("on", encender))

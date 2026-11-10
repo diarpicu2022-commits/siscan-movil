@@ -59,10 +59,11 @@ data class Estado(
         /** Las horas del servidor vienen en hora de Colombia sin zona («2026-08-19 14:53:49»). */
         fun hora(s: String?): LocalDateTime? = s?.takeIf { it.length >= 19 }?.let { runCatching { LocalDateTime.parse(it.substring(0, 19).replace('T', ' '), SERVIDOR) }.getOrNull() }
 
-        /** Cifra con coma decimal y punto de miles, como todo el sistema. */
+        /** Cifra con coma decimal y punto de miles en español y portugués; punto decimal y coma de miles en inglés (I5). */
         fun cifra(v: Double?, d: Int = 1): String {
             if (v == null) return "—"
             val s = String.format(Locale.US, "%,.${d}f", v)
+            if (Textos.idioma == "en") return s
             return s.replace(',', '\u0000').replace('.', ',').replace('\u0000', '.')
         }
 
@@ -77,7 +78,14 @@ data class Estado(
             }
         }
 
-        fun dia(d: LocalDateTime?): String = d?.let { "${it.dayOfMonth} ${MESES[it.monthValue - 1]}" } ?: "—"
+        /** «19 ago», «Aug 19», «19 de ago.» (I5). */
+        fun dia(d: LocalDateTime?): String = d?.let {
+            when (Textos.idioma) {
+                "en" -> DateTimeFormatter.ofPattern("MMM d", Locale.ENGLISH).format(it)
+                "pt" -> DateTimeFormatter.ofPattern("d 'de' MMM", Locale("pt", "BR")).format(it)
+                else -> "${it.dayOfMonth} ${MESES[it.monthValue - 1]}"
+            }
+        } ?: "—"
         fun hm(d: LocalDateTime?): String = d?.let { String.format(Locale.US, "%02d:%02d", it.hour, it.minute) } ?: "—"
 
         private fun icono(a: Map<String, Any?>): String {
@@ -136,12 +144,12 @@ data class Estado(
                 ultimaLectura = ultimas.mapNotNull { it.en }.maxOrNull(),
                 equipo = actuadores.mapNotNull {
                     val id = (it["id"] as? Number)?.toInt() ?: (it["id"] as? String)?.toIntOrNull() ?: return@mapNotNull null
-                    Equipo(id, it["name"] as? String ?: "Equipo", it["type"] == "HEATER", it["status"] == "ON",
+                    Equipo(id, it["name"] as? String ?: Textos.s(R.string.r_equipo_nombre), it["type"] == "HEATER", it["status"] == "ON",
                         (it["powerW"] as? Number)?.toDouble() ?: (it["powerW"] as? String)?.toDoubleOrNull() ?: 0.0)
                 },
                 modo = control?.get("pedido") as? String,
                 alerta = grave?.let {
-                    val titulo = (it["title"] ?: it["message"]) as? String ?: "Alerta"
+                    val titulo = (it["title"] ?: it["message"]) as? String ?: Textos.s(R.string.r_alerta)
                     Alerta(it["id"]?.toString() ?: "$titulo:${it["at"] ?: it["timestamp"] ?: ""}", it["level"] == "CRITICAL", titulo,
                         (it["description"] as? String) ?: listOfNotNull(b?.get("name") as? String, "Secador 01").joinToString(" · "), icono(it))
                 },
@@ -150,8 +158,8 @@ data class Estado(
                 prediccion = pred,
                 lotes = lotes.take(6).mapNotNull {
                     val id = (it["id"] as? Number)?.toInt() ?: return@mapNotNull null
-                    Lote(id, it["name"] as? String ?: "Lote", it["status"] == "RUNNING",
-                        if (it["dryingSite"] == "OPEN_AIR") "Aire libre" else "Secador", (it["lastMoisturePct"] as? Number)?.toDouble())
+                    Lote(id, it["name"] as? String ?: Textos.s(R.string.r_lote), it["status"] == "RUNNING",
+                        if (it["dryingSite"] == "OPEN_AIR") Textos.s(R.string.r_aire_libre) else Textos.s(R.string.r_secador), (it["lastMoisturePct"] as? Number)?.toDouble())
                 },
                 materiaSeca = (calibracion?.get("dryMatterGrams") as? Number)?.toDouble()
                     ?: d("gravimetInitialWeightGrams")?.let { w -> w * (1 - (d("gravimetInitialMoisturePct") ?: 53.0) / 100) },

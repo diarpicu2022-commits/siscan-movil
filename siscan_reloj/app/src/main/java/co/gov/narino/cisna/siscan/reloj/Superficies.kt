@@ -94,11 +94,11 @@ class TarjetaSiscan : TileService() {
         val temp = e?.lectura("TEMPERATURE_TOPE")?.valor
         val listo = e?.prediccion?.takeIf { it.estado == "EN_CURSO" }?.horas
         val tiempo = when {
-            e == null -> "Abre la app"
-            !e.reportando(ahora) -> "Sin conexión"
+            e == null -> Textos.s(R.string.r_abre_app)
+            !e.reportando(ahora) -> Textos.s(R.string.r_sin_conexion)
             listo != null -> Estado.duracion(listo)
-            e.enCurso -> "Secando"
-            else -> "Terminado"
+            e.enCurso -> Textos.s(R.string.r_secando)
+            else -> Textos.s(R.string.r_terminado)
         }
         col.addContent(Row.Builder().addContent(dato("termometro", temp?.let { "${Estado.cifra(it)}°" } ?: "—"))
             .addContent(Spacer.Builder().setWidth(dp(12f)).build()).addContent(dato("reloj", tiempo)).build())
@@ -109,7 +109,7 @@ class TarjetaSiscan : TileService() {
             .addContent(Box.Builder().setWidth(dp(90f)).setHeight(dp(34f))
                 .setModifiers(ModifiersBuilders.Modifiers.Builder().setBackground(ModifiersBuilders.Background.Builder().setColor(color(Sc.broteVivo))
                     .setCorner(ModifiersBuilders.Corner.Builder().setRadius(dp(17f)).build()).build()).build())
-                .addContent(texto("Abrir", 13f, Sc.bosqueHondo, LayoutElementBuilders.FONT_WEIGHT_BOLD)).build()).build())
+                .addContent(texto(Textos.s(R.string.r_abrir), 13f, Sc.bosqueHondo, LayoutElementBuilders.FONT_WEIGHT_BOLD)).build()).build())
 
         val raiz = Box.Builder().setWidth(expand()).setHeight(expand())
             .setModifiers(ModifiersBuilders.Modifiers.Builder().setBackground(ModifiersBuilders.Background.Builder().setColor(color(Color.Black)).build())
@@ -119,8 +119,8 @@ class TarjetaSiscan : TileService() {
             .setTileTimeline(TimelineBuilders.Timeline.fromLayoutElement(raiz)).build())
     }
 
-    private fun descripcion(e: Estado?, tiempo: String) = if (e == null) "SISCAN: abre la app para leer el secador"
-    else "SISCAN, ${e.lote ?: "sin lote"}: humedad del grano ${Estado.cifra(e.humedad)} por ciento, $tiempo"
+    private fun descripcion(e: Estado?, tiempo: String) = if (e == null) Textos.s(R.string.r_desc_sin_app)
+    else Textos.s(R.string.r_desc_lote, e.lote ?: Textos.s(R.string.r_sin_lote), Estado.cifra(e.humedad), tiempo)
 
     override fun onTileResourcesRequest(pedido: RequestBuilders.ResourcesRequest): ListenableFuture<ResourceBuilders.Resources> {
         val r = ResourceBuilders.Resources.Builder().setVersion("2")
@@ -147,7 +147,7 @@ class ComplicacionHumedad : SuspendingComplicationDataSourceService() {
         return datos(request.complicationType, e?.humedad, e?.avance)
     }
     private fun datos(type: ComplicationType, h: Double?, avance: Float?): ComplicationData? {
-        val desc = texto(if (h == null) "Humedad del grano sin dato" else "Humedad del grano ${Estado.cifra(h)} por ciento")
+        val desc = texto(if (h == null) Textos.s(R.string.r_hum_sin_dato) else Textos.s(R.string.r_hum_por_ciento, Estado.cifra(h)))
         return when (type) {
             ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(value = avance ?: 0f, min = 0f, max = 100f, contentDescription = desc)
                 .setText(texto(h?.let { Estado.cifra(it) } ?: "—")).setMonochromaticImage(icono(this, R.drawable.sc_grano)).setTapAction(abrirApp(this)).build()
@@ -164,7 +164,7 @@ class ComplicacionTemperatura : SuspendingComplicationDataSourceService() {
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? =
         datos(request.complicationType, Guardado.leer(this)?.lectura("TEMPERATURE_TOPE")?.valor)
     private fun datos(type: ComplicationType, t: Double?): ComplicationData? = if (type != ComplicationType.SHORT_TEXT) null else
-        ShortTextComplicationData.Builder(texto(t?.let { "${Estado.cifra(it, 0)}°" } ?: "—"), texto(if (t == null) "Temperatura interior sin dato" else "Temperatura interior ${Estado.cifra(t)} grados"))
+        ShortTextComplicationData.Builder(texto(t?.let { "${Estado.cifra(it, 0)}°" } ?: "—"), texto(if (t == null) Textos.s(R.string.r_temp_sin_dato) else Textos.s(R.string.r_temp_grados, Estado.cifra(t))))
             .setMonochromaticImage(icono(this, R.drawable.sc_termometro)).setTapAction(abrirApp(this)).build()
 }
 
@@ -173,7 +173,7 @@ class ComplicacionAlertas : SuspendingComplicationDataSourceService() {
     override fun getPreviewData(type: ComplicationType): ComplicationData? = datos(type, 1)
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? = datos(request.complicationType, Guardado.leer(this)?.alertasActivas)
     private fun datos(type: ComplicationType, n: Int?): ComplicationData? {
-        val desc = texto(if (n == null) "Alertas sin dato" else "$n ${if (n == 1) "alerta activa" else "alertas activas"}")
+        val desc = texto(if (n == null) Textos.s(R.string.r_alertas_sin_dato) else if (n == 1) Textos.s(R.string.r_alerta_activa, n) else Textos.s(R.string.r_alertas_activas, n))
         return when (type) {
             ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(value = (n ?: 0).toFloat().coerceAtMost(10f), min = 0f, max = 10f, contentDescription = desc)
                 .setText(texto(n?.toString() ?: "—")).setMonochromaticImage(icono(this, R.drawable.sc_alertas)).setTapAction(abrirApp(this)).build()
@@ -186,16 +186,16 @@ class ComplicacionAlertas : SuspendingComplicationDataSourceService() {
 
 /** Complicación: «Lote B · listo en 5 h 40» (la línea de la esfera). */
 class ComplicacionLote : SuspendingComplicationDataSourceService() {
-    override fun getPreviewData(type: ComplicationType): ComplicationData? = datos(type, "Lote B · listo en 5 h 40")
+    override fun getPreviewData(type: ComplicationType): ComplicationData? = datos(type, Textos.s(R.string.r_preview_lote))
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
-        val e = Guardado.leer(this) ?: return datos(request.complicationType, "SISCAN · abre la app")
+        val e = Guardado.leer(this) ?: return datos(request.complicationType, Textos.s(R.string.r_abre_app_lote))
         val listo = e.prediccion?.takeIf { it.estado == "EN_CURSO" }?.horas
-        val lote = e.lote ?: "Sin lotes"
+        val lote = e.lote ?: Textos.s(R.string.r_sin_lotes)
         val t = when {
-            !e.reportando(ahoraColombia()) -> "$lote · sin conexión"
-            listo != null -> "$lote · listo en ${Estado.duracion(listo)}"
-            e.enCurso -> "$lote · secando"
-            else -> "$lote · terminado"
+            !e.reportando(ahoraColombia()) -> Textos.s(R.string.r_lote_sin_conexion, lote)
+            listo != null -> Textos.s(R.string.r_lote_listo_en, lote, Estado.duracion(listo))
+            e.enCurso -> Textos.s(R.string.r_lote_secando_min, lote)
+            else -> Textos.s(R.string.r_lote_terminado_min, lote)
         }
         return datos(request.complicationType, t)
     }

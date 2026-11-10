@@ -110,7 +110,7 @@ fun SiscanReloj(ambiente: Boolean) {
         fun resultado(r: Telefono.Resultado, ok: String) {
             confirmar = when (r) {
                 is Telefono.Resultado.Hecho -> { vibrar(c, longArrayOf(0, 60)); Confirmar(ok, r.texto, false) }
-                is Telefono.Resultado.Fallo -> Confirmar("No se envió", r.texto, true)
+                is Telefono.Resultado.Fallo -> Confirmar(Textos.s(R.string.r_no_se_envio), r.texto, true)
             }
             intento++
         }
@@ -129,10 +129,10 @@ fun SiscanReloj(ambiente: Boolean) {
                                 alcance.launch {
                                     val r = Telefono.actuador(c, a.id, on)
                                     pendiente = null
-                                    resultado(r, if (on) "${a.nombre} encendido" else "${a.nombre} apagado")
+                                    resultado(r, if (on) Textos.s(R.string.r_encendido_nombre, a.nombre) else Textos.s(R.string.r_apagado_nombre, a.nombre))
                                 }
                             },
-                            aviso = { t -> confirmar = Confirmar("Mantén presionado", "$t una resistencia: es una orden de riesgo.", true) })
+                            aviso = { t -> confirmar = Confirmar(Textos.s(R.string.r_manten_presionado), Textos.s(R.string.r_orden_riesgo, t), true) })
                         4 -> Prediccion(e)
                         5 -> Lotes(e, pager.currentPage == 5)
                         else -> Pesaje(e, pager.currentPage == 6, enviandoPesaje) { g ->
@@ -140,7 +140,7 @@ fun SiscanReloj(ambiente: Boolean) {
                             alcance.launch {
                                 val r = Telefono.pesaje(c, e.loteId!!, g)
                                 enviandoPesaje = false
-                                resultado(r, "Pesaje registrado")
+                                resultado(r, Textos.s(R.string.r_pesaje_registrado))
                             }
                         }
                     }
