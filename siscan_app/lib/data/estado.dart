@@ -11,6 +11,10 @@ import 'api.dart';
 const avisoMin = 2, fueraMin = 10;
 
 /// Las horas del servidor vienen en hora de Colombia (UTC−5) sin zona.
+/// Hora actual para mostrar fechas y medir la frescura del dato. En la app es el reloj del teléfono; solo las pruebas la
+/// fijan, para que las capturas no dependan del día ni del minuto en que se corren.
+DateTime Function() ahora = DateTime.now;
+
 DateTime? fecha(Object? s) => s == null ? null : DateTime.parse('${(s as String).replaceFirst(' ', 'T')}-05:00');
 const _meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 String hm(DateTime d) { final c = co(d); return '${c.hour.toString().padLeft(2, '0')}:${c.minute.toString().padLeft(2, '0')}'; }
@@ -18,13 +22,13 @@ String dia(DateTime? d) { if (d == null) return '—'; final c = co(d); return '
 /// «Hoy · 07:40», «Ayer · 18:06», «2 oct · 07:40».
 String corta(DateTime? d) {
   if (d == null) return '—';
-  final hoy = co(DateTime.now()), ayer = hoy.subtract(const Duration(days: 1));
+  final hoy = co(ahora()), ayer = hoy.subtract(const Duration(days: 1));
   bool mismo(DateTime a, DateTime b) { final x = co(a); return x.year == b.year && x.month == b.month && x.day == b.day; }
   if (mismo(d, hoy)) return 'Hoy · ${hm(d)}';
   if (mismo(d, ayer)) return 'Ayer · ${hm(d)}';
   return '${dia(d)} · ${hm(d)}';
 }
-double minutosDesde(DateTime? d) => d == null ? double.infinity : DateTime.now().difference(d).inSeconds / 60;
+double minutosDesde(DateTime? d) => d == null ? double.infinity : ahora().difference(d).inSeconds / 60;
 String hace(DateTime? d) {
   final m = minutosDesde(d);
   if (m.isInfinite) return 'Sin dato';
@@ -138,7 +142,7 @@ class EstadoSecador extends ChangeNotifier {
       ]);
       final crudo = {'lotes': r[0], 'reporte': r[1], 'lecturas': r[2], 'actuadores': r[3], 'clima': (r[4] as Map).isEmpty ? null : r[4],
           'secadores': r[5], 'catalogo': r[6], 'ordenes': r[7], 'control': r[8], 'diagnostico': r[9]};
-      base = Base(crudo, cargadoEn: DateTime.now());
+      base = Base(crudo, cargadoEn: ahora());
       error = null;
       _guardar(crudo);
     } catch (e) {
@@ -152,7 +156,7 @@ class EstadoSecador extends ChangeNotifier {
   Future<void> _guardar(J crudo) async {
     try {
       final p = await SharedPreferences.getInstance();
-      await p.setString('siscan_base', jsonEncode({'en': DateTime.now().toIso8601String(), 'crudo': crudo}));
+      await p.setString('siscan_base', jsonEncode({'en': ahora().toIso8601String(), 'crudo': crudo}));
     } catch (_) {/* sin copia: no impide seguir */}
   }
 

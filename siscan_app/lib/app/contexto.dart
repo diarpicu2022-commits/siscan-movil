@@ -1,26 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/momento.dart';
 import '../core/theme/siscan_theme.dart';
 import '../core/ui/base.dart';
 import '../data/api.dart';
 import '../data/auth.dart';
 import '../data/estado.dart';
 
-/// Tema elegido: claro, oscuro o como el teléfono (pedido del profesor: poder cambiar de modo).
+/// Lo que elige la persona en Más › Tema. `hora`: claro de 6:00 a 19:00 (hora de Colombia), oscuro de noche; la misma
+/// regla que la escena (Momento), así el tema y el paisaje nunca se contradicen.
+enum PreferenciaTema {
+  claro('claro'),
+  oscuro('oscuro'),
+  hora('hora'),
+  sistema('sistema');
+
+  const PreferenciaTema(this.clave);
+  /// Valor guardado en SharedPreferences `siscan_tema` (los tres primeros ya existían).
+  final String clave;
+  static PreferenciaTema desde(String? v) => values.firstWhere((p) => p.clave == v, orElse: () => sistema);
+}
+
+/// Tema elegido: claro, oscuro, según la hora o como el teléfono (pedido del profesor: poder cambiar de modo).
 class TemaApp extends ChangeNotifier {
-  ThemeMode modo = ThemeMode.system;
+  TemaApp({RelojDelDia? reloj}) : reloj = reloj ?? RelojDelDia();
+
+  /// Fuente única del momento del día (la comparte la escena de Inicio).
+  final RelojDelDia reloj;
+  PreferenciaTema _preferencia = PreferenciaTema.sistema;
+  bool _escuchando = false;
+
+  PreferenciaTema get preferencia => _preferencia;
+  set preferencia(PreferenciaTema p) {
+    _preferencia = p;
+    // Solo «Según la hora» escucha al reloj: así no queda un temporizador vivo en los demás modos.
+    if (p == PreferenciaTema.hora && !_escuchando) {
+      reloj.addListener(notifyListeners);
+      _escuchando = true;
+    } else if (p != PreferenciaTema.hora && _escuchando) {
+      reloj.removeListener(notifyListeners);
+      _escuchando = false;
+    }
+    notifyListeners();
+  }
+
+  /// Lo que recibe MaterialApp.
+  ThemeMode get modo => switch (_preferencia) {
+        PreferenciaTema.claro => ThemeMode.light,
+        PreferenciaTema.oscuro => ThemeMode.dark,
+        PreferenciaTema.hora => reloj.momento.claro ? ThemeMode.light : ThemeMode.dark,
+        PreferenciaTema.sistema => ThemeMode.system,
+      };
+
   Future<void> cargar() async {
     try {
-      final v = (await SharedPreferences.getInstance()).getString('siscan_tema');
-      modo = switch (v) { 'claro' => ThemeMode.light, 'oscuro' => ThemeMode.dark, _ => ThemeMode.system };
-      notifyListeners();
+      preferencia = PreferenciaTema.desde((await SharedPreferences.getInstance()).getString('siscan_tema'));
     } catch (_) {}
   }
-  Future<void> cambiar(ThemeMode m) async {
-    modo = m;
-    notifyListeners();
-    try { await (await SharedPreferences.getInstance()).setString('siscan_tema', switch (m) { ThemeMode.light => 'claro', ThemeMode.dark => 'oscuro', _ => 'sistema' }); } catch (_) {}
+
+  Future<void> cambiar(PreferenciaTema p) async {
+    preferencia = p;
+    try { await (await SharedPreferences.getInstance()).setString('siscan_tema', p.clave); } catch (_) {}
+  }
+
+  @override
+  void dispose() {
+    if (_escuchando) reloj.removeListener(notifyListeners);
+    super.dispose();
   }
 }
 

@@ -1,0 +1,7 @@
+[53,171][397,250] | SISCAN · Secado Inteligente de Café 
+[928,153][1043,269] | Alertas | clic
+[53,290][249,379] | ¡Hola! 
+[53,379][590,426] | Secador 01 · Lote juco terminado 
+[37,929][1043,1364] | Terminado / Objetivo 10 – 12 % / Terminó en el objetivo 
+[81,973][428,1320] | 100 % del avance, Humedad del grano 10,6 % 
+[0,1364][1080,1580] | El secador no reporta desde 19 ago · 14:53. Ves el último dato con su hora. 

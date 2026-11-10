@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../momento.dart';
 import '../theme/siscan_theme.dart';
 import '../theme/siscan_tokens.dart';
 import 'base.dart';
@@ -19,10 +20,8 @@ class Paisaje extends StatelessWidget {
   final bool aire, calor;
   final Alignment alineacion;
   final String? variante;
-  static String momento([DateTime? t]) {
-    final h = co(t ?? DateTime.now()).hour; // hora de Colombia, como el resto de la app
-    return h >= 6 && h < 17 ? 'day' : h >= 17 && h < 19 ? 'dusk' : 'night';
-  }
+  /// Variante según la hora: delega en la regla única (core/momento.dart), la misma del tema «Según la hora».
+  static String momento([DateTime? t]) => Momento.de(t ?? DateTime.now()).variante;
   @override
   Widget build(BuildContext context) {
     final v = variante ?? momento();
@@ -338,18 +337,89 @@ class ElementoLista extends StatelessWidget {
   }
 }
 
+/// Lista de opción única (paso 4 del anexo 2026-10-12, C3). No hay control propio en el sistema: se arma con la fila
+/// sc-li (ListItem), la marca de sc-check en forma de círculo (borde línea-fuerte; elegida, relleno hoja y check en
+/// sobre-hoja) y su foco visible (contorno esmeralda de 3). Cada fila mide 60 de alto (toque ≥ 44) y se anuncia como
+/// opción de un grupo excluyente, marcada o no. Enter o Espacio la eligen con el teclado.
+class ListaOpcionUnica<T> extends StatelessWidget {
+  const ListaOpcionUnica({super.key, required this.valor, required this.opciones, required this.onChanged});
+  final T valor;
+  /// (valor, ícono, título, explicación)
+  final List<(T, String, String, String)> opciones;
+  final ValueChanged<T> onChanged;
+  @override
+  Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
+        for (final (i, o) in opciones.indexed)
+          _FilaOpcion(icono: o.$2, titulo: o.$3, sub: o.$4, elegida: o.$1 == valor, ultima: i == opciones.length - 1, onTap: () => onChanged(o.$1)),
+      ]);
+}
+
+class _FilaOpcion extends StatefulWidget {
+  const _FilaOpcion({required this.icono, required this.titulo, required this.sub, required this.elegida, required this.ultima, required this.onTap});
+  final String icono, titulo, sub;
+  final bool elegida, ultima;
+  final VoidCallback onTap;
+  @override
+  State<_FilaOpcion> createState() => _FilaOpcionState();
+}
+
+class _FilaOpcionState extends State<_FilaOpcion> {
+  bool _foco = false;
+  @override
+  Widget build(BuildContext context) {
+    final c = context.c, w = widget;
+    return Semantics(
+      container: true, inMutuallyExclusiveGroup: true, checked: w.elegida, button: true,
+      label: '${w.titulo}. ${w.sub}', onTap: w.onTap,
+      // El contorno de foco va 6 por fuera de la fila: así no pisa el cuadro del ícono ni la marca.
+      child: ExcludeSemantics(child: Stack(clipBehavior: Clip.none, children: [
+        if (_foco) Positioned(left: -6, right: -6, top: 0, bottom: 0, child: IgnorePointer(child: DecoratedBox(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(SiscanRadius.md), border: Border.all(color: c.esmeralda, width: 3))))),
+        InkWell(
+        onTap: w.onTap,
+        onFocusChange: (f) => setState(() => _foco = f),
+        borderRadius: BorderRadius.circular(SiscanRadius.md),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 60),
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          decoration: BoxDecoration(border: w.ultima ? null : Border(bottom: BorderSide(color: c.linea))),
+          child: Row(children: [
+            Cuadro(icono: w.icono, color: c.hoja),
+            const SizedBox(width: 14),
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(w.titulo, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.tinta)),
+              Text(w.sub, style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),
+            ])),
+            const SizedBox(width: SiscanSpace.s3),
+            AnimatedContainer(
+              duration: context.sinMovimiento ? Duration.zero : SiscanMotion.rapida, width: 20, height: 20, alignment: Alignment.center,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: w.elegida ? c.hoja : Colors.transparent, border: Border.all(color: w.elegida ? c.hoja : c.lineaFuerte, width: 2)),
+              child: w.elegida ? Icono('check', size: 13, color: c.sobreHoja) : null,
+            ),
+          ]),
+        ),
+      ),
+      ])),
+    );
+  }
+}
+
 /// EmptyState: paisaje, título en Outfit, texto y acción.
 class EstadoVacio extends StatelessWidget {
-  const EstadoVacio({super.key, required this.titulo, required this.texto, this.accion, this.onAccion, this.icono = 'mas'});
+  const EstadoVacio({super.key, required this.titulo, required this.texto, this.accion, this.onAccion, this.icono = 'mas', this.ilustracion = true});
   final String titulo, texto, icono;
+  /// Sin ilustración cuando la pantalla ya tiene la escena (Inicio): la escena va una sola vez por pantalla.
+  final bool ilustracion;
   final String? accion;
   final VoidCallback? onAccion;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
     return Tarjeta(child: Column(children: [
-      ClipRRect(borderRadius: BorderRadius.circular(16), child: const SizedBox(height: 150, width: double.infinity, child: Paisaje(encuadre: 'vacio', variante: 'day'))),
-      const SizedBox(height: 16),
+      if (ilustracion) ...[
+        ClipRRect(borderRadius: BorderRadius.circular(16), child: const SizedBox(height: 150, width: double.infinity, child: Paisaje(encuadre: 'vacio', variante: 'day'))),
+        const SizedBox(height: 16),
+      ],
       Text(titulo, textAlign: TextAlign.center, style: TextStyle(fontFamily: SiscanType.display, fontSize: 20, fontWeight: FontWeight.w700, color: c.tinta)),
       const SizedBox(height: 6),
       Text(texto, textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: c.tintaSuave)),

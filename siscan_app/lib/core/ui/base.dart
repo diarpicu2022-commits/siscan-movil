@@ -230,22 +230,26 @@ class Boton extends StatelessWidget {
 
 /// sc-iconbtn: botón redondo de 44 con contador de alertas.
 class BotonIcono extends StatelessWidget {
-  const BotonIcono({super.key, required this.icono, required this.etiqueta, this.onPressed, this.cuenta = 0, this.oscuro = false});
+  const BotonIcono({super.key, required this.icono, required this.etiqueta, this.onPressed, this.cuenta = 0, this.oscuro = false, this.colorIcono});
   final String icono, etiqueta;
   final VoidCallback? onPressed;
   final int cuenta;
   final bool oscuro;
+  /// Solo para fondos que no son del tema (la escena de Inicio): si es nulo, tinta-suave o sobre-bosque como siempre.
+  final Color? colorIcono;
   @override
   Widget build(BuildContext context) {
     final c = context.c;
     return Tooltip(
-      message: etiqueta,
+      // El botón ya se anuncia con su etiqueta: si el tooltip también lo hiciera, su texto subiría al contenedor de
+      // arriba y el lector de pantalla diría «Alertas» por toda la cabecera antes de llegar al botón.
+      message: etiqueta, excludeFromSemantics: true,
       child: Semantics(container: true, 
         button: true, label: cuenta > 0 ? '$etiqueta, $cuenta' : etiqueta,
         child: InkResponse(
           onTap: onPressed, radius: 24,
           child: SizedBox(width: SiscanSize.toque, height: SiscanSize.toque, child: Stack(alignment: Alignment.center, children: [
-            Icono(icono, color: oscuro ? c.sobreBosque : c.tintaSuave),
+            Icono(icono, color: colorIcono ?? (oscuro ? c.sobreBosque : c.tintaSuave)),
             if (cuenta > 0) Positioned(top: 5, right: 4, child: Cuenta(cuenta)),
           ])),
         ),
