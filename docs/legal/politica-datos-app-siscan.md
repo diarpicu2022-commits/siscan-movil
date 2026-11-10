@@ -1,6 +1,7 @@
 # Política de tratamiento de datos — App SISCAN (Android)
 
-> **Borrador técnico**, versión 0.2 · vigente desde el 8 de octubre de 2026 (reemplaza la 0.1 del 7 de octubre).
+> **Borrador técnico**, versión 0.3 · vigente desde el 9 de noviembre de 2026 (reemplaza la 0.2 del 8 de octubre).
+> Versiones en inglés y portugués en esta misma carpeta. La app muestra la del idioma elegido.
 > Debe revisarlo un abogado antes de publicarlo para terceros. El mismo texto se muestra dentro de la app en
 > **Más → Tus datos y privacidad** (`lib/pantallas/mas.dart`, `PantallaPrivacidad.secciones`).
 
@@ -10,7 +11,9 @@
   1. El **último estado del secador** (lecturas, lote, equipo, alertas) para mostrarlo sin señal. No son datos personales.
   2. Si la persona ingresa como Gestor del Secador: su **usuario** y su **contraseña de aplicación** de WordPress, cifrados
      en el almacén seguro del teléfono (Android Keystore), para enviar órdenes y registrar pesajes.
-  3. Sus elecciones de **tema**, **notificaciones** e **ingreso con huella**.
+  3. Sus elecciones de **tema**, **idioma**, **notificaciones** e **ingreso con huella**. La preferencia de idioma
+     (`siscan_idioma`) también puede quedar en el idioma por app de Android. No identifican a la persona y se borran con
+     «Borrar los datos de este teléfono».
 - **Huella (opcional):** la verifica el sensor del teléfono; la app nunca recibe ni guarda la huella, solo desbloquea la
   credencial cifrada. Se activa en Más → Ingreso con huella, después de confirmar la huella una vez.
 - **Ubicación (opcional, solo a pedido):** se usa únicamente cuando un administrador toca «Usar mi ubicación actual» en
@@ -37,7 +40,8 @@
   administrador del sitio.
 - **Menores:** la app es para personal de operación del secador; no está dirigida a menores.
 - **Cambios:** una nueva versión se mostrará en la app con su fecha y, si cambia lo que se trata, se volverá a pedir la
-  autorización.
+  autorización. La 0.3 solo nombra la preferencia de idioma, que no es un dato personal, así que no pide una autorización
+  nueva.
 
 ## Pendiente antes de publicar en tiendas
 - Contacto del responsable y URL pública de esta política.

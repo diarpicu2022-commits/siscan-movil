@@ -718,6 +718,8 @@ void main() {
     ('equipo-sesion', () => PantallaEquipo(onIngresar: () {}), Pestana.equipo, Escenario.vivo, true),
     ('alertas', () => const PantallaAlertas(), null, Escenario.real, false),
     ('ingreso', () => PantallaIngreso(onListo: () {}), null, Escenario.real, false),
+    // Paso 5: la política de datos dentro de la app, en el idioma elegido.
+    ('privacidad', () => const PantallaPrivacidad(), null, Escenario.real, false),
   ];
 
   // Red para textos que quedaron en español: en inglés, ningún texto dibujado puede tener rasgos del español, salvo

@@ -387,21 +387,19 @@ class PantallaLicencias extends StatelessWidget {
 
 class PantallaPrivacidad extends StatelessWidget {
   const PantallaPrivacidad({super.key});
-  static const version = '0.2 · 8 de octubre de 2026 (borrador para revisión de un abogado)';
-  static const secciones = <(String, String)>[
-    ('Qué guarda la app', 'El último estado del secador (lecturas, lote, equipo y alertas) para mostrarlo sin señal; no son datos personales. '
-        'Si ingresas como Gestor del Secador, tu usuario y tu contraseña de aplicación, cifrados en el almacén seguro del teléfono, para enviar órdenes y registrar pesajes. '
-        'Tu elección de tema, notificaciones y huella.'),
-    ('Huella', 'Si la activas, el teléfono verifica tu huella con su propio sensor; la app nunca recibe ni guarda la huella. Solo desbloquea la credencial cifrada.'),
-    ('Ubicación', 'Solo cuando un administrador toca «Usar mi ubicación actual» para fijar el sitio del secador. Se envía al servidor del CISNA como ubicación del secador, no de la persona. No se guarda en el teléfono ni se usa en segundo plano.'),
-    ('Notificaciones', 'Si las activas, la app consulta cada 15 minutos el servidor del CISNA para avisar alertas, hora de pesar y lote listo. Solo lee el estado del secador.'),
-    ('Reloj inteligente', 'Si ingresas con «Recordarme», el teléfono guarda la cabecera de tu sesión cifrada con una llave del Android Keystore para que SISCAN en el reloj pueda pedirle órdenes y pesajes. El reloj no guarda contraseñas. Se borra al cerrar sesión o al borrar los datos del teléfono.'),
-    ('Inteligencia artificial', 'La «segunda opinión» la genera Groq desde el servidor del CISNA con datos del lote y del secador; no recibe datos personales. La predicción de la tesis y la red neuronal corren en el servidor del CISNA.'),
-    ('Qué no hace', 'No usa cámara ni contactos. No tiene publicidad, analítica ni rastreo. Solo habla con cisna.narino.gov.co por HTTPS.'),
-    ('Cuánto tiempo', 'Hasta que cierres sesión (borra la credencial), uses «Borrar los datos de este teléfono» o desinstales la app.'),
-    ('Tus derechos', 'Conocer, actualizar, rectificar y suprimir tus datos y revocar la autorización (Ley 1581 de 2012 y Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015). '
-        'La contraseña de aplicación también se puede revocar en tu perfil de WordPress.'),
-    ('Responsable', 'Proyecto SISCAN — Secado Inteligente de Café, Gobernación de Nariño (CISNA). Contacto: pendiente de definir por el CISNA.'),
+  /// Versión y secciones de la política en el idioma de la app (paso 5 del anexo de idiomas). Mismo texto que
+  /// docs/legal/politica-datos-app-siscan.md y sus versiones en inglés y portugués.
+  static List<(String, String)> secciones(AppLocalizations t) => [
+    (t.privSecQueGuardaTitulo, t.privSecQueGuarda),
+    (t.privSecHuellaTitulo, t.privSecHuella),
+    (t.privSecUbicacionTitulo, t.privSecUbicacion),
+    (t.privSecNotificacionesTitulo, t.privSecNotificaciones),
+    (t.privSecRelojTitulo, t.privSecReloj),
+    (t.privSecIaTitulo, t.privSecIa),
+    (t.privSecNoHaceTitulo, t.privSecNoHace),
+    (t.privSecTiempoTitulo, t.privSecTiempo),
+    (t.privSecDerechosTitulo, t.privSecDerechos),
+    (t.privSecResponsableTitulo, t.privSecResponsable),
   ];
   @override
   Widget build(BuildContext context) {
@@ -409,9 +407,8 @@ class PantallaPrivacidad extends StatelessWidget {
     return Scaffold(body: CuerpoPantalla(barra: BarraApp(titulo: t.privTitulo, atras: true), hijos: [
       Tarjeta(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         TituloTarjeta(icono: 'candado', titulo: t.privPolitica),
-        // El texto de la política (versión y secciones) pasa a los tres idiomas en el paso 5 del anexo de idiomas.
-        Text('Versión $version', style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),
-        for (final (titulo, x) in secciones) ...[
+        Text(t.privVersionRotulo(t.privVersion), style: TextStyle(fontSize: 12.5, color: c.tintaSuave)),
+        for (final (titulo, x) in secciones(t)) ...[
           const SizedBox(height: 16),
           Text(titulo, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: c.tinta)),
           const SizedBox(height: 4),

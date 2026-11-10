@@ -103,7 +103,11 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 8. Fuera de esta rama: idiomas es/en/pt (`feature/idiomas`); en el sistema de diseño, documentar la luna y la licencia de
    Lucide; en el reloj, distinguir «sin red con copia» de «el secador no reporta».
 
-### 7. Idiomas es/en/pt-BR (C4): paso 4d hecho, esperando visto bueno (2026-11-09)
+### 7. Idiomas es/en/pt-BR (C4): paso 5 hecho, esperando visto bueno (2026-11-09)
+- 4d aprobado (2026-11-09). **Paso 5 hecho**: política 0.3 en español, inglés y portugués (`docs/legal/`) y dentro de la
+  app por idioma; reloj medido en el emulador, 36/42 páginas sin fallas y las 6 restantes (pie de Equipo) medidas sobre
+  la captura como dentro del círculo. Hallazgo: «Luces incandescentes» se corta en Equipo del reloj (decisión de Diego).
+  Sección 15 del anexo. Siguiente: paso 6.
 - 4c aprobado (2026-11-09). **4d hecho**: el reloj en tres idiomas (97 cadenas, `Textos` + `AppReloj`, formato por
   idioma), gradlew en verde con 11 pruebas, `verificar_textos.py` 0 fallas. Sección 14 del anexo. Siguiente: paso 5
   (política en tres idiomas) y paso 6 (verificación en dispositivos).

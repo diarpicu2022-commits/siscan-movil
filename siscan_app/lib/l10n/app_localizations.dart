@@ -2890,6 +2890,138 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos conectarnos. Verifica la conexión e intenta nuevamente.'**
   String get authSinConexion;
+
+  /// Versión y fecha de la política. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'0.3 · 9 de noviembre de 2026 (borrador para revisión de un abogado)'**
+  String get privVersion;
+
+  /// Encabezado de la política.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String privVersionRotulo(String version);
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué guarda la app'**
+  String get privSecQueGuardaTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'El último estado del secador (lecturas, lote, equipo y alertas) para mostrarlo sin señal; no son datos personales. Si ingresas como Gestor del Secador, tu usuario y tu contraseña de aplicación, cifrados en el almacén seguro del teléfono, para enviar órdenes y registrar pesajes. Tu elección de tema, idioma, notificaciones y huella.'**
+  String get privSecQueGuarda;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Huella'**
+  String get privSecHuellaTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Si la activas, el teléfono verifica tu huella con su propio sensor; la app nunca recibe ni guarda la huella. Solo desbloquea la credencial cifrada.'**
+  String get privSecHuella;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación'**
+  String get privSecUbicacionTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo cuando un administrador toca «Usar mi ubicación actual» para fijar el sitio del secador. Se envía al servidor del CISNA como ubicación del secador, no de la persona. No se guarda en el teléfono ni se usa en segundo plano.'**
+  String get privSecUbicacion;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Notificaciones'**
+  String get privSecNotificacionesTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Si las activas, la app consulta cada 15 minutos el servidor del CISNA para avisar alertas, hora de pesar y lote listo. Solo lee el estado del secador.'**
+  String get privSecNotificaciones;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Reloj inteligente'**
+  String get privSecRelojTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Si ingresas con «Recordarme», el teléfono guarda la cabecera de tu sesión cifrada con una llave del Android Keystore para que SISCAN en el reloj pueda pedirle órdenes y pesajes. El reloj no guarda contraseñas. Se borra al cerrar sesión o al borrar los datos del teléfono.'**
+  String get privSecReloj;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Inteligencia artificial'**
+  String get privSecIaTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'La «segunda opinión» la genera Groq desde el servidor del CISNA con datos del lote y del secador; no recibe datos personales. La predicción de la tesis y la red neuronal corren en el servidor del CISNA.'**
+  String get privSecIa;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué no hace'**
+  String get privSecNoHaceTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'No usa cámara ni contactos. No tiene publicidad, analítica ni rastreo. Solo habla con cisna.narino.gov.co por HTTPS.'**
+  String get privSecNoHace;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuánto tiempo'**
+  String get privSecTiempoTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Hasta que cierres sesión (borra la credencial), uses «Borrar los datos de este teléfono» o desinstales la app.'**
+  String get privSecTiempo;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus derechos'**
+  String get privSecDerechosTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Conocer, actualizar, rectificar y suprimir tus datos y revocar la autorización (Ley 1581 de 2012 y Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015). La contraseña de aplicación también se puede revocar en tu perfil de WordPress.'**
+  String get privSecDerechos;
+
+  /// Título de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Responsable'**
+  String get privSecResponsableTitulo;
+
+  /// Texto de sección. Política de datos dentro de la app (Más › Tus datos). Borrador técnico: lo revisa un abogado.
+  ///
+  /// In es, this message translates to:
+  /// **'Proyecto SISCAN — Secado Inteligente de Café, Gobernación de Nariño (CISNA). Contacto: pendiente de definir por el CISNA.'**
+  String get privSecResponsable;
 }
 
 class _AppLocalizationsDelegate

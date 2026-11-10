@@ -1640,4 +1640,83 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get authSinConexion =>
       'No pudimos conectarnos. Verifica la conexión e intenta nuevamente.';
+
+  @override
+  String get privVersion =>
+      '0.3 · 9 de noviembre de 2026 (borrador para revisión de un abogado)';
+
+  @override
+  String privVersionRotulo(String version) {
+    return 'Versión $version';
+  }
+
+  @override
+  String get privSecQueGuardaTitulo => 'Qué guarda la app';
+
+  @override
+  String get privSecQueGuarda =>
+      'El último estado del secador (lecturas, lote, equipo y alertas) para mostrarlo sin señal; no son datos personales. Si ingresas como Gestor del Secador, tu usuario y tu contraseña de aplicación, cifrados en el almacén seguro del teléfono, para enviar órdenes y registrar pesajes. Tu elección de tema, idioma, notificaciones y huella.';
+
+  @override
+  String get privSecHuellaTitulo => 'Huella';
+
+  @override
+  String get privSecHuella =>
+      'Si la activas, el teléfono verifica tu huella con su propio sensor; la app nunca recibe ni guarda la huella. Solo desbloquea la credencial cifrada.';
+
+  @override
+  String get privSecUbicacionTitulo => 'Ubicación';
+
+  @override
+  String get privSecUbicacion =>
+      'Solo cuando un administrador toca «Usar mi ubicación actual» para fijar el sitio del secador. Se envía al servidor del CISNA como ubicación del secador, no de la persona. No se guarda en el teléfono ni se usa en segundo plano.';
+
+  @override
+  String get privSecNotificacionesTitulo => 'Notificaciones';
+
+  @override
+  String get privSecNotificaciones =>
+      'Si las activas, la app consulta cada 15 minutos el servidor del CISNA para avisar alertas, hora de pesar y lote listo. Solo lee el estado del secador.';
+
+  @override
+  String get privSecRelojTitulo => 'Reloj inteligente';
+
+  @override
+  String get privSecReloj =>
+      'Si ingresas con «Recordarme», el teléfono guarda la cabecera de tu sesión cifrada con una llave del Android Keystore para que SISCAN en el reloj pueda pedirle órdenes y pesajes. El reloj no guarda contraseñas. Se borra al cerrar sesión o al borrar los datos del teléfono.';
+
+  @override
+  String get privSecIaTitulo => 'Inteligencia artificial';
+
+  @override
+  String get privSecIa =>
+      'La «segunda opinión» la genera Groq desde el servidor del CISNA con datos del lote y del secador; no recibe datos personales. La predicción de la tesis y la red neuronal corren en el servidor del CISNA.';
+
+  @override
+  String get privSecNoHaceTitulo => 'Qué no hace';
+
+  @override
+  String get privSecNoHace =>
+      'No usa cámara ni contactos. No tiene publicidad, analítica ni rastreo. Solo habla con cisna.narino.gov.co por HTTPS.';
+
+  @override
+  String get privSecTiempoTitulo => 'Cuánto tiempo';
+
+  @override
+  String get privSecTiempo =>
+      'Hasta que cierres sesión (borra la credencial), uses «Borrar los datos de este teléfono» o desinstales la app.';
+
+  @override
+  String get privSecDerechosTitulo => 'Tus derechos';
+
+  @override
+  String get privSecDerechos =>
+      'Conocer, actualizar, rectificar y suprimir tus datos y revocar la autorización (Ley 1581 de 2012 y Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015). La contraseña de aplicación también se puede revocar en tu perfil de WordPress.';
+
+  @override
+  String get privSecResponsableTitulo => 'Responsable';
+
+  @override
+  String get privSecResponsable =>
+      'Proyecto SISCAN — Secado Inteligente de Café, Gobernación de Nariño (CISNA). Contacto: pendiente de definir por el CISNA.';
 }
