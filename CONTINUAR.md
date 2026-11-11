@@ -172,3 +172,18 @@ Commits, autor Diego Armando Pinta Cuasquen. Nunca firmar con Claude.
 4. Probar reloj ↔ teléfono en dispositivos reales.
 5. Ensayar la sustentación con el documento de defensa abierto.
 6. Legal (regla global): política de tratamiento v0.2 es borrador técnico; revisión de abogado antes de publicar en tiendas.
+
+## Prueba en un reloj real (2026-11-10)
+
+- Galaxy Watch4 SM-R860 (40 mm, 396 px, Android 16), prestado y emparejado con el teléfono de su dueño. No tocar su
+  cuenta. Se instaló `siscan_reloj` 0.2.0 en release (firma `1b3c9b33…`, la misma que la APK del teléfono). En el
+  teléfono de Diego (Samsung SM-S731B) se actualizó SISCAN por USB, conservando sus datos. Las APK están en
+  `Documents/Proyectos Personales/APKs/prueba-reloj-real/`.
+- El reloj abre sin cierres y muestra el medidor de lecho con «10,6 %», «Objetivo 10 – 12 %» y «Sin conexión · 5 nov»,
+  porque no está emparejado con el teléfono de Diego. **Pendiente**: averiguar de dónde sale ese valor del 5 de
+  noviembre en una instalación nueva, y probar la conexión con el teléfono emparejado o con emuladores emparejados en
+  Android Studio (ya instalado en el PC).
+- Diego pidió un **modo demo** para mostrar los relojes sin teléfono. Está anotado en `agenda-android/CONTINUAR.md`
+  §13; si se hace, valorar lo mismo para este reloj.
+- Antes de devolver el reloj, si Diego lo pide: `adb -s <reloj> uninstall co.gov.narino.cisna.siscan`.
+
